@@ -1,0 +1,24 @@
+<a href="{{ route('AssociationsController.create') }}"> Créer </a>
+
+<ul>
+  @each(association in associations)
+  <li>
+    <a href="{{ route('AssociationsController.show', { id: association.slug }) }}">
+      {{ association.name }} - {{ association.school.name }} | {{ association.category.name }}
+    </a>
+    <a href="{{ route('AssociationsController.edit', { id: association.slug }) }}">
+      Éditer
+    </a>
+    <a href="{{ route('AssociationsController.editImage', { id: association.slug }) }}">
+      Éditer l'image
+    </a>
+    <a href="{{ route('AssociationsController.editDocument', { id: association.slug }) }}">
+      Éditer le document
+    </a>
+    <form action="{{ route('AssociationsController.destroy', { id: association.slug }) }}?_method=DELETE" method="POST">
+      {{ csrfField() }}
+      <button type="submit">Supprimer</button>
+    </form>
+  </li>
+  @endeach
+</ul>
