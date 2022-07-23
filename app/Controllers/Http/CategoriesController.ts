@@ -7,6 +7,7 @@ import CategoryUpdateValidator from 'App/Validators/CategoryUpdateValidator'
 export default class CategoriesController {
   public async index({ view }: HttpContextContract) {
     const categories = await Category.all()
+
     return view.render('categories/index', { categories })
   }
 
@@ -46,6 +47,6 @@ export default class CategoriesController {
   public async destroy({ response }: HttpContextContract, category: Category) {
     await category.delete()
 
-    return response.redirect('/categories')
+    return response.redirect().toRoute('CategoriesController.index')
   }
 }
