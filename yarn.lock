@@ -191,6 +191,14 @@
     abstract-logging "^2.0.1"
     pino "^6.14.0"
 
+"@adonisjs/lucid-slugify@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@adonisjs/lucid-slugify/-/lucid-slugify-2.2.0.tgz#320872077e90a573129b8bdb92c374b316356f3c"
+  integrity sha512-cph9TgM5a120hOLmduquQgMZN2gwvxksPIuVgn2D9Nx5E9mlcVO5SMEUgwmbzQXqXrYxi4Q5ZJNcuKV0i9tYIA==
+  dependencies:
+    "@poppinss/utils" "^4.0.4"
+    nanoid "^3.3.4"
+
 "@adonisjs/lucid@^18.1.0":
   version "18.1.0"
   resolved "https://registry.npmjs.org/@adonisjs/lucid/-/lucid-18.1.0.tgz"
@@ -242,6 +250,13 @@
     rev-hash "^3.0.0"
     source-map-support "^0.5.21"
 
+"@adonisjs/route-model-binding@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@adonisjs/route-model-binding/-/route-model-binding-1.0.1.tgz#97c5f4e315b3ed42d019636043d39a16f770e13d"
+  integrity sha512-EmUFMaD7ILHempGGNKT0Z7zKts5ykCFfo1dHWAEJza6LIUswkp/NyLy+8YOjQHSdZU5/nAp1vwWrXFA9OefQ0Q==
+  dependencies:
+    "@poppinss/utils" "^4.0.4"
+
 "@adonisjs/session@^6.2.0":
   version "6.4.0"
   resolved "https://registry.npmjs.org/@adonisjs/session/-/session-6.4.0.tgz"
@@ -250,9 +265,9 @@
     "@poppinss/utils" "^4.0.4"
     fs-extra "^10.1.0"
 
-"@adonisjs/shield@^7.0.0":
+"@adonisjs/shield@^7.0.11":
   version "7.0.11"
-  resolved "https://registry.npmjs.org/@adonisjs/shield/-/shield-7.0.11.tgz"
+  resolved "https://registry.yarnpkg.com/@adonisjs/shield/-/shield-7.0.11.tgz#e4d9d9154e2c16ba0e393378743d1772f419548d"
   integrity sha512-NppVYTbztYgThBSoTLQCDLR8vx7OIddlCKZjqM7gtKgpJVNd/gR2BqwIUx0niMUzHTWl542cdQIDNP2UDmHbaA==
   dependencies:
     "@poppinss/utils" "^4.0.4"
