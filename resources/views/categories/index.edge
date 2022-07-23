@@ -1,0 +1,18 @@
+<a href="{{ route('CategoriesController.create') }}"> Créer </a>
+
+<ul>
+  @each(category in categories)
+  <li>
+    <a href="{{ route('CategoriesController.show', { id: category.slug }) }}">
+      {{ category.name }}
+    </a>
+    <a href="{{ route('CategoriesController.edit', { id: category.slug }) }}">
+      Éditer
+    </a>
+    <form action="{{ route('CategoriesController.destroy', { id: category.slug }) }}?_method=DELETE" method="POST">
+      {{ csrfField() }}
+      <button type="submit">Supprimer</button>
+    </form>
+  </li>
+  @endeach
+</ul>
