@@ -12,5 +12,9 @@ export default class CategoryUpdateValidator {
     ]),
   })
 
-  public messages: CustomMessages = {}
+  public messages: CustomMessages = {
+    'name.required': 'Un nom est requis',
+    'name.maxLength': 'Le nom ne doit pas dépasser 255 caractères',
+    'name.unique': 'Ce nom est déjà utilisé',
+  }
 }
