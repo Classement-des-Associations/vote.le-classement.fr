@@ -1,0 +1,15 @@
+<p>
+  {{ association.name }} -
+  @if(association.category)
+  {{ association.category.name }}
+  @endif
+  @if(association.school)
+  {{ association.school.name }}
+  @endif
+</p>
+
+@if(association.description)
+<p>
+  {{ association.description }}
+</p>
+@end

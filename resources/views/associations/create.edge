@@ -1,0 +1,82 @@
+<form action="{{ route('AssociationsController.store') }}" method="POST" enctype="multipart/form-data">
+  {{ csrfField() }}
+
+  <label for="name">Nom</label>
+  <input type=text id="name" name="name" placeholder="Nom de l'association" autofocus>
+  @if(flashMessages.has('errors.name'))
+  <p> {{ flashMessages.get('errors.name') }} </p>
+  @endif
+
+  <label for="description">Description</label>
+  <textarea type=text id="description" name="description" placeholder="Description de l'association"></textarea>
+  @if(flashMessages.has('errors.description'))
+  <p> {{ flashMessages.get('errors.description') }} </p>
+  @endif
+
+  <label for="facebook">Facebook</label>
+  <input type="url" id="facebook" name="facebook" placeholder="Facebook de l'association">
+  @if(flashMessages.has('errors.facebook'))
+  <p> {{ flashMessages.get('errors.facebook') }} </p>
+  @endif
+
+  <label for="twitter">Twitter</label>
+  <input type="url" id="twitter" name="twitter" placeholder="Twitter de l'association">
+  @if(flashMessages.has('errors.twitter'))
+  <p> {{ flashMessages.get('errors.twitter') }} </p>
+  @endif
+
+  <label for="instagram">Instagram</label>
+  <input type="url" id="instagram" name="instagram" placeholder="Instagram de l'association">
+  @if(flashMessages.has('errors.instagram'))
+  <p> {{ flashMessages.get('errors.instagram') }} </p>
+  @endif
+
+  <label for="linkedin">LinkedIn</label>
+  <input type="url" id="linkedin" name="linkedin" placeholder="LinkedIn de l'association">
+  @if(flashMessages.has('errors.linkedin'))
+  <p> {{ flashMessages.get('errors.linkedin') }} </p>
+  @endif
+
+  <label for="website">Website</label>
+  <input type="url" id="website" name="website" placeholder="Website de l'association">
+  @if(flashMessages.has('errors.website'))
+  <p> {{ flashMessages.get('errors.website') }} </p>
+  @endif
+
+  <label for="category">Catégorie</label>
+  <select id="category" name="categoryId">
+    <option value="">Sans catégorie</option>
+    @each(category in categories)
+    <option value="{{ category.id }}">{{ category.name }}</option>
+    @endeach
+  </select>
+  @if(flashMessages.has('errors.categoryId'))
+  <p> {{ flashMessages.get('errors.categoryId') }} </p>
+  @endif
+
+  <label for="school">École</label>
+  <select id="school" name="schoolId">
+    <option value="">Sans école</option>
+    @each(school in schools)
+    <option value="{{ school.id }}">{{ school.name }}</option>
+    @endeach
+  </select>
+  @if(flashMessages.has('errors.schoolId'))
+  <p> {{ flashMessages.get('errors.schoolId') }} </p>
+  @endif
+
+  <label for="image">Image</label>
+  <input type=file id="image" name="image" accept="image/png, image/jpg, image/jpeg, image/webp">
+  @if(flashMessages.has('errors.image'))
+  <p> {{ flashMessages.get('errors.image') }} </p>
+  @endif
+
+  <label for="document">Document</label>
+  <input type=file id="document" name="document" accept="application/pdf">
+  @if(flashMessages.has('errors.document'))
+  <p> {{ flashMessages.get('errors.document') }} </p>
+  @endif
+
+  <button type="submit">Créer</button>
+
+</form>

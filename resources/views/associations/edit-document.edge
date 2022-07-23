@@ -1,0 +1,13 @@
+<form action="{{ route('AssociationsController.updateDocument', { id: association.slug }) }}?_method=PATCH"
+  method="POST" enctype="multipart/form-data">
+  {{ csrfField() }}
+
+  <label for="document">Document</label>
+  <input type=file id="document" name="document" accept="application/pdf">
+  @if(flashMessages.has('errors.document'))
+  <p> {{ flashMessages.get('errors.document') }} </p>
+  @endif
+
+  <button type="submit">Éditer le document</button>
+
+</form>

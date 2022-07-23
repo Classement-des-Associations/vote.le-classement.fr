@@ -25,7 +25,8 @@
     "@adonisjs/shield",
     "@adonisjs/lucid",
     "@adonisjs/lucid-slugify",
-    "@adonisjs/route-model-binding/build/providers/RmbProvider"
+    "@adonisjs/route-model-binding/build/providers/RmbProvider",
+    "@adonisjs/attachment-lite"
   ],
   "metaFiles": [
     {

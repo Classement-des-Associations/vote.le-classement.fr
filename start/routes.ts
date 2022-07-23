@@ -20,9 +20,15 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', async ({ view }) => {
-  return view.render('welcome')
+Route.get('/', async ({ response }) => {
+  return response.redirect().toRoute('AssociationsController.index')
 })
+
+Route.resource('associations', 'AssociationsController')
+Route.get('associations/:id/image', 'AssociationsController.editImage')
+Route.patch('associations/:id/image', 'AssociationsController.updateImage')
+Route.get('associations/:id/document', 'AssociationsController.editDocument')
+Route.patch('associations/:id/document', 'AssociationsController.updateDocument')
 
 Route.resource('categories', 'CategoriesController')
 Route.resource('schools', 'SchoolsController')
