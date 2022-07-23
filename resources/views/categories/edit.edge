@@ -1,0 +1,12 @@
+<form action="{{ route('CategoriesController.update', { id: category.slug }) }}?_method=PATCH" method="POST">
+  {{ csrfField() }}
+
+  <label for="name">Nom</label>
+  <input type=text id="name" name="name" placeholder="Nom de la catégorie" value="{{ category.name}}" autofocus>
+  @if(flashMessages.has('errors.name'))
+  <p> {{ flashMessages.get('errors.name') }} </p>
+  @end
+
+  <button type=" submit">Éditer</button>
+
+</form>

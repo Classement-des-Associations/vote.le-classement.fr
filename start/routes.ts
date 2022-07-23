@@ -24,4 +24,5 @@ Route.get('/', async ({ view }) => {
   return view.render('welcome')
 })
 
+Route.resource('categories', 'CategoriesController')
 Route.resource('schools', 'SchoolsController')
