@@ -1,0 +1,18 @@
+<a href="{{ route('SchoolsController.create') }}"> Créer </a>
+
+<ul>
+  @each(school in schools)
+  <li>
+    <a href="{{ route('SchoolsController.show', { id: school.slug }) }}">
+      {{ school.name }}
+    </a>
+    <a href="{{ route('SchoolsController.edit', { id: school.slug }) }}">
+      Éditer
+    </a>
+    <form action="{{ route('SchoolsController.destroy', { id: school.slug }) }}?_method=DELETE" method="POST">
+      {{ csrfField() }}
+      <button type="submit">Supprimer</button>
+    </form>
+  </li>
+  @endeach
+</ul>

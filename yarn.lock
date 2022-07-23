@@ -193,7 +193,7 @@
 
 "@adonisjs/lucid-slugify@^2.2.0":
   version "2.2.0"
-  resolved "https://registry.npmjs.org/@adonisjs/lucid-slugify/-/lucid-slugify-2.2.0.tgz"
+  resolved "https://registry.yarnpkg.com/@adonisjs/lucid-slugify/-/lucid-slugify-2.2.0.tgz#320872077e90a573129b8bdb92c374b316356f3c"
   integrity sha512-cph9TgM5a120hOLmduquQgMZN2gwvxksPIuVgn2D9Nx5E9mlcVO5SMEUgwmbzQXqXrYxi4Q5ZJNcuKV0i9tYIA==
   dependencies:
     "@poppinss/utils" "^4.0.4"
@@ -252,7 +252,7 @@
 
 "@adonisjs/route-model-binding@^1.0.1":
   version "1.0.1"
-  resolved "https://registry.npmjs.org/@adonisjs/route-model-binding/-/route-model-binding-1.0.1.tgz"
+  resolved "https://registry.yarnpkg.com/@adonisjs/route-model-binding/-/route-model-binding-1.0.1.tgz#97c5f4e315b3ed42d019636043d39a16f770e13d"
   integrity sha512-EmUFMaD7ILHempGGNKT0Z7zKts5ykCFfo1dHWAEJza6LIUswkp/NyLy+8YOjQHSdZU5/nAp1vwWrXFA9OefQ0Q==
   dependencies:
     "@poppinss/utils" "^4.0.4"
