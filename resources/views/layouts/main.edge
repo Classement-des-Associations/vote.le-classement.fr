@@ -10,11 +10,12 @@
   </head>
 
   <body>
-    @!organisms.theOverHeader()
+    @include('partials/over-header')
+    @include('partials/header')
 
     @!section('body')
 
-    @!organisms.theFooter()
+    @include('partials/footer')
 
   </body>
 
