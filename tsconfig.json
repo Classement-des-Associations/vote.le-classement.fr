@@ -35,7 +35,8 @@
       "@adonisjs/lucid",
       "@adonisjs/lucid-slugify",
       "@adonisjs/route-model-binding/build/adonis-typings",
-      "@adonisjs/attachment-lite"
+      "@adonisjs/attachment-lite",
+      "adonis-lucid-filter"
     ]
   }
 }
