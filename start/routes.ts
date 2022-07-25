@@ -22,7 +22,7 @@ import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', async ({ response }) => {
   return response.redirect().toRoute('AssociationsController.index')
-})
+}).as('home')
 
 Route.resource('associations', 'AssociationsController')
 Route.get('associations/:id/image', 'AssociationsController.editImage')

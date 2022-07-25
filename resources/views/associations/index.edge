@@ -1,7 +1,9 @@
 @layout('layouts/main')
-@set('title', 'Les associations')
+@set('title', 'Les Associations')
 
 @section('body')
+<a href="{{ route('AssociationsController.create') }}"> Créer </a>
+
 <ul>
   @each(association in associations)
   <li>

@@ -1,0 +1,73 @@
+<header class="p-4 bg-white" x-data="{ open: false }">
+  <div class="max-w-screen-xl mx-auto flex flex-row justify-between items-center">
+    <div class="flex flex-row items-center">
+      <a class="block text-black hover:text-primary-variation-1 transition ease-in duration-200"
+        href="{{ route('home') }}">
+        <span class="sr-only">Retour à la première page</span>
+        @!atoms.logos.classementShort({
+        className: "h-[3.125rem]"
+        })
+      </a>
+      <nav class="hidden lg:flex ml-8" aria-labelledby="primary navigation">
+        <ul class="flex flex-row">
+          <li>
+            <a
+              class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
+              Le Classement
+            </a>
+          </li>
+          <li>
+            <a
+              class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
+              Contact
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <button type="button" x-on:click="open = true">
+      <span class="sr-only">Ouvrir le menu</span>
+      @!atoms.icons.menu({
+      className: 'text-black',
+      })
+    </button>
+    <template x-teleport="body">
+      <div x-show="open" style="display: none" x-on:keydown.window.escape.prevent.stop="open = false" role="dialog"
+        aria-modal="true" aria-labelledby="Modal navigation" class="fixed inset-0 overflow-y-auto z-10">
+
+        <div x-show="open" x-transition class="relative w-full h-full">
+          <div x-on:click.stop x-trap.noscroll.inert="open" class="relative w-full h-full px-4 pt-11 bg-accent-purple">
+            <div class="flex flex-row justify-between items-center">
+              @!atoms.logos.classementShort({
+              className: "text-white h-[3.125rem]"
+              })
+              <button x-on:click="open = false">
+                @!atoms.icons.close({
+                className: "w-8 h-8 text-white"
+                })
+              </button>
+            </div>
+            <nav class="mt-14" aria-labelledby="Mobile navigation">
+              <ul class="flex flex-col space-y-10">
+                <li>
+                  <a class="text-white text-lg font-semibold">
+                    Le Classement
+                  </a>
+                </li>
+                <li>
+                  <a class="text-white text-lg font-semibold">
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </template>
+    <a class="hidden lg:flex px-[0.875rem] py-[0.625rem] border-2 border-primary-base hover:border-primary-variation-1 text-primary-base hover:text-primary-variation-1 text-sm leading-4 tracking-wider font-semibold rounded-[0.875rem] transition ease-in duration-300"
+      href="{{ route('AssociationsController.index') }}">
+      Découvrir les associations
+    </a>
+  </div>
+</header>
