@@ -68,6 +68,7 @@
     "@adonisjs/shield": "^7.0.11",
     "@adonisjs/view": "^6.1.0",
     "@alpinejs/focus": "^3.10.3",
+    "adonis-lucid-filter": "^4.1.0",
     "alpinejs": "^3.10.3",
     "file-loader": "^6.2.0",
     "luxon": "^3.0.1",

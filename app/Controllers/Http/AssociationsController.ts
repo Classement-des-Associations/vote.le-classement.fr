@@ -10,8 +10,10 @@ import AssociationStoreValidator from 'App/Validators/AssociationStoreValidator'
 import AssociationUpdateValidator from 'App/Validators/AssociationUpdateValidator'
 
 export default class AssociationsController {
-  public async index({ view }: HttpContextContract) {
-    const associations = await Association.query().preload('category').preload('school')
+  public async index({ request, view }: HttpContextContract) {
+    const associations = await Association.filter(request.qs())
+      .preload('category')
+      .preload('school')
 
     return view.render('associations/index', { associations })
   }
