@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./resources/views/**/*.edge', './resources/js/**/*.js'],
@@ -17,7 +19,10 @@ module.exports = {
         'light-grey': '#d4d4d4',
         'ultra-light-grey': '#f9f9f9',
       },
+      fontFamily: {
+        montserrat: ['Montserrat', ...defaultTheme.fontFamily.sans],
+      },
     },
+    plugins: [],
   },
-  plugins: [],
 }
