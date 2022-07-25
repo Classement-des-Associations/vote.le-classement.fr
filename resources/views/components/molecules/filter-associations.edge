@@ -5,6 +5,50 @@ action: route('AssociationsController.index'),
 @slot('main')
 
 @!atoms.appSelect({
+label: 'Trier par',
+name: 'order_by',
+selected: request.qs().order_by ?? '',
+options: [
+{
+label: 'Nombre de voix',
+value: '',
+},
+{
+label: 'Aléatoire',
+value: 'rand',
+},
+{
+label: 'Nom',
+value: 'name',
+},
+],
+})
+
+@!atoms.appSelect({
+label: 'Ordre',
+name: 'order',
+selected: request.qs().order ?? '',
+options: [
+{
+label: 'Croissant',
+value: 'asc',
+},
+{
+label: 'Décroissant',
+value: 'desc',
+}
+],
+})
+
+@!atoms.appInput({
+label: 'Recherche',
+name: 'name',
+type: 'text',
+placeholder: 'Nom de l\'association',
+value: request.qs().name ?? ''
+})
+
+@!atoms.appSelect({
 label: 'Catégorie',
 name: 'category_id',
 selected: request.qs().category_id ?? '',

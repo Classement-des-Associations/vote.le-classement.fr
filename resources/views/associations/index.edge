@@ -2,20 +2,38 @@
 @set('title', 'Les Associations')
 
 @section('body')
-<a href="{{ route('AssociationsController.create') }}"> Créer </a>
 
-@!molecules.filterAssociations({
-categories,
-schools
-})
+<section class="px-4">
+  <div class="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4 place-items-start">
+    <div class="sticky top-4 w-full">
+      @!molecules.filterAssociations({
+      categories,
+      schools
+      })
+    </div>
 
-<ul>
-  @each(association in associations)
-  <li>
-    <a href="{{ route('AssociationsController.show', { id: association.slug }) }}">
-      @!molecules.cardAssociation({ association })
-    </a>
-  </li>
-  @endeach
-</ul>
+    <ul class="lg:col-span-2 w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+      @if(associations.length > 0)
+      @each(association in associations)
+      <li>
+        <a href="{{ route('AssociationsController.show', { id: association.slug }) }}">
+          @!molecules.cardAssociation({ association })
+        </a>
+      </li>
+      @endeach
+      @else
+      <li class="col-span-2 w-full text-center text-black">
+        <p>
+          Aucune association n'a été trouvée.
+        </p>
+
+        <a class="block mt-8 text-black hover:text-primary-base transition ease-in"
+          href="{{ route('AssociationsController.index') }}">
+          Réinitialiser la requête ?
+        </a>
+      </li>
+      @endif
+    </ul>
+  </div>
+</section>
 @endsection

@@ -1,4 +1,6 @@
 {
+  "assets/app.js": "http://localhost:8080/assets/app.js",
+  "assets/images/favicon.png": "http://localhost:8080/assets/images/favicon.e82451a7.png",
   "assets/app.css": "http://localhost:8080/assets/app.css",
-  "assets/app.js": "http://localhost:8080/assets/app.js"
+  "assets/fonts/Montserrat-VariableFont_wght.ttf": "http://localhost:8080/assets/fonts/Montserrat-VariableFont_wght.3068cdb4.ttf"
 }

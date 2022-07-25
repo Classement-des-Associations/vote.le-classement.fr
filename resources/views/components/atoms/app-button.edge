@@ -1,4 +1,7 @@
 @set('className',
-'rounded-lg border border-primary-base bg-primary-base px-4 py-3 text-white text-sm leading-4 font-semibold')
+String(`rounded-lg border border-primary-base hover:border-primary-variation-1 focus:border-primary-variation-1
+bg-primary-base
+hover:bg-primary-variation-1 focus:bg-primary-variation-1 px-4 py-3 text-white text-sm leading-4 font-semibold
+focus:outline-none transition ease-in`))
 
 {{{ await $slots.main({ className }) }}}
