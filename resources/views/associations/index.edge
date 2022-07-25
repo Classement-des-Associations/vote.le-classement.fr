@@ -1,3 +1,7 @@
+@layout('layouts/main')
+@set('title', 'Les Associations')
+
+@section('body')
 <a href="{{ route('AssociationsController.create') }}"> Créer </a>
 
 <ul>
@@ -22,3 +26,4 @@
   </li>
   @endeach
 </ul>
+@endsection
