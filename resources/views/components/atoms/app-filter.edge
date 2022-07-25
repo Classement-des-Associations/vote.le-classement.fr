@@ -1,0 +1,30 @@
+<form class="rounded-2xl bg-ultra-light-grey p-4 flex flex-col gap-12" action="{{ action }}" method="GET"
+  x-data="{ open: false }">
+
+  <div class="lg:flex flex-col gap-8" :class="{ 'hidden': !open, 'flex': open }" x-cloak>
+    {{{ await $slots.main() }}}
+  </div>
+
+  <div class="lg:flex flex-row justify-between items-center" :class="{ 'hidden': !open, 'flex': open }" x-cloak>
+    <a class="text-black text-sm leading-4 font-semibold" href="{{ action }}">
+      Réinitialiser
+    </a>
+    @atoms.appButton()
+    @slot('main', scope)
+    <button type="submit" x-on:click="open = false" class="{{ scope.className }}">
+      Filtrer les associations
+    </button>
+    @endslot
+    @end
+  </div>
+
+  <div class="flex lg:hidden flex-row justify-center items-center" :class="{ 'hidden': open, 'flex': !open }">
+    @atoms.appButton()
+    @slot('main', scope)
+    <button type="button" x-on:click="open = !open" class="{{ scope.className }}">
+      Voir les fitres
+    </button>
+    @endslot
+    @end
+  </div>
+</form>

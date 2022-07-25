@@ -4,6 +4,11 @@
 @section('body')
 <a href="{{ route('AssociationsController.create') }}"> Créer </a>
 
+@!molecules.filterAssociations({
+categories,
+schools
+})
+
 <ul>
   @each(association in associations)
   <li>

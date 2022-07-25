@@ -13,7 +13,18 @@ export default class AssociationsController {
   public async index({ view }: HttpContextContract) {
     const associations = await Association.query().preload('category').preload('school')
 
-    return view.render('associations/index', { associations })
+    const categories = await Category.all()
+    const schools = await School.all()
+
+    return view.render('associations/index', {
+      associations,
+      categories: categories.map((c) => {
+        return { value: c.id, label: c.name }
+      }),
+      schools: schools.map((s) => {
+        return { value: s.id, label: s.name }
+      }),
+    })
   }
 
   public async create({ view }: HttpContextContract) {
