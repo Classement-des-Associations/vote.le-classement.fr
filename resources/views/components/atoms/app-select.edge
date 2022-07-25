@@ -1,0 +1,22 @@
+<div class="flex flex-col gap-1">
+  @!atoms.appLabel({
+  label,
+  name,
+  })
+  <div class="relative w-full">
+    <select id="{{ name }}" name="{{ name }}"
+      class="appearance-none relative z-10 w-full px-[0.75rem] py-2 bg-transparent border-2 border-primary-base hover:border-primary-variation-1 focus:border-primary-variation-1 rounded-lg text-base text-black focus:outline-none transition ease-in cursor-pointer peer">
+      @each(option in options)
+      <option value="{{ option.value }}" {{ option.value===selected ? 'selected' : '' }}>
+        {{ option.label }}
+      </option>
+      @endeach
+    </select>
+    <span
+      class="absolute right-4 top-0 bottom-0 flex flex-col justify-center text-primary-base peer-hover:text-primary-variation-1 peer-focus:text-primary-variation-1">
+      @!atoms.icons.play({
+      className: 'text-current transition ease-in'
+      })
+    </span>
+  </div>
+</div>
