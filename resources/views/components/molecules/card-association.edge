@@ -1,0 +1,35 @@
+<article class="p-4 flex flex-col gap-4 text-black">
+  <div class="flex flex-col gap-3">
+    @if(association.image)
+    <figure>
+      <img alt="Image de l'association {{ association.name }}" src="{{ association.image.url }}" />
+    </figure>
+    @endif
+    <div class="flex flex-row justify-between">
+      <div>
+        @if(association.category)
+        <div class="rounded-[0.25rem] px-2 py-1 bg-primary-variation-1">
+          <span class="text-sm">
+            {{ association.category.name }}
+          </span>
+        </div>
+        @endif
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col gap-1">
+    <h2 class="text-xl font-bold">
+      {{ association.name }}
+    </h2>
+    @if(association.school)
+    <p>
+      {{ association.school.name }}
+    </p>
+    @endif
+  </div>
+  @if(association.description)
+  <p class="text-sm">
+    {{ association.description }}
+  </p>
+  @endif
+</article>
