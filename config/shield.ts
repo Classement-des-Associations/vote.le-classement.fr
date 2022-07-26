@@ -171,7 +171,7 @@ export const dnsPrefetch: ShieldConfig['dnsPrefetch'] = {
 */
 export const xFrame: ShieldConfig['xFrame'] = {
   enabled: true,
-  action: 'DENY',
+  action: 'SAMEORIGIN',
 }
 
 /*

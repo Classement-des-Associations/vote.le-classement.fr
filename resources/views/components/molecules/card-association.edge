@@ -8,11 +8,9 @@
     <div class="flex flex-row justify-between">
       <div>
         @if(association.category)
-        <div class="rounded-[0.25rem] px-2 py-1 bg-primary-variation-1">
-          <span class="text-sm">
-            {{ association.category.name }}
-          </span>
-        </div>
+        @!atoms.appTag({
+        name: association.category.name,
+        })
         @endif
       </div>
     </div>

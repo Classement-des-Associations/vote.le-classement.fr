@@ -1,15 +1,78 @@
-<p>
-  {{ association.name }} -
-  @if(association.category)
-  {{ association.category.name }}
-  @endif
-  @if(association.school)
-  {{ association.school.name }}
-  @endif
-</p>
+@layout('layouts/main')
+@set('title', association.name)
 
-@if(association.description)
-<p>
-  {{ association.description }}
-</p>
-@end
+@section('body')
+{{-- Faire la version PC --}}
+<section class="mt-6 px-4">
+  <div class="max-w-screen-xl mx-auto">
+    <header class="flex flex-col justify-start items-start">
+      @if(association.category)
+      @!atoms.appTag({ name: association.category.name })
+      @endif
+
+      <div class="mt-2">
+        <h1 class="text-black text-2xl font-bold">{{ association.name }}</h1>
+        @if(association.school)
+        <p class="mt-1"> {{ association.school.name }}</p>
+        @endif
+      </div>
+
+      <div class="mt-4 w-full flex flex-col">
+        @atoms.appButton()
+        @slot('main', scope)
+        <button class="{{ scope.className }} {{ scope.color }}">
+          Voter pour l'association
+        </button>
+        @endslot
+        @end
+      </div>
+    </header>
+
+    <div class="mt-8">
+      @if(association.document)
+      <iframe src="{{ association.document.url }}" width="100%" height="500px" frameborder="0"></iframe>
+      @endif
+    </div>
+
+    <div class="mt-8 -ml-3 flex flex-row gap-10">
+      @if(association.linkedin)
+      <a class="rounded-full p-3 text-black hover:bg-black hover:text-white transition ease-in"
+        href="{{ association.linkedin }}" target="_blank" rel="noopener noreferrer">
+        @!atoms.icons.linkedin()
+      </a>
+      @endif
+      @if(association.facebook)
+      <a class="rounded-full p-3 text-black hover:bg-black hover:text-white transition ease-in"
+        href="{{ association.facebook }}" target="_blank" rel="noopener noreferrer">
+        @!atoms.icons.facebook()
+      </a>
+      @endif
+      @if(association.instagram)
+      <a class="rounded-full p-3 text-black hover:bg-black hover:text-white transition ease-in"
+        href="{{ association.instagram }}" target="_blank" rel="noopener noreferrer">
+        @!atoms.icons.instagram()
+      </a>
+      @endif
+      @if(association.twitter)
+      <a class="rounded-full p-3 text-black hover:bg-black hover:text-white transition ease-in"
+        href="{{ association.twitter }}" target="_blank" rel="noopener noreferrer">
+        @!atoms.icons.twitter()
+      </a>
+      @endif
+    </div>
+  </div>
+</section>
+
+<section class="mt-14 px-4">
+  <div class="max-w-screen-xl mx-auto">
+    <h2 class="text-black text-xl font-bold">
+      Découvrir d'autres associations
+    </h2>
+
+    <div class="mt-6">
+      {{-- Les 3 associations en lien --}}
+    </div>
+  </div>
+</section>
+
+@endsection
