@@ -1,4 +1,4 @@
-<article class="p-4 flex flex-col gap-4 text-black">
+<article class="h-full bg-ultra-light-grey rounded-2xl p-4 flex flex-col gap-4 text-black">
   <div class="flex flex-col gap-3">
     @if(association.image)
     <figure>
@@ -28,8 +28,8 @@
     @endif
   </div>
   @if(association.description)
-  <p class="text-sm">
-    {{ association.description }}
+  <p class="text-sm flex-grow">
+    {{ truncate(association.description, 200) }}
   </p>
   @endif
 </article>

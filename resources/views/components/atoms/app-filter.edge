@@ -6,12 +6,12 @@
   </div>
 
   <div class="lg:flex flex-row justify-between items-center" :class="{ 'hidden': !open, 'flex': open }" x-cloak>
-    <a class="text-black text-sm leading-4 font-semibold" href="{{ action }}">
+    <a class="text-accent-purple text-sm leading-4 font-semibold" href="{{ action }}">
       Réinitialiser
     </a>
-    @atoms.appButton()
+    @atoms.appButton({ accentPurple: true })
     @slot('main', scope)
-    <button type="submit" x-on:click="open = false" class="{{ scope.className }}">
+    <button type="submit" x-on:click="open = false" class="{{ scope.className }} {{ scope.color }}">
       Filtrer les associations
     </button>
     @endslot
@@ -19,9 +19,9 @@
   </div>
 
   <div class="flex lg:hidden flex-row justify-center items-center" :class="{ 'hidden': open, 'flex': !open }">
-    @atoms.appButton()
+    @atoms.appButton({ accentPurple: true })
     @slot('main', scope)
-    <button type="button" x-on:click="open = !open" class="{{ scope.className }}">
+    <button type="button" x-on:click="open = !open" class="{{ scope.className }} {{ scope.color }}">
       Voir les fitres
     </button>
     @endslot

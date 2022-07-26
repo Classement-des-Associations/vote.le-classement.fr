@@ -15,8 +15,8 @@ export default class AssociationsController {
       .preload('category')
       .preload('school')
 
-    const categories = await Category.all()
-    const schools = await School.all()
+    const categories = await Category.query().orderBy('name', 'asc')
+    const schools = await School.query().orderBy('name', 'asc')
 
     return view.render('associations/index', {
       associations,
