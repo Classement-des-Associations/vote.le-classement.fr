@@ -1,18 +1,60 @@
-<a href="{{ route('SchoolsController.create') }}"> Créer </a>
+@layout('layouts/main')
+@set('title', 'Les Écoles')
 
-<ul>
-  @each(school in schools)
-  <li>
-    <a href="{{ route('SchoolsController.show', { id: school.slug }) }}">
-      {{ school.name }}
-    </a>
-    <a href="{{ route('SchoolsController.edit', { id: school.slug }) }}">
-      Éditer
-    </a>
-    <form action="{{ route('SchoolsController.destroy', { id: school.slug }) }}?_method=DELETE" method="POST">
-      {{ csrfField() }}
-      <button type="submit">Supprimer</button>
-    </form>
-  </li>
-  @endeach
-</ul>
+@section('body')
+
+<section class="mt-6 px-4">
+
+  <div class="max-w-screen-lg mx-auto">
+    <div class="flex flex-row justify-between items-start">
+      <div class="flex flex-col gap-1">
+        <a href="{{ route('SchoolsController.index') }}" class="text-primary-base">Écoles</a>
+
+        <h1 class="text-black text-2xl font-bold">
+          Les écoles
+        </h1>
+      </div>
+
+      @atoms.appButton()
+      @slot('main', scope)
+      <a class="{{ scope.className }} {{ scope.color }}" href="{{ route('SchoolsController.create') }}">
+        Créer
+      </a>
+      @endslot
+      @end
+    </div>
+
+    <ul class="mt-6 mb-14 lg:mb-[4.5rem] grid grid-cols-1 lg:grid-cols-2 gap-4">
+      @each(school in schools)
+      <li class="rounded-lg bg-ultra-light-grey p-4 flex flex-row justify-between items-center">
+        <a href="{{ route('SchoolsController.show', { id: school.slug }) }}">
+          {{ school.name }}
+        </a>
+        <div class="flex flex-row gap-6">
+          <form action="{{ route('SchoolsController.destroy', { id: school.slug }) }}?_method=DELETE" method="POST"
+            x-data="{
+              validate: () => {
+                const toDelete = confirm('Êtes-vous sûr de vouloir supprimer cette école ?');
+
+                if (toDelete) {
+                  return true;
+                }
+              }
+            }" x-on:submit.prevent="validate() && $el.submit()">
+            {{ csrfField() }}
+            <button type="submit">
+              <span class="sr-only">Supprimer</span>
+              @!atoms.icons.trash({ className: 'text-black' })
+            </button>
+          </form>
+          <a href="{{ route('SchoolsController.edit', { id: school.slug }) }}">
+            <span class="sr-only">Éditer</span>
+            @!atoms.icons.pen({ className: 'text-accent-blue' })
+          </a>
+        </div>
+      </li>
+      @endeach
+    </ul>
+  </div>
+</section>
+@endsection
