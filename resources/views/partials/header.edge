@@ -11,6 +11,18 @@
       <nav class="hidden lg:flex ml-8" aria-labelledby="primary navigation">
         <ul class="flex flex-row">
           <li>
+            <a href="{{ route('CategoriesController.index') }}"
+              class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
+              Catégories
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('SchoolsController.index') }}"
+              class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
+              Écoles
+            </a>
+          </li>
+          <li>
             <a
               class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
               Le Classement
@@ -49,6 +61,16 @@
             </div>
             <nav class="mt-14" aria-labelledby="Mobile navigation">
               <ul class="flex flex-col space-y-10">
+                <li>
+                  <a href="{{ route('CategoriesController.index') }}" class="text-white text-lg font-semibold">
+                    Catégories
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ route('SchoolsController.index') }}" class="text-white text-lg font-semibold">
+                    Écoles
+                  </a>
+                </li>
                 <li>
                   <a class="text-white text-lg font-semibold">
                     Le Classement
