@@ -3,37 +3,104 @@
 
 @section('body')
 
-<section class="px-4">
-  <div class="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4 place-items-start">
-    <div class="sticky top-4 w-full">
-      @!molecules.filterAssociations({
-      categories,
-      schools
-      })
+<section class="relative px-4 pt-12 pb-20 lg:py-40">
+  <span class="hidden md:block absolute top-6 right-10">
+    @!atoms.graphics.round()
+  </span>
+  <span class="absolute lg:hidden -bottom-11 -left-3">
+    @!atoms.graphics.triangle()
+  </span>
+  <span class="hidden lg:block absolute -bottom-[2.875rem] -left-12">
+    @!atoms.graphics.triangleLarge()
+  </span>
+  <div class="max-w-screen-xl mx-auto flex flex-col justify-center">
+    <h1 class="text-center text-black text-[1.75rem] lg:text-5xl font-bold">Vote pour ton association préférée</h1>
+
+    <p class="max-w-3xl mx-auto mt-8 text-center text-black text-lg">
+      Le vote qui permet au public de découvrir l'ensemble des associations du concours et d'en envoyer 2 directements
+      en finale !
+    </p>
+
+    <div class="mt-14 flex flex-col lg:flex-row justify-center items-center gap-4 lg:gap-6">
+      @atoms.appButton()
+      @slot('main', scope)
+      <a class="{{ scope.className }} {{ scope.color }}">
+        Découvrir les associations
+      </a>
+      @endslot
+      @end
+      @atoms.appButton({ outline: true })
+      @slot('main', scope)
+      <a class="{{ scope.className }} {{ scope.color }}">
+        Comprendre le vote
+      </a>
+      @endslot
+      @end
     </div>
+  </div>
+</section>
 
-    <ul class="lg:col-span-2 w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
-      @if(associations.length > 0)
-      @each(association in associations)
-      <li>
-        <a href="{{ route('AssociationsController.show', { id: association.slug }) }}">
-          @!molecules.cardAssociation({ association })
-        </a>
-      </li>
-      @endeach
-      @else
-      <li class="col-span-2 w-full text-center text-black">
-        <p>
-          Aucune association n'a été trouvée.
-        </p>
+<section class="px-4 py-14 lg:py-[7.5rem] bg-primary-base text-white">
+  <div class="max-w-screen-xl mx-auto grid grid-cols-1 gap-10 lg:grid-cols-3 justify-items-center">
+    <div class="p-4 max-w-[16rem]">
+      <h2 class="flex flex-col justify-center items-center">
+        <span class="text-[4rem] font-extrabold">+150</span>
+        <span class="mt-8 text-lg font-semibold">Associations</span>
+      </h2>
+      <p class="mt-3 text-center text-sm leading-[1.125rem]">À découvrir cette année au Classement des Associations</p>
+    </div>
+    <div class="p-4 max-w-[16rem]">
+      <h2 class="flex flex-col justify-center items-center">
+        <span class="text-[4rem] font-extrabold">2</span>
+        <span class="mt-8 text-lg font-semibold">Plus votées</span>
+      </h2>
+      <p class="mt-3 text-center text-sm leading-[1.125rem]">Auront la chance de décrocher directement une place pour la
+        finale</p>
+    </div>
+    <div class="p-4 max-w-[16rem]">
+      <h2 class="flex flex-col justify-center items-center">
+        <span class="text-[4rem] font-extrabold">{{ timeRemaining() }}</span>
+        <span class="mt-8 text-lg font-semibold">Jours</span>
+      </h2>
+      <p class="mt-3 text-center text-sm leading-[1.125rem]">Restant avant la fin du vote</p>
+    </div>
+  </div>
+</section>
 
-        <a class="block mt-8 text-black hover:text-primary-base transition ease-in"
-          href="{{ route('AssociationsController.index') }}">
-          Réinitialiser les filtres ?
-        </a>
-      </li>
-      @endif
-    </ul>
+<section class="px-4 py-14 lg:pb-[4.5rem]" id="liste">
+  <div class="max-w-screen-xl mx-auto">
+    <h2 class="text-[1.75rem] lg:text-[2.5rem] text-black font-bold"> Les associations </h2>
+    <div class="mt-6 lg:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4 place-items-start">
+      <div class="lg:sticky top-4 w-full">
+        @!molecules.filterAssociations({
+        categories,
+        schools
+        })
+      </div>
+
+      <ul class="lg:col-span-2 w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+        @if(associations.length > 0)
+        @each(association in associations)
+        <li>
+          <a href="{{ route('AssociationsController.show', { id: association.slug }) }}">
+            @!molecules.cardAssociation({ association })
+          </a>
+        </li>
+        @endeach
+        @else
+        <li class="col-span-2 w-full text-center text-black">
+          <p>
+            Aucune association n'a été trouvée.
+          </p>
+
+          <a class="block mt-8 text-black hover:text-primary-base transition ease-in"
+            href="{{ route('AssociationsController.index') }}#liste">
+            Réinitialiser les filtres ?
+          </a>
+        </li>
+        @endif
+      </ul>
+    </div>
   </div>
 </section>
 @endsection
