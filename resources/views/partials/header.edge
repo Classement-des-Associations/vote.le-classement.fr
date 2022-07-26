@@ -87,9 +87,13 @@
         </div>
       </div>
     </template>
-    <a class="hidden lg:flex px-[0.875rem] py-[0.625rem] border-2 border-primary-base hover:border-primary-variation-1 text-primary-base hover:text-primary-variation-1 text-sm leading-4 tracking-wider font-semibold rounded-[0.875rem] transition ease-in duration-300"
+    @atoms.appButton({ outline: true })
+    @slot('main', scope)
+    <a class="hidden lg:block {{ scope.className }} {{ scope.color }}"
       href="{{ route('AssociationsController.index') }}">
       Découvrir les associations
     </a>
+    @endslot
+    @end
   </div>
 </header>
