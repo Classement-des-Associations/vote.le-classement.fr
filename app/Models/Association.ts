@@ -45,10 +45,10 @@ export default class Association extends compose(BaseModel, Filterable) {
   public website?: string
 
   @column()
-  public categoryId: number
+  public categoryId?: number
 
   @column()
-  public schoolId: number
+  public schoolId?: number
 
   @attachment({ folder: 'associations/images', preComputeUrl: true })
   public image: AttachmentContract | null
