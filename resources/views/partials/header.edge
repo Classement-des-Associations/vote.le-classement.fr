@@ -11,6 +11,18 @@
       <nav class="hidden lg:flex ml-8" aria-labelledby="primary navigation">
         <ul class="flex flex-row">
           <li>
+            <a href="{{ route('CategoriesController.index') }}"
+              class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
+              Catégories
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('SchoolsController.index') }}"
+              class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
+              Écoles
+            </a>
+          </li>
+          <li>
             <a
               class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
               Le Classement
@@ -50,6 +62,16 @@
             <nav class="mt-14" aria-labelledby="Mobile navigation">
               <ul class="flex flex-col space-y-10">
                 <li>
+                  <a href="{{ route('CategoriesController.index') }}" class="text-white text-lg font-semibold">
+                    Catégories
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ route('SchoolsController.index') }}" class="text-white text-lg font-semibold">
+                    Écoles
+                  </a>
+                </li>
+                <li>
                   <a class="text-white text-lg font-semibold">
                     Le Classement
                   </a>
@@ -65,9 +87,13 @@
         </div>
       </div>
     </template>
-    <a class="hidden lg:flex px-[0.875rem] py-[0.625rem] border-2 border-primary-base hover:border-primary-variation-1 text-primary-base hover:text-primary-variation-1 text-sm leading-4 tracking-wider font-semibold rounded-[0.875rem] transition ease-in duration-300"
+    @atoms.appButton({ outline: true })
+    @slot('main', scope)
+    <a class="hidden lg:block {{ scope.className }} {{ scope.color }}"
       href="{{ route('AssociationsController.index') }}">
       Découvrir les associations
     </a>
+    @endslot
+    @end
   </div>
 </header>
