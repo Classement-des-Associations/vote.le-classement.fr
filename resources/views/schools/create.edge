@@ -1,12 +1,47 @@
-<form action="{{ route('SchoolsController.store') }}" method="POST">
-  {{ csrfField() }}
+@layout('layouts/main')
+@set('title', 'Créer une école')
 
-  <label for="name">Nom</label>
-  <input type=text id="name" name="name" placeholder="Nom de l'école" autofocus>
-  @if(flashMessages.has('errors.name'))
-  <p> {{ flashMessages.get('errors.name') }} </p>
-  @end
+@section('body')
 
-  <button type="submit">Créer</button>
+<section class="mt-6 mb-14 lg:mb-[4.5rem] px-4">
 
-</form>
+  <div class="max-w-screen-lg mx-auto">
+    <div class="flex flex-row justify-between items-start">
+      <div class="flex flex-col gap-1">
+        <a href="{{ route('SchoolsController.index') }}" class="text-primary-base">Écoles</a>
+
+        <h1 class="text-black text-2xl font-bold">
+          Créer
+        </h1>
+      </div>
+    </div>
+
+    <form class="mt-6" action="{{ route('SchoolsController.store') }}" method="POST">
+      {{ csrfField() }}
+
+      @!atoms.appInput({
+      label: 'Nom',
+      name: 'name',
+      type: 'text',
+      placeholder: 'Nom de l\'école',
+      autofocus: true,
+      })
+      @if(flashMessages.has('errors.name'))
+      <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.name') }} </p>
+      @end
+
+      <div class="mt-6">
+        @atoms.appButton({
+        accentPurple: true,
+        })
+        @slot('main', scope)
+        <button type="submit" class="{{ scope.className }} {{ scope.color }}">Créer</button>
+        @endslot
+        @end
+      </div>
+
+    </form>
+  </div>
+</section>
+
+@endsection

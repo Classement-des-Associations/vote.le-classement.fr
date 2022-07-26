@@ -3,7 +3,7 @@
 
 @section('body')
 
-<section class="mt-6 px-4">
+<section class="mt-6 mb-14 lg:mb-[4.5rem]  px-4">
 
   <div class="max-w-screen-lg mx-auto">
     <div class="flex flex-row justify-between items-start">
@@ -24,7 +24,7 @@
       @end
     </div>
 
-    <ul class="mt-6 mb-14 lg:mb-[4.5rem] grid grid-cols-1 lg:grid-cols-2 gap-4">
+    <ul class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
       @each(school in schools)
       <li class="rounded-lg bg-ultra-light-grey p-4 flex flex-row justify-between items-center">
         <a href="{{ route('SchoolsController.show', { id: school.slug }) }}">

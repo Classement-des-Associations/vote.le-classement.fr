@@ -6,7 +6,6 @@ export default class SchoolUpdateValidator {
 
   public schema = schema.create({
     name: schema.string([
-      rules.required(),
       rules.trim(),
       rules.maxLength(255),
       rules.escape(),
