@@ -59,11 +59,10 @@ export default class AssociationsController {
     })
 
     const relatedAssociations = await Association.query()
-      .where('category_id', association.categoryId)
+      .where('category_id', association.categoryId ?? 0)
       .where('id', '!=', association.id)
       .preload('school')
       .limit(3)
-    console.log(relatedAssociations)
     return view.render('associations/show', { association, relatedAssociations })
   }
 
