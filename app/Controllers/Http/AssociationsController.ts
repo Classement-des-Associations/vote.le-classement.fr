@@ -57,7 +57,14 @@ export default class AssociationsController {
       loader.preload('category')
       loader.preload('school')
     })
-    return view.render('associations/show', { association })
+
+    const relatedAssociations = await Association.query()
+      .where('category_id', association.categoryId)
+      .where('id', '!=', association.id)
+      .preload('school')
+      .limit(3)
+    console.log(relatedAssociations)
+    return view.render('associations/show', { association, relatedAssociations })
   }
 
   @bind()

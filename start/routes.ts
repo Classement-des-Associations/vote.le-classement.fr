@@ -25,9 +25,9 @@ Route.get('/', async ({ response }) => {
 }).as('home')
 
 Route.resource('associations', 'AssociationsController')
-Route.get('associations/:id/image', 'AssociationsController.editImage')
+Route.get('associations/:id/image/edit', 'AssociationsController.editImage')
 Route.patch('associations/:id/image', 'AssociationsController.updateImage')
-Route.get('associations/:id/document', 'AssociationsController.editDocument')
+Route.get('associations/:id/document/edit', 'AssociationsController.editDocument')
 Route.patch('associations/:id/document', 'AssociationsController.updateDocument')
 
 Route.resource('categories', 'CategoriesController')

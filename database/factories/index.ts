@@ -38,6 +38,10 @@ export const AssociationFactory = Factory.define(Association, async ({ faker }) 
   return {
     name: faker.lorem.words(),
     description: faker.lorem.paragraph(),
+    facebook: faker.internet.url(),
+    instagram: faker.internet.url(),
+    twitter: faker.internet.url(),
+    linkedin: faker.internet.url(),
     image,
     document,
   }
