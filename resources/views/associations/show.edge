@@ -3,76 +3,117 @@
 
 @section('body')
 {{-- Faire la version PC --}}
-<section class="mt-6 px-4">
+<section class="mt-6 mb-14 px-4">
   <div class="max-w-screen-xl mx-auto">
     <header class="flex flex-col justify-start items-start">
       @if(association.category)
       @!atoms.appTag({ name: association.category.name })
       @endif
 
-      <div class="mt-2">
-        <h1 class="text-black text-2xl font-bold">{{ association.name }}</h1>
-        @if(association.school)
-        <p class="mt-1"> {{ association.school.name }}</p>
-        @endif
-      </div>
+      <div class="mt-2 lg:mt-3 w-full flex flex-col lg:flex-row justify-start lg:justify-between items-start">
+        <div>
+          <h1 class="text-black text-2xl lg:text-5xl font-bold">{{ association.name }}</h1>
+          @if(association.school)
+          <p class="mt-1 lg:text-4xl"> {{ association.school.name }}</p>
+          @endif
+        </div>
 
-      <div class="mt-4 w-full flex flex-col">
-        @atoms.appButton()
-        @slot('main', scope)
-        <button class="{{ scope.className }} {{ scope.color }}">
-          Voter pour l'association
-        </button>
-        @endslot
-        @end
+        <div class="mt-4 lg:mt-0 w-full lg:w-auto flex flex-col">
+          @atoms.appButton()
+          @slot('main', scope)
+          <button class="{{ scope.className }} {{ scope.color }} flex flex-row items-center gap-2">
+            @!atoms.icons.star({
+            className: "hidden lg:block",
+            })
+            <span>
+              Voter pour l'association
+            </span>
+          </button>
+          @endslot
+          @end
+        </div>
       </div>
     </header>
 
-    <div class="mt-8">
+    <div class="mt-8 relative">
       @if(association.document)
-      <iframe src="{{ association.document.url }}" width="100%" height="500px" frameborder="0"></iframe>
+      <div class="hidden lg:block lg:absolute -top-10 -right-12 pointer-events-none">
+        @!atoms.graphics.round()
+      </div>
+      <div class="hidden lg:block lg:absolute -bottom-32 -left-40 pointer-events-none">
+        @!atoms.graphics.triangleLarge()
+      </div>
+      <iframe src="{{ association.document.url }}" width="100%" height="900px" frameborder="0"></iframe>
       @endif
     </div>
 
-    <div class="mt-8 -ml-3 flex flex-row gap-10">
+    <div class="mt-8 -ml-3 lg:ml-0 lg:-mr-3 flex flex-row lg:justify-end gap-10">
       @if(association.linkedin)
-      <a class="rounded-full p-3 text-black hover:bg-black hover:text-white transition ease-in"
+      <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
         href="{{ association.linkedin }}" target="_blank" rel="noopener noreferrer">
-        @!atoms.icons.linkedin()
+        @!atoms.icons.linkedin({
+        className: 'lg:w-8 lg:h-8'
+        })
       </a>
       @endif
       @if(association.facebook)
-      <a class="rounded-full p-3 text-black hover:bg-black hover:text-white transition ease-in"
+      <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
         href="{{ association.facebook }}" target="_blank" rel="noopener noreferrer">
-        @!atoms.icons.facebook()
+        @!atoms.icons.facebook({
+        className: 'lg:w-8 lg'
+        })
       </a>
       @endif
       @if(association.instagram)
-      <a class="rounded-full p-3 text-black hover:bg-black hover:text-white transition ease-in"
+      <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
         href="{{ association.instagram }}" target="_blank" rel="noopener noreferrer">
-        @!atoms.icons.instagram()
+        @!atoms.icons.instagram({
+        className: 'lg:w-8 lg'
+        })
       </a>
       @endif
       @if(association.twitter)
-      <a class="rounded-full p-3 text-black hover:bg-black hover:text-white transition ease-in"
+      <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
         href="{{ association.twitter }}" target="_blank" rel="noopener noreferrer">
-        @!atoms.icons.twitter()
+        @!atoms.icons.twitter({
+        className: 'lg:w-8 lg'
+        })
       </a>
       @endif
     </div>
   </div>
 </section>
 
-<section class="mt-14 px-4">
+@if(relatedAssociations.length > 0)
+<section class="mb-14 lg:mb-[4.5rem] px-4">
   <div class="max-w-screen-xl mx-auto">
-    <h2 class="text-black text-xl font-bold">
+    <h2 class="text-black text-xl text-[1.75rem] font-bold">
       Découvrir d'autres associations
     </h2>
 
-    <div class="mt-6">
-      {{-- Les 3 associations en lien --}}
+    <div class="mt-6 lg:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+      @each(association in relatedAssociations)
+      <a href="{{ route('AssociationsController.show', { id: association.slug }) }}">
+        <article class="h-full bg-ultra-light-grey rounded-xl p-4 flex flex-col gap-3">
+          <h3 class="text-black text-lg font-bold">
+            {{ association.name }}
+          </h3>
+          @if(association.school)
+          <p class="text-black text-sm">
+            {{ association.school.name }}
+          </p>
+          @endif
+          @if(association.description)
+          <p class="text-black text-sm">
+            {{ truncate(association.description, 200) }}
+          </p>
+          @endif
+        </article>
+      </a>
+      @endeach
     </div>
   </div>
 </section>
+@endif
 
 @endsection
