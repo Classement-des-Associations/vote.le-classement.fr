@@ -28,6 +28,10 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - name: Restore Node Modules
         id: node-cache
         uses: actions/cache@v2
@@ -42,6 +46,10 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - name: Restore Node Modules
         id: node-cache
         uses: actions/cache@v2
