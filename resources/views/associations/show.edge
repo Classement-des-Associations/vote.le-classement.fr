@@ -2,15 +2,14 @@
 @set('title', association.name)
 
 @section('body')
-{{-- Faire la version PC --}}
 <section class="mt-6 mb-14 px-4">
   <div class="max-w-screen-xl mx-auto">
-    <header class="flex flex-col justify-start items-start">
+    <header class="grid grid-cols-1 gap-3 lg:gap-5 justify-items-start place-items-start">
       @if(association.category)
       @!atoms.appTag({ name: association.category.name })
       @endif
 
-      <div class="mt-2 lg:mt-3 w-full flex flex-col lg:flex-row justify-start lg:justify-between items-start">
+      <div class="contents w-full lg:flex lg:flex-row lg:justify-between">
         <div>
           <h1 class="text-black text-2xl lg:text-5xl font-bold">{{ association.name }}</h1>
           @if(association.school)
@@ -18,10 +17,10 @@
           @endif
         </div>
 
-        <div class="mt-4 lg:mt-0 w-full lg:w-auto flex flex-col">
+        <div class="w-full lg:w-auto flex flex-col">
           @atoms.appButton()
           @slot('main', scope)
-          <button class="{{ scope.className }} {{ scope.color }} flex flex-row items-center gap-2">
+          <button class="{{ scope.className }} {{ scope.color }} flex flex-row justify-center items-center gap-2">
             @!atoms.icons.star({
             className: "hidden lg:block",
             })
@@ -33,6 +32,12 @@
           @end
         </div>
       </div>
+
+      @if(association.description)
+      <p class="row-start-3 text-black text-base lg:text-xl">
+        {{ association.description }}
+      </p>
+      @endif
     </header>
 
     <div class="mt-8 relative">
