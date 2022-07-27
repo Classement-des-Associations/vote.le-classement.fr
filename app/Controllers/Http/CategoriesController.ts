@@ -6,7 +6,7 @@ import CategoryUpdateValidator from 'App/Validators/CategoryUpdateValidator'
 
 export default class CategoriesController {
   public async index({ view }: HttpContextContract) {
-    const categories = await Category.all()
+    const categories = await Category.query().orderBy('name', 'asc')
 
     return view.render('categories/index', { categories })
   }
