@@ -17,8 +17,8 @@ export default class extends BaseSchema {
       table.string('linkedin', 255).nullable()
       table.string('website', 255).nullable()
 
-      table.integer('school_id').unsigned().references('id').inTable('schools').notNullable()
-      table.integer('category_id').unsigned().references('id').inTable('categories').notNullable()
+      table.integer('school_id').unsigned().nullable()
+      table.integer('category_id').unsigned().nullable()
 
       table.json('image').nullable()
       table.json('document').nullable()

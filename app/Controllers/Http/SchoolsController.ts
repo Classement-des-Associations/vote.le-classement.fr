@@ -5,7 +5,7 @@ import SchoolStoreValidator from 'App/Validators/SchoolStoreValidator'
 
 export default class SchoolsController {
   public async index({ view }: HttpContextContract) {
-    const schools = await School.all()
+    const schools = await School.query().orderBy('name', 'asc')
 
     return view.render('schools/index', { schools })
   }
