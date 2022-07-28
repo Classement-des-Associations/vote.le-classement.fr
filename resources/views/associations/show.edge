@@ -16,8 +16,8 @@
           <p class="mt-1 lg:text-4xl"> {{ association.school.name }}</p>
           @endif
         </div>
-
-        <div x-data="{ open: false }" class="w-full lg:w-auto flex flex-col">
+        <div x-data="{ open: {{ flashMessages.has('errors') ? true : false }} }"
+          class="w-full lg:w-auto flex flex-col gap-1">
           @atoms.appButton()
           @slot('main', scope)
           <button x-on:click="open = true"
@@ -51,12 +51,15 @@
                   </button>
                 </div>
 
-                <form class="mt-10" action="{{ route('AssociationsController.vote', { id: association.slug }) }}"
-                  method="POST">
+                <form class="mt-10"
+                  action="{{ route('AssociationsController.sendEmailVote', { id: association.slug }) }}" method="POST">
                   {{ csrfField() }}
 
-                  <input type="email" name="email" placeholder="Adresse mail"
-                    class="w-full bg-white px-4 py-6 placeholder:text-slate-400 text-black">
+                  <input value="{{ flashMessages.get('email') ?? '' }}" type="email" name="email"
+                    placeholder="Adresse mail" class="w-full bg-white px-4 py-6 placeholder:text-slate-400 text-black">
+                  @if(flashMessages.has('errors.email'))
+                  <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.email') }} </p>
+                  @end
                   <p class="mt-2 text-black text-sm italic">En validant votre vote, vous allez recevoir un courriel avec
                     un lien
                     pour confirmer
@@ -64,20 +67,28 @@
                   </p>
 
                   <div class="mt-10 flex flex-row items-center gap-4">
-                    <input class="flex-shrink-0 bg-white w-6 h-6" type="checkbox" name="accept_classement"
+                    <input {{ flashMessages.get('acceptClassement') ? 'checked' : '' }}
+                      class="flex-shrink-0 bg-white w-6 h-6" type="checkbox" name="acceptClassement" value="true"
                       id="classement">
                     <label class="text-black text-sm" for="classement">
                       En cochant, j'accepte d'être recontacté à mon adresse mail pour des informations sur le Classement
                     </label>
                   </div>
+                  @if(flashMessages.has('errors.acceptClassement'))
+                  <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.acceptClassement') }} </p>
+                  @end
                   <div class="mt-2 flex flex-row items-center gap-4">
-                    <input class="flex-shrink-0 bg-white w-6 h-6" type="checkbox" name="accept_activies"
+                    <input {{ flashMessages.get('acceptActivities') ? 'checked' : '' }}
+                      class="flex-shrink-0 bg-white w-6 h-6" type="checkbox" name="acceptActivities" value="true"
                       id="activities">
                     <label class="text-black text-sm" for="activities">
                       En cochant, j'accepte d'être recontacté à mon adresse mail dans le cadre des activitétés des
                       associations organisatrices
                     </label>
                   </div>
+                  @if(flashMessages.has('errors.acceptActivities'))
+                  <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.acceptActivities') }} </p>
+                  @end
 
                   <div class="mt-4 flex flex-row justify-end">
                     @atoms.appButton()
@@ -90,6 +101,9 @@
               </div>
             </div>
           </div>
+          <p class="text-black text-right text-sm">
+            {{ association.$extras.votes_count ?? 0 }} voix et bientôt la tienne ?
+          </p>
         </div>
       </div>
 

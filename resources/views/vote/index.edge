@@ -1,0 +1,54 @@
+@layout('layouts/main')
+@set('title', title)
+
+@section('body')
+<section class="mt-6 mb-14 lg:mb-[4.5rem] px-4">
+
+  <div class="max-w-screen-sm mx-auto">
+    <h1 class="text-black text-2xl font-bold">{{ title }}</h1>
+    <p class="mt-2 text-black text-base"> {{ subtitle }}</p>
+
+    <ul class="mt-[4.5rem] flex flex-row justify-evenly">
+      <li>
+        <a href="https://www.linkedin.com/company/le-classement/" target="_blank" rel="noopener noreferrer"
+          class="w-14 h-14 flex flex-row justify-center items-center rounded-full hover:bg-accent-purple text-accent-purple hover:text-white transition ease-in duration-200">
+          @!atoms.icons.linkedin({
+          className: 'w-8 h-8'
+          })
+        </a>
+      </li>
+      <li>
+        <a href="https://www.facebook.com/le.classement" rel="noopener noreferrer"
+          class="w-12 h-12 flex flex-row justify-center items-center rounded-full hover:bg-accent-purple text-accent-purple hover:text-white transition ease-in duration-200">
+          @!atoms.icons.facebook({
+          className: 'w-8 h-8'
+          })
+        </a>
+      </li>
+      <li>
+        <a href="https://www.instagram.com/leclassement/" rel="noopener noreferrer"
+          class="w-12 h-12 flex flex-row justify-center items-center rounded-full hover:bg-accent-purple text-accent-purple hover:text-white transition ease-in duration-200">
+          @!atoms.icons.instagram({
+          className: 'w-8 h-8'
+          })
+        </a>
+      </li>
+      <li>
+        <a href="https://twitter.com/Leclassement" rel="noopener noreferrer"
+          class="w-12 h-12 flex flex-row justify-center items-center rounded-full hover:bg-accent-purple text-accent-purple hover:text-white transition ease-in duration-200">
+          @!atoms.icons.twitter({
+          className: 'w-8 h-8'
+          })
+        </a>
+      </li>
+    </ul>
+
+    <div class="mt-[4.5rem] flex flex-row justify-center">
+      <a class="text-accent-purple hover:underline" href="{{ route('AssociationsController.index') }}#liste">
+        Revenir aux associations
+      </a>
+    </div>
+  </div>
+
+</section>
+@endsection

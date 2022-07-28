@@ -2,11 +2,12 @@ import { attachment, AttachmentContract } from '@ioc:Adonis/Addons/AttachmentLit
 import { Filterable } from '@ioc:Adonis/Addons/LucidFilter'
 import { slugify } from '@ioc:Adonis/Addons/LucidSlugify'
 import { compose } from '@ioc:Adonis/Core/Helpers'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'
 import Category from './Category'
 import AssociationFilter from './Filters/AssociationFilter'
 import School from './School'
+import Vote from './Vote'
 
 export default class Association extends compose(BaseModel, Filterable) {
   public static $filter = () => AssociationFilter
@@ -67,4 +68,7 @@ export default class Association extends compose(BaseModel, Filterable) {
 
   @belongsTo(() => School)
   public school: BelongsTo<typeof School>
+
+  @hasMany(() => Vote)
+  public votes: HasMany<typeof Vote>
 }
