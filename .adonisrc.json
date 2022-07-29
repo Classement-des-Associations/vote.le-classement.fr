@@ -32,7 +32,8 @@
     "@adonisjs/route-model-binding/build/providers/RmbProvider",
     "@adonisjs/attachment-lite",
     "adonis-lucid-filter",
-    "@adonisjs/mail"
+    "@adonisjs/mail",
+    "@adonisjs/auth"
   ],
   "metaFiles": [
     {

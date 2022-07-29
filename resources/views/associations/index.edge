@@ -69,7 +69,18 @@
 
 <section class="px-4 py-14 lg:pb-[4.5rem]" id="liste">
   <div class="max-w-screen-xl mx-auto">
-    <h2 class="text-[1.75rem] lg:text-[2.5rem] text-black font-bold"> Les associations </h2>
+    <div class="flex flex-row justify-between items-start">
+      <h2 class="text-[1.75rem] lg:text-[2.5rem] text-black font-bold"> Les associations </h2>
+      @if(auth.isLoggedIn)
+      @atoms.appButton()
+      @slot('main', scope)
+      <a href="{{ route('AssociationsController.create') }}" class="{{ scope.className }} {{ scope.color }}">
+        Créer
+      </a>
+      @endslot
+      @end
+      @endif
+    </div>
     <div class="mt-6 lg:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4 place-items-start">
       <div class="lg:sticky top-4 w-full">
         @!molecules.filterAssociations({

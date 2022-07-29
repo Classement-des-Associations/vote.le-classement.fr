@@ -37,7 +37,8 @@
       "@adonisjs/route-model-binding/build/adonis-typings",
       "@adonisjs/attachment-lite",
       "adonis-lucid-filter",
-      "@adonisjs/mail"
+      "@adonisjs/mail",
+      "@adonisjs/auth"
     ]
   }
 }
