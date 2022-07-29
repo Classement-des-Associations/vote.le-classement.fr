@@ -142,7 +142,7 @@ export default class AssociationsController {
       }
     )
 
-    await new VerifyEmail(email, signedUrl).sendLater()
+    await new VerifyEmail(email, association.name, signedUrl).sendLater()
 
     return view.render('vote/index', {
       title: 'Pense à valider ton vote',
