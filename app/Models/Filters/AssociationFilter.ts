@@ -7,7 +7,7 @@ export default class AssociationFilter extends BaseModelFilter {
 
   public setup() {
     if (!this.$input['order_by']) {
-      // Order by number of voices by default
+      this.$query.orderBy('votes_count', 'desc')
     }
   }
 

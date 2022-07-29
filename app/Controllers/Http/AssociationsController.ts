@@ -1,6 +1,8 @@
 import { bind } from '@adonisjs/route-model-binding'
 import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Route from '@ioc:Adonis/Core/Route'
+import VerifyEmail from 'App/Mailers/VerifyEmail'
 import Association from 'App/Models/Association'
 import Category from 'App/Models/Category'
 import School from 'App/Models/School'
@@ -8,10 +10,12 @@ import AssociationDocumentUpdateValidator from 'App/Validators/AssociationDocume
 import AssociationImageUpdateValidator from 'App/Validators/AssociationImageUpdateValidator'
 import AssociationStoreValidator from 'App/Validators/AssociationStoreValidator'
 import AssociationUpdateValidator from 'App/Validators/AssociationUpdateValidator'
+import VoteStoreValidator from 'App/Validators/VoteStoreValidator'
 
 export default class AssociationsController {
   public async index({ request, view }: HttpContextContract) {
     const associations = await Association.filter(request.qs())
+      .withCount('votes')
       .preload('category')
       .preload('school')
 
@@ -57,6 +61,8 @@ export default class AssociationsController {
       loader.preload('category')
       loader.preload('school')
     })
+
+    await association.loadCount('votes')
 
     const relatedAssociations = await Association.query()
       .where('category_id', association.categoryId ?? 0)
@@ -122,5 +128,63 @@ export default class AssociationsController {
     await association.delete()
 
     return response.redirect().toRoute('AssociationsController.index')
+  }
+
+  @bind()
+  public async sendEmailVote({ request, view }: HttpContextContract, association: Association) {
+    const { email, acceptClassement, acceptActivities } = await request.validate(VoteStoreValidator)
+
+    const signedUrl = Route.makeSignedUrl(
+      'AssociationsController.vote',
+      { id: association.slug, email },
+      {
+        qs: { acceptClassement, acceptActivities },
+      }
+    )
+
+    await new VerifyEmail(email, signedUrl).sendLater()
+
+    return view.render('vote/index', {
+      title: 'Pense à valider ton vote',
+      subtitle:
+        "Merci d'avoir voté ! Tu vas recevoir d'ici quelques instant un mail pour valider ton vote.",
+    })
+  }
+
+  @bind()
+  public async vote(
+    { request, params, view, logger }: HttpContextContract,
+    association: Association
+  ) {
+    if (request.hasValidSignature()) {
+      const { email } = params
+      const { acceptClassement, acceptActivities } = request.qs()
+
+      try {
+        await association.related('votes').create({
+          email,
+          acceptClassement,
+          acceptActivities,
+        })
+      } catch (error) {
+        logger.error(error)
+        logger.error(email)
+        return view.render('vote/index', {
+          title: 'Vous avez déjà voté pour cette association',
+          subtitle: 'Mais tu peux continuer à suivre le Classement sur ses réseaux !',
+        })
+      }
+
+      return view.render('vote/index', {
+        title: 'Votre voix a été prise en compte',
+        subtitle:
+          "Merci d'avoir voté. Tu peux continuer à suivre le Classement via ses réseaux si tu le souhaites !",
+      })
+    }
+
+    return view.render('vote/index', {
+      title: "Ce lien n'est pas valide",
+      subtitle: 'Tu peux réessayer en retournant sur la page de ton association !',
+    })
   }
 }
