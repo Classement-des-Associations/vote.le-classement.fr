@@ -36,13 +36,21 @@ Route.get('/vote-already-done', () => {
   return 'Vous avez déjà voté'
 }).as('vote-already-done')
 
-Route.resource('associations', 'AssociationsController')
-Route.get('associations/:id/image/edit', 'AssociationsController.editImage')
-Route.patch('associations/:id/image', 'AssociationsController.updateImage')
-Route.get('associations/:id/document/edit', 'AssociationsController.editDocument')
-Route.patch('associations/:id/document', 'AssociationsController.updateDocument')
+Route.resource('associations', 'AssociationsController').middleware({
+  create: ['auth'],
+  store: ['auth'],
+  edit: ['auth'],
+  update: ['auth'],
+  destroy: ['auth'],
+})
 Route.post('associations/:id/send-email-vote', 'AssociationsController.sendEmailVote')
 Route.get('associations/:id/vote/:email', 'AssociationsController.vote')
 
-Route.resource('categories', 'CategoriesController')
-Route.resource('schools', 'SchoolsController')
+Route.group(() => {
+  Route.get('associations/:id/image/edit', 'AssociationsController.editImage')
+  Route.patch('associations/:id/image', 'AssociationsController.updateImage')
+  Route.get('associations/:id/document/edit', 'AssociationsController.editDocument')
+  Route.patch('associations/:id/document', 'AssociationsController.updateDocument')
+  Route.resource('categories', 'CategoriesController')
+  Route.resource('schools', 'SchoolsController')
+}).middleware('auth')
