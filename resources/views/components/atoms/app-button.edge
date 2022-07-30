@@ -1,16 +1,18 @@
 @set('color', '')
 @set('className',
-String(`rounded-[0.625rem] border-2 hover:border-primary-variation-1 focus:border-primary-variation-1
-focus:bg-primary-variation-1 px-4 py-3 text-sm leading-4 font-semibold
+String(`rounded-[0.625rem] border-2 hover:border-primary-variation-1 focus:border-primary-variation-1 px-4 py-3 text-sm
+leading-4 font-semibold
 focus:outline-none transition ease-in`))
 
 @if(accentPurple)
-@set('color', 'border-accent-purple bg-accent-purple hover:bg-primary-variation-1 text-white ')
+@set('color', String(`border-accent-purple bg-accent-purple hover:bg-primary-variation-1 focus:bg-primary-variation-1
+text-white`))
 @else
 @if(outline)
 @set('color', 'border-primary-base bg-white text-primary-base hover:text-primary-variation-1')
 @else
-@set('color', 'border-primary-base bg-primary-base hover:bg-primary-variation-1 text-white')
+@set('color', String(`border-primary-base bg-primary-base hover:bg-primary-variation-1 focus:bg-primary-variation-1
+text-white`))
 @endif
 @endif
 
