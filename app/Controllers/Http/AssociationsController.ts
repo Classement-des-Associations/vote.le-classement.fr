@@ -37,7 +37,14 @@ export default class AssociationsController {
     const categories = await Category.all()
     const schools = await School.all()
 
-    return view.render('associations/create', { schools, categories })
+    return view.render('associations/create', {
+      categories: categories.map((c) => {
+        return { value: c.id, label: c.name }
+      }),
+      schools: schools.map((s) => {
+        return { value: s.id, label: s.name }
+      }),
+    })
   }
 
   public async store({ request, response }: HttpContextContract) {
@@ -77,7 +84,21 @@ export default class AssociationsController {
     const categories = await Category.all()
     const schools = await School.all()
 
-    return view.render('associations/edit', { association, schools, categories })
+    return view.render('associations/edit', {
+      association,
+      schools: schools.map((s) => {
+        return {
+          value: s.id,
+          label: s.name,
+        }
+      }),
+      categories: categories.map((c) => {
+        return {
+          value: c.id,
+          label: c.name,
+        }
+      }),
+    })
   }
 
   @bind()

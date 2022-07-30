@@ -1,82 +1,173 @@
-<form action="{{ route('AssociationsController.store') }}" method="POST" enctype="multipart/form-data">
-  {{ csrfField() }}
+@layout('layouts/main')
+@set('title', 'Créer une association')
 
-  <label for="name">Nom</label>
-  <input type=text id="name" name="name" placeholder="Nom de l'association" autofocus>
-  @if(flashMessages.has('errors.name'))
-  <p> {{ flashMessages.get('errors.name') }} </p>
-  @endif
+@section('body')
 
-  <label for="description">Description</label>
-  <textarea type=text id="description" name="description" placeholder="Description de l'association"></textarea>
-  @if(flashMessages.has('errors.description'))
-  <p> {{ flashMessages.get('errors.description') }} </p>
-  @endif
+<section class="mt-6 mb-14 lg:mb-[4.5rem] px-4">
 
-  <label for="facebook">Facebook</label>
-  <input type="url" id="facebook" name="facebook" placeholder="Facebook de l'association">
-  @if(flashMessages.has('errors.facebook'))
-  <p> {{ flashMessages.get('errors.facebook') }} </p>
-  @endif
+  <div class="max-w-screen-lg mx-auto">
 
-  <label for="twitter">Twitter</label>
-  <input type="url" id="twitter" name="twitter" placeholder="Twitter de l'association">
-  @if(flashMessages.has('errors.twitter'))
-  <p> {{ flashMessages.get('errors.twitter') }} </p>
-  @endif
+    <div class="flex flex-row justify-between items-start">
+      <div class="flex flex-col gap-1">
+        <a href="{{ route('AssociationsController.index') }}" class="text-primary-base mb-1">Associations</a>
 
-  <label for="instagram">Instagram</label>
-  <input type="url" id="instagram" name="instagram" placeholder="Instagram de l'association">
-  @if(flashMessages.has('errors.instagram'))
-  <p> {{ flashMessages.get('errors.instagram') }} </p>
-  @endif
+        @atoms.appTitle()
+        Créer
+        @end
+      </div>
+    </div>
 
-  <label for="linkedin">LinkedIn</label>
-  <input type="url" id="linkedin" name="linkedin" placeholder="LinkedIn de l'association">
-  @if(flashMessages.has('errors.linkedin'))
-  <p> {{ flashMessages.get('errors.linkedin') }} </p>
-  @endif
+    <form class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6"
+      action="{{ route('AssociationsController.store') }}" method="POST" enctype="multipart/form-data">
+      {{ csrfField() }}
 
-  <label for="website">Website</label>
-  <input type="url" id="website" name="website" placeholder="Website de l'association">
-  @if(flashMessages.has('errors.website'))
-  <p> {{ flashMessages.get('errors.website') }} </p>
-  @endif
+      <div class="lg:col-span-2">
+        @!atoms.appInput({
+        label: 'Nom',
+        name: 'name',
+        type: 'text',
+        placeholder: 'Nom de l\'association',
+        autofocus: true,
+        })
+        @if(flashMessages.has('errors.name'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.name') }} </p>
+        @endif
+      </div>
 
-  <label for="category">Catégorie</label>
-  <select id="category" name="categoryId">
-    <option value="">Sans catégorie</option>
-    @each(category in categories)
-    <option value="{{ category.id }}">{{ category.name }}</option>
-    @endeach
-  </select>
-  @if(flashMessages.has('errors.categoryId'))
-  <p> {{ flashMessages.get('errors.categoryId') }} </p>
-  @endif
 
-  <label for="school">École</label>
-  <select id="school" name="schoolId">
-    <option value="">Sans école</option>
-    @each(school in schools)
-    <option value="{{ school.id }}">{{ school.name }}</option>
-    @endeach
-  </select>
-  @if(flashMessages.has('errors.schoolId'))
-  <p> {{ flashMessages.get('errors.schoolId') }} </p>
-  @endif
+      <div class="lg:col-span-2">
+        @!atoms.appTextarea({
+        label: 'Description',
+        name: 'description',
+        placeholder: 'Description de l\'association',
+        content: ''
+        })
+        @if(flashMessages.has('errors.description'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.description') }} </p>
+        @endif
+      </div>
 
-  <label for="image">Image</label>
-  <input type=file id="image" name="image" accept="image/png, image/jpg, image/jpeg, image/webp">
-  @if(flashMessages.has('errors.image'))
-  <p> {{ flashMessages.get('errors.image') }} </p>
-  @endif
+      <div>
+        @!atoms.appInput({
+        label: 'Facebook',
+        name: 'facebook',
+        type: 'url',
+        placeholder: 'Facebook de l\'association',
+        })
+        @if(flashMessages.has('errors.facebook'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.facebook') }} </p>
+        @endif
+      </div>
 
-  <label for="document">Document</label>
-  <input type=file id="document" name="document" accept="application/pdf">
-  @if(flashMessages.has('errors.document'))
-  <p> {{ flashMessages.get('errors.document') }} </p>
-  @endif
+      <div>
+        @!atoms.appInput({
+        label: 'Twitter',
+        name: 'twitter',
+        type: 'url',
+        placeholder: 'Twitter de l\'association',
+        })
+        @if(flashMessages.has('errors.twitter'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.twitter') }} </p>
+        @endif
+      </div>
 
-  <button type="submit">Créer</button>
+      <div>
+        @!atoms.appInput({
+        label: 'Instagram',
+        name: 'instagram',
+        type: 'url',
+        placeholder: 'Instagram de l\'association',
+        })
+        @if(flashMessages.has('errors.instagram'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.instagram') }} </p>
+        @endif
+      </div>
 
-</form>
+      <div>
+        @!atoms.appInput({
+        label: 'LinkedIn',
+        name: 'linkedin',
+        type: 'url',
+        placeholder: 'LinkedIn de l\'association',
+        })
+        @if(flashMessages.has('errors.linkedin'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.linkedin') }} </p>
+        @endif
+      </div>
+
+      <div>
+        @!atoms.appInput({
+        label: 'Website',
+        name: 'website',
+        type: 'url',
+        placeholder: 'Website de l\'association',
+        })
+        @if(flashMessages.has('errors.website'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.website') }} </p>
+        @endif
+      </div>
+
+      <div class="col-start-1">
+        @!atoms.appSelect({
+        label: 'Catégorie',
+        name: 'categoryId',
+        options: categories,
+        defaultLabel: 'Sans catégorie',
+        })
+        @if(flashMessages.has('errors.categoryId'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.categoryId') }} </p>
+        @endif
+      </div>
+
+      <div>
+        @!atoms.appSelect({
+        label: 'École',
+        name: 'schoolId',
+        options: schools,
+        defaultLabel: 'Sans école',
+        })
+        @if(flashMessages.has('errors.schoolId'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.schoolId') }} </p>
+        @endif
+      </div>
+
+      <div class="flex flex-col gap-1">
+        @!atoms.appLabel({
+        label: 'Image',
+        name: 'image',
+        })
+        <input
+          class="text-black file:px-[0.75rem] file:py-[0.375rem] file:bg-accent-purple file:bg-opacity-20 file:rounded-md file:border-0 hover:file:bg-opacity-40 focus:file:outline-none file:transition file:ease-in file:cursor-pointer"
+          type=file id="image" name="image" accept="image/png, image/jpg, image/jpeg, image/webp">
+        @if(flashMessages.has('errors.image'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.image') }} </p>
+        @endif
+      </div>
+
+      <div class="flex flex-col gap-1">
+        @!atoms.appLabel({
+        label: 'Document',
+        name: 'document',
+        })
+        <input
+          class="text-black file:px-[0.75rem] file:py-[0.375rem] file:bg-accent-purple file:bg-opacity-20 file:rounded-md file:border-0 hover:file:bg-opacity-40 focus:file:outline-none file:transition file:ease-in file:cursor-pointer"
+          type=file id="document" name="document" accept="application/pdf">
+        @if(flashMessages.has('errors.document'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.document') }} </p>
+        @endif
+      </div>
+
+      <div class="lg:col-span-2 flex flex-row justify-end">
+        @atoms.appButton()
+        @slot('main', scope)
+        <button class="{{ scope.className }} {{ scope.color }}" type="submit">Créer</button>
+        @endslot
+        @end
+      </div>
+
+    </form>
+
+  </div>
+</section>
+
+@endsection
