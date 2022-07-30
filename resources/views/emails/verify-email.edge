@@ -1,11 +1,64 @@
-<h1>
-  Salut,
-</h1>
+<mjml>
+  <mj-head>
+    <mj-title>Valide ta voix - Le Classement des Associations ✨</mj-title>
+  </mj-head>
+  <mj-body background-color="#ffffff">
+    <mj-section>
+      <mj-column>
 
-<p>
-  <a href="{{ env('host') }}:{{ env('port') }}{{ signedUrl }}">
-    Clique ici
-  </a>
-  pour vérifier ton adresse
-  électronique.
-</p>
+        <mj-image align="center" src="cid:mail_logo_classement" alt="Logo du Classement des Associations"
+          href="https://le-classement.fr" fluid-on-mobile="true" />
+
+        <mj-text padding-left="0" padding-top="48px" font-size="20px" color="#291B25"
+          font-family="Montserrat, sans-serif">Bonjour 👋,
+        </mj-text>
+
+        <mj-text padding-left="0" font-size="20px" color="#291B25" font-family="Montserrat, sans-serif">Pour valider ta
+          voix pour
+          l'association <strong>{{ associationName }}</strong>, il te suffit de cliquer sur le boutton ci-dessous. 👇
+        </mj-text>
+
+        <mj-text padding-left="0" font-size="20px" color="#291B25" font-family="Montserrat, sans-serif">Une fois ta voix
+          validée, tu ne
+          pourras plus changer !</mj-text>
+
+        <mj-button padding-top="48px" href="{{ env('host') }}:{{ env('port') }}{{ signedUrl }}"
+          background-color="#FF6944" color="#291B25" font-family="Montserrat, sans-serif" font-weight="700"
+          font-size="20px" border-radius="8px"> Valider ma voix </mj-button>
+
+        <mj-text padding-left="0" padding-top="48px" font-size="16px" color="#291B25"
+          font-family="Montserrat, sans-serif" font-style="oblique">
+          Ce mail t'est transmis par <a href="https://le-classement.fr"
+            style="text-decoration: none;">le-classement.fr</a>
+        </mj-text>
+
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding-top="16px">
+      <mj-column>
+        <mj-button background-color="#ffffff" border-radius="0" inner-padding="0" rel="noopener noreferrer"
+          href="https://www.linkedin.com/company/le-classement/">
+          <img src="cid:mail_linkedin" alt="Logo de LinkedIn" width="24px" />
+        </mj-button>
+      </mj-column>
+      <mj-column>
+        <mj-button padding-left="8px" background-color="#ffffff" border-radius="0" inner-padding="0"
+          rel="noopener noreferrer" href="https://www.facebook.com/le.classement">
+          <img src="cid:mail_facebook" alt="Logo de Facebook" width="24px" />
+        </mj-button>
+      </mj-column>
+      <mj-column>
+        <mj-button padding-left="8px" background-color="#ffffff" border-radius="0" inner-padding="0"
+          rel="noopener noreferrer" href="https://www.instagram.com/leclassement/">
+          <img src="cid:mail_instagram" alt="Logo d'Instagram" width="24px" />
+        </mj-button>
+      </mj-column>
+      <mj-column>
+        <mj-button padding-left="8px" background-color="#ffffff" border-radius="0" inner-padding="0"
+          rel="noopener noreferrer" href="https://twitter.com/Leclassement">
+          <img src="cid:mail_twitter" alt="Logo de Twitter" width="24px" />
+        </mj-button>
+      </mj-column>
+  </mj-body>
+</mjml>
