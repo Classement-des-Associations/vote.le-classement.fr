@@ -147,9 +147,17 @@
     </div>
 
     <div class="mt-8 -ml-3 lg:ml-0 lg:-mr-3 flex flex-row lg:justify-end gap-10">
+      @if(association.website)
+      <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
+        href="{{{ association.website }}}" target="_blank" rel="noopener noreferrer">
+        @!atoms.icons.globe({
+        className: 'lg:w-8 lg:h-8'
+        })
+      </a>
+      @endif
       @if(association.linkedin)
       <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
-        href="{{ association.linkedin }}" target="_blank" rel="noopener noreferrer">
+        href="{{{ association.linkedin }}}" target="_blank" rel="noopener noreferrer">
         @!atoms.icons.linkedin({
         className: 'lg:w-8 lg:h-8'
         })
@@ -157,7 +165,7 @@
       @endif
       @if(association.facebook)
       <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
-        href="{{ association.facebook }}" target="_blank" rel="noopener noreferrer">
+        href="{{{ association.facebook }}}" target="_blank" rel="noopener noreferrer">
         @!atoms.icons.facebook({
         className: 'lg:w-8 lg'
         })
@@ -165,7 +173,7 @@
       @endif
       @if(association.instagram)
       <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
-        href="{{ association.instagram }}" target="_blank" rel="noopener noreferrer">
+        href="{{{ association.instagram }}}" target="_blank" rel="noopener noreferrer">
         @!atoms.icons.instagram({
         className: 'lg:w-8 lg'
         })
@@ -173,7 +181,7 @@
       @endif
       @if(association.twitter)
       <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
-        href="{{ association.twitter }}" target="_blank" rel="noopener noreferrer">
+        href="{{{ association.twitter }}}" target="_blank" rel="noopener noreferrer">
         @!atoms.icons.twitter({
         className: 'lg:w-8 lg'
         })
