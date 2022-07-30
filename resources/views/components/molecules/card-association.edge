@@ -1,21 +1,25 @@
-<article class="h-full bg-ultra-light-grey rounded-2xl p-4 flex flex-col gap-4 text-black">
-  <div class="flex flex-col gap-3">
+<article
+  class="hover:shadow-lg h-full bg-ultra-light-grey rounded-2xl p-4 flex flex-col gap-4 text-black transition ease-in duration-200">
+  <div class="flex-grow flex flex-col gap-3">
     @if(association.image)
-    <figure>
-      <img alt="Image de l'association {{ association.name }}" src="{{ association.image.url }}" />
+    <figure class="w-full rounded-lg overflow-hidden">
+      <img class="w-ful h-auto" width="512" height="512" alt="Image de l'association {{ association.name }}"
+        src="{{ association.image.url }}" />
     </figure>
     @endif
-    <div class="flex flex-row justify-between">
-      <div>
-        @if(association.category)
-        @!atoms.appTag({
-        name: association.category.name,
-        })
-        @endif
+    <div class="flex-grow flex flex-col justify-end">
+      <div class="flex flex-row justify-between items-center">
+        <div>
+          @if(association.category)
+          @!atoms.appTag({
+          name: association.category.name,
+          })
+          @endif
+        </div>
+        <p>
+          {{ association.$extras.votes_count ?? 0 }} voix
+        </p>
       </div>
-      <p>
-        {{ association.$extras.votes_count ?? 0 }} voix
-      </p>
     </div>
   </div>
   <div class="flex flex-col gap-1">
@@ -29,7 +33,7 @@
     @endif
   </div>
   @if(association.description)
-  <p class="text-sm flex-grow">
+  <p class="text-sm">
     {{ truncate(association.description, 200) }}
   </p>
   @endif
