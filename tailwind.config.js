@@ -23,6 +23,6 @@ module.exports = {
         montserrat: ['Montserrat', ...defaultTheme.fontFamily.sans],
       },
     },
-    plugins: [],
   },
+  plugins: [require('@tailwindcss/forms')],
 }
