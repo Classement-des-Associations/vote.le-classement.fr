@@ -18,18 +18,44 @@
           <p class="mt-1 lg:text-4xl"> {{ association.school.name }}</p>
           @endif
         </div>
-        <div class="w-full lg:w-auto flex flex-col lg:flex-row items-start">
+        <div x-data="dropdown" class="w-full lg:w-auto flex flex-col lg:flex-row items-start">
           @if(auth.isLoggedIn)
-          @atoms.appButton({
-          outline: true,
-          })
-          @slot('main', scope)
-          <a href="{{ route('AssociationsController.edit', { id: association.slug }) }}"
-            class="mb-4 lg:mb-0 lg:mr-4 {{ scope.className }} {{ scope.color }}">
-            Éditer
-          </a>
-          @endslot
-          @end
+          <div x-on:keydown.escape.prevent.stop="close($refs.button)"
+            x-on:focusin.window="! $refs.panel.contains($event.target) && close()" x-id="['dropdown-button']"
+            class="relative mb-4 lg:mb-0 lg:mr-4">
+            @atoms.appButton({
+            outline: true
+            })
+            @slot('main', scope)
+            <button x-ref="button" x-on:click="toggle()" :aria-expanded="open" :aria-controls="$id('dropdown-button')"
+              type="button"
+              class="flex flex-row gap-4 justify-center items-center {{ scope.className }} {{ scope.color }}">
+              <span> Éditer </span>
+              <span :class="{ 'rotate-180': open }">
+                @!atoms.icons.play({
+                className: 'w-3 h-3',
+                })
+              </span>
+            </button>
+            @endslot
+            @end
+            <div x-ref="panel" x-show="open" x-transition.origin.top.left x-on:click.outside="close($refs.button)"
+              :id="$id('dropdown-button')" style="display: none;"
+              class="absolute left-0 mt-2 py-2 px-3 overflow-hidden rounded-[0.625rem] bg-white shadow-lg flex flex-col gap-3">
+              <a href="{{ route('AssociationsController.edit', { id: association.slug }) }}"
+                class="whitespace-nowrap text-black hover:text-primary-variation-1 hover:scale-105 transition ease-in">
+                Éditer l'association
+              </a>
+              <a href="{{ route('AssociationsController.editImage', { id: association.slug }) }}"
+                class="whitespace-nowrap text-black hover:text-primary-variation-1 hover:scale-105 transition ease-in">
+                Éditer l'image
+              </a>
+              <a href="{{ route('AssociationsController.editDocument', { id: association.slug }) }}"
+                class="whitespace-nowrap text-black hover:text-primary-variation-1 hover:scale-105 transition ease-in">
+                Éditer le document
+              </a>
+            </div>
+          </div>
           @endif
           <div x-data="{ open: {{ flashMessages.has('errors') ? true : false }} }"
             class="w-full lg:w-auto flex flex-col gap-1">
