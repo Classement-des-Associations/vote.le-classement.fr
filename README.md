@@ -13,6 +13,12 @@ This project is a voting platform for ["Le Classement des Associations"](https:/
 
 All the participating associations are present with the different reports they could provide us. Anyone can come and vote with an email address and the two associations with the most votes go directly to the final.
 
+## Tech Stack
+
+**Client:** TailwindCSS, Alpine.js
+
+**Server:** AdonisJS
+
 ## Run Locally
 
 Clone the project
@@ -57,7 +63,7 @@ To deploy this project run
 
   cd build
   npm ci --production
-  # Start
+  # Start server
   node server.js
 ```
 
