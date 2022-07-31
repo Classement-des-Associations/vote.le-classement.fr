@@ -53,4 +53,5 @@ Route.group(() => {
   Route.patch('associations/:id/document', 'AssociationsController.updateDocument')
   Route.resource('categories', 'CategoriesController')
   Route.resource('schools', 'SchoolsController')
+  Route.get('votes', 'VotesController.index')
 }).middleware('auth')

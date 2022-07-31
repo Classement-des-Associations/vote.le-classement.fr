@@ -1,0 +1,12 @@
+<ul>
+  @each(vote in votes)
+  <li>
+    {{ vote.email }}
+    @if(vote.association)
+    &nbsp;pour {{ vote.association.name }}
+    @endif
+    {{ vote.createdAt.setLocale('fr')
+    .toFormat('à HH:mm le dd LLLL yyyy') }}
+  </li>
+  @endeach
+</ul>
