@@ -1,7 +1,7 @@
 @layout('layouts/main')
 @set('title', association.name)
 
-@section('body')
+@section('main')
 <section class="mt-6 mb-14 px-4">
   <div class="max-w-screen-xl mx-auto">
     <header class="grid grid-cols-1 gap-3 lg:gap-5 justify-items-start place-items-start">
@@ -43,15 +43,18 @@
               :id="$id('dropdown-button')" style="display: none;"
               class="absolute left-0 mt-2 py-2 px-3 overflow-hidden rounded-[0.625rem] bg-white shadow-lg flex flex-col gap-3">
               <a href="{{ route('AssociationsController.edit', { id: association.slug }) }}"
-                class="whitespace-nowrap text-black hover:text-primary-variation-1 hover:scale-105 transition ease-in">
+                class="whitespace-nowrap text-black hover:text-primary-variation-1 hover:scale-105 transition ease-in"
+                up-target="[layout-main]">
                 Éditer l'association
               </a>
               <a href="{{ route('AssociationsController.editImage', { id: association.slug }) }}"
-                class="whitespace-nowrap text-black hover:text-primary-variation-1 hover:scale-105 transition ease-in">
+                class="whitespace-nowrap text-black hover:text-primary-variation-1 hover:scale-105 transition ease-in"
+                up-target="[layout-main]">
                 Éditer l'image
               </a>
               <a href="{{ route('AssociationsController.editDocument', { id: association.slug }) }}"
-                class="whitespace-nowrap text-black hover:text-primary-variation-1 hover:scale-105 transition ease-in">
+                class="whitespace-nowrap text-black hover:text-primary-variation-1 hover:scale-105 transition ease-in"
+                up-target="[layout-main]">
                 Éditer le document
               </a>
             </div>

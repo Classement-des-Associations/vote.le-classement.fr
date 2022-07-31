@@ -2,17 +2,17 @@
   <div class="max-w-screen-xl mx-auto flex flex-row justify-between items-center">
     <div class="flex flex-row items-center">
       <a class="block text-black hover:text-primary-variation-1 transition ease-in duration-200"
-        href="{{ route('home') }}">
+        href="{{ route('home') }}" up-target="[layout-main]">
         <span class="sr-only">Retour à la première page</span>
         @!atoms.logos.classementShort({
         className: "h-[3.125rem]"
         })
       </a>
-      <nav class="hidden lg:flex ml-8" aria-labelledby="primary navigation">
+      <nav class="hidden lg:flex ml-8" aria-labelledby="primary navigation" up-nav>
         <ul class="flex flex-row">
           @if(auth.isLoggedIn)
           <li>
-            <a href="{{ route('CategoriesController.index') }}"
+            <a href="{{ route('CategoriesController.index') }}" up-target="[layout-main]"
               class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
               Catégories
             </a>
@@ -20,7 +20,7 @@
           @endif
           @if(auth.isLoggedIn)
           <li>
-            <a href="{{ route('SchoolsController.index') }}"
+            <a href="{{ route('SchoolsController.index') }}" up-target="[layout-main]"
               class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
               Écoles
             </a>
@@ -63,18 +63,20 @@
                 })
               </button>
             </div>
-            <nav class="mt-14" aria-labelledby="Mobile navigation">
+            <nav class="mt-14" aria-labelledby="Mobile navigation" up-nav>
               <ul class="flex flex-col space-y-10">
                 @if(auth.isLoggedIn)
                 <li>
-                  <a href="{{ route('CategoriesController.index') }}" class="text-white text-lg font-semibold">
+                  <a href="{{ route('CategoriesController.index') }}" class="text-white text-lg font-semibold"
+                    up-target="[layout-main]">
                     Catégories
                   </a>
                 </li>
                 @endif
                 @if(auth.isLoggedIn)
                 <li>
-                  <a href="{{ route('SchoolsController.index') }}" class="text-white text-lg font-semibold">
+                  <a href="{{ route('SchoolsController.index') }}" class="text-white text-lg font-semibold"
+                    up-target="[layout-main]">
                     Écoles
                   </a>
                 </li>
@@ -98,7 +100,7 @@
     @atoms.appButton({ outline: true })
     @slot('main', scope)
     <a class="hidden lg:block {{ scope.className }} {{ scope.color }}"
-      href="{{ route('AssociationsController.index') }}">
+      href="{{ route('AssociationsController.index') }}#list" up-target="[layout-main]" up-scoll="#list">
       Découvrir les associations
     </a>
     @endslot

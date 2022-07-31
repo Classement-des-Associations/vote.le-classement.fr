@@ -1,7 +1,7 @@
 @layout('layouts/main')
 @set('title', title)
 
-@section('body')
+@section('main')
 <section class="mt-6 mb-14 lg:mb-[4.5rem] px-4">
 
   <div class="max-w-screen-sm mx-auto">
@@ -44,7 +44,8 @@
     </ul>
 
     <div class="mt-[4.5rem] flex flex-row justify-center">
-      <a class="text-accent-purple hover:underline" href="{{ route('AssociationsController.index') }}#liste">
+      <a class="text-accent-purple hover:underline" href="{{ route('AssociationsController.index') }}#list"
+        up-target="[layout-main]" up-scroll="#list">
         Revenir aux associations
       </a>
     </div>

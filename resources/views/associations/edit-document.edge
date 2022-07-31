@@ -1,5 +1,6 @@
-<form action="{{ route('AssociationsController.updateDocument', { id: association.slug }) }}?_method=PATCH"
-  method="POST" enctype="multipart/form-data">
+<form up-target="[layout-main]"
+  action="{{ route('AssociationsController.updateDocument', { id: association.slug }) }}?_method=PATCH" method="POST"
+  enctype="multipart/form-data">
   {{ csrfField() }}
 
   <label for="document">Document</label>

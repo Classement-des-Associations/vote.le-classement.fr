@@ -1,5 +1,7 @@
+import 'unpoly/unpoly.css'
 import '../css/app.css'
 
+import 'unpoly'
 import Alpine from 'alpinejs'
 import focus from '@alpinejs/focus'
 

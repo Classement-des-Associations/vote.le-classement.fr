@@ -1,14 +1,15 @@
 @layout('layouts/main')
 @set('title', 'Les Écoles')
 
-@section('body')
+@section('main')
 
 <section class="mt-6 mb-14 lg:mb-[4.5rem]  px-4">
 
   <div class="max-w-screen-lg mx-auto">
     <div class="flex flex-row justify-between items-end">
       <div class="flex flex-col gap-1">
-        <a href="{{ route('SchoolsController.index') }}" class="text-primary-base mb-1">Écoles</a>
+        <a href="{{ route('SchoolsController.index') }}" class="text-primary-base mb-1"
+          up-target="[layout-main]">Écoles</a>
 
         @atoms.appTitle()
         Les écoles
@@ -17,7 +18,8 @@
 
       @atoms.appButton()
       @slot('main', scope)
-      <a class="{{ scope.className }} {{ scope.color }}" href="{{ route('SchoolsController.create') }}">
+      <a class="{{ scope.className }} {{ scope.color }}" href="{{ route('SchoolsController.create') }}"
+        up-target="[layout-main]">
         Créer
       </a>
       @endslot
@@ -27,12 +29,12 @@
     <ul class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
       @each(school in schools)
       <li class="rounded-lg bg-ultra-light-grey p-4 flex flex-row justify-between items-center">
-        <a href="{{ route('SchoolsController.show', { id: school.slug }) }}">
+        <a href="{{ route('SchoolsController.show', { id: school.slug }) }}" up-target="[layout-main]">
           {{ school.name }}
         </a>
         <div class="flex flex-row gap-6">
-          <form action="{{ route('SchoolsController.destroy', { id: school.slug }) }}?_method=DELETE" method="POST"
-            x-data="{
+          <form up-target="[layout-main]"
+            action="{{ route('SchoolsController.destroy', { id: school.slug }) }}?_method=DELETE" method="POST" x-data="{
               validate: () => {
                 const toDelete = confirm('Êtes-vous sûr de vouloir supprimer cette école ?');
 
@@ -47,7 +49,7 @@
               @!atoms.icons.trash({ className: 'text-black' })
             </button>
           </form>
-          <a href="{{ route('SchoolsController.edit', { id: school.slug }) }}">
+          <a href="{{ route('SchoolsController.edit', { id: school.slug }) }}" up-target="[layout-main]">
             <span class="sr-only">Éditer</span>
             @!atoms.icons.pen({ className: 'text-accent-blue' })
           </a>

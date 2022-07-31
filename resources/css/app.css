@@ -6,6 +6,14 @@ html {
   scroll-behavior: smooth;
 }
 
+.up-current {
+  @apply font-semibold text-primary-variation-1;
+}
+
+up-progress-bar {
+  @apply bg-primary-variation-1;
+}
+
 [x-cloak] {
   display: none !important;
 }

@@ -1,6 +1,6 @@
 {{-- <div x-data="{ open: {{ flashMessages.has('errors') ? true : false }} }"
   class="w-full lg:w-auto flex flex-col gap-1"> --}}
-  <div x-data="{ open: true }" class="w-full lg:w-auto flex flex-col gap-1">
+  <div x-data="{ open: true }" class="w-full lg:w-auto flex flex-col gap-1" modal-vote>
     @atoms.appButton()
     @slot('main', scope)
     <button x-on:click="open = true"
@@ -34,12 +34,12 @@
             </button>
           </div>
 
-          <form class="mt-10" action="{{ route('AssociationsController.sendEmailVote', { id: association.slug }) }}"
-            method="POST">
+          <form up-target="[modal-vote]" class="mt-10"
+            action="{{ route('AssociationsController.sendEmailVote', { id: association.slug }) }}" method="POST">
             {{ csrfField() }}
 
             <input value="{{ flashMessages.get('email') ?? '' }}" type="email" name="email" placeholder="Adresse mail"
-              class="w-full border-0 bg-white px-4 py-6 placeholder:text-slate-400 text-black focus:outline-none focus:ring-2 focus:ring-primary-base transition ease-in">
+              class="w-full border-0 bg-white px-4 py-6 placeholder:text-slate-400 text-black selection:bg-primary-base focus:outline-none focus:ring-2 focus:ring-primary-base transition ease-in">
             @if(flashMessages.has('errors.email'))
             <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.email') }} </p>
             @end
