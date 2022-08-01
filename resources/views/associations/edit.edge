@@ -1,4 +1,4 @@
-@layout('layouts/main')
+@layout('layouts/admin')
 @set('title', 'Éditer ' + association.name)
 
 @section('body')
@@ -38,15 +38,13 @@
 
 
       <div class="lg:col-span-2">
-        @!atoms.appTextarea({
-        label: 'Description',
-        name: 'description',
-        placeholder: 'Description de l\'association',
-        content: association.description,
-        })
-        @if(flashMessages.has('errors.description'))
-        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.description') }} </p>
-        @endif
+        <div x-data="{ value: '{{ association.description }}' }" x-init="$refs.trix.editor.loadHTML(value)"
+          x-id="['trix']" class="mx-auto max-w-2xl" @trix-change="value = $refs.input.value" @trix-file-accept.prevent>
+          <input :id="$id('trix')" name="description" type="hidden" x-ref="input">
+
+          <!-- Optional .prose class added to utilize Tailwind's Typography Plugin for styling -->
+          <trix-editor x-ref="trix" :input="$id('trix')" class="prose bg-white"></trix-editor>
+        </div>
       </div>
 
       <div>

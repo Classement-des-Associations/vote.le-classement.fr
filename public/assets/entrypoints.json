@@ -7,6 +7,14 @@
       "js": [
         "http://localhost:8080/assets/app.js"
       ]
+    },
+    "editor": {
+      "css": [
+        "http://localhost:8080/assets/editor.css"
+      ],
+      "js": [
+        "http://localhost:8080/assets/editor.js"
+      ]
     }
   }
 }

@@ -63,11 +63,11 @@
         </div>
       </div>
 
-      @if(association.description)
-      <p class="row-start-3 text-black text-base lg:text-xl">
-        {{ association.description }}
-      </p>
-      @endif
+      <div class="row-start-3 text-black text-base lg:text-xl">
+        @if(association.description)
+        {{{ association.description }}}
+        @endif
+      </div>
     </header>
 
     <div class="mt-8 relative">
