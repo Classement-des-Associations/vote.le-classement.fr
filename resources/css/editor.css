@@ -1,0 +1,15 @@
+trix-toolbar .trix-button-group {
+  @apply border-light-grey;
+}
+
+trix-toolbar .trix-button {
+  @apply border-b-0;
+}
+
+trix-toolbar .trix-button--icon-bold::before {
+  @apply fill-red-500;
+}
+
+trix-toolbar .trix-button:not(:first-child) {
+  @apply border-l-light-grey;
+}
