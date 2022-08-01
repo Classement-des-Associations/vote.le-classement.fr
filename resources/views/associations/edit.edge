@@ -38,14 +38,14 @@
 
 
       <div class="lg:col-span-2">
-        <div x-data="{ value: {{ stringify(association.description) }} }" x-init="$refs.trix.editor.loadHTML(value)"
-          x-id="['trix']" @trix-change="value = $refs.input.value" @trix-file-accept.prevent>
-          <input :id="$id('trix')" name="description" type="hidden" x-ref="input">
-
-          <trix-editor x-ref="trix" :input="$id('trix')"
-            class="prose max-w-none form-textarea rounded-lg bg-white focus:ring-0 border-2 border-accent-purple hover:border-primary-variation-1 focus:border-primary-variation-1 transition ease-in">
-          </trix-editor>
-        </div>
+        @!atoms.appTextarea({
+        label: 'Description',
+        name: 'description',
+        value: association.description,
+        })
+        @if(flashMessages.has('errors.description'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.description') }} </p>
+        @endif
       </div>
 
       <div>

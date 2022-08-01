@@ -1,4 +1,4 @@
-@set('selected', '')
+@set('selected', flashMessages.get(name) || selected || 'all')
 <div class="flex flex-col gap-1">
   @!atoms.appLabel({
   label,
