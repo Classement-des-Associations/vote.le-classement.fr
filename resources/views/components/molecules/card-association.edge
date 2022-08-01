@@ -36,11 +36,19 @@
   </a>
   @if(association.description)
   <div class="text-sm" x-data="{ expanded: false }">
-    <button x-on:click="expanded = !expanded">
-      <span x-text="expanded ? 'Voir moins' : 'Voir plus'"></span>
-    </button>
     <div x-show="expanded" x-collapse.min.40px>
       {{{ association.description }}}
+    </div>
+    <div class="mt-2 flex flex-row justify-between">
+      <button class="py-1 rounded-md text-accent-purple hover:text-primary-variation-1 transition ease-in"
+        x-on:click="expanded = !expanded">
+        <span x-text="expanded ? 'Voir moins' : 'Voir le texte'"></span>
+      </button>
+      <a href="{{ route('AssociationsController.show', { id: association.slug }) }}"
+        class="px-3 py-1 bg-white text-accent-purple hover:text-primary-variation-1 rounded-md transition ease-in"
+        x-on:click="expanded = !expanded">
+        En savoir plus
+      </a>
     </div>
   </div>
   @endif
