@@ -1,4 +1,4 @@
-@layout('layouts/main')
+@layout('layouts/admin')
 @set('title', 'Créer une association')
 
 @section('body')
@@ -39,8 +39,6 @@
         @!atoms.appTextarea({
         label: 'Description',
         name: 'description',
-        placeholder: 'Description de l\'association',
-        content: ''
         })
         @if(flashMessages.has('errors.description'))
         <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.description') }} </p>

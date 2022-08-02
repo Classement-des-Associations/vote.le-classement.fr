@@ -93,9 +93,7 @@
         @if(associations.length > 0)
         @each(association in associations)
         <li>
-          <a href="{{ route('AssociationsController.show', { id: association.slug }) }}">
-            @!molecules.cardAssociation({ association })
-          </a>
+          @!molecules.cardAssociation({ association })
         </li>
         @endeach
         @else
