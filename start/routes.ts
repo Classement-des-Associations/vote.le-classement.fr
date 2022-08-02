@@ -24,18 +24,6 @@ Route.get('/', async ({ response }) => {
   return response.redirect().toRoute('AssociationsController.index')
 }).as('home')
 
-Route.get('/vote-accepted', () => {
-  return 'Votre vote a été pris en compte'
-}).as('vote-accepted')
-
-Route.get('/vote-refused', () => {
-  return "Votre vote n'a pas été pris en compte"
-}).as('vote-refused')
-
-Route.get('/vote-already-done', () => {
-  return 'Vous avez déjà voté'
-}).as('vote-already-done')
-
 Route.resource('associations', 'AssociationsController').middleware({
   create: ['auth'],
   store: ['auth'],
