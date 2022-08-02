@@ -17,6 +17,6 @@ html {
 @font-face {
   font-family: 'Montserrat';
   font-weight: 300 900;
-  src: url('../../public/fonts/Montserrat-VariableFont_wght.ttf') format('ttf-variations');
+  src: url('../../public/fonts/Montserrat-VariableFont_wght.ttf');
   font-display: swap;
 }
