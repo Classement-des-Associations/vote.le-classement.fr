@@ -1,4 +1,4 @@
-@set('value', stringify(flashMessages.get(name)) || stringify(value) || '')
+@set('value', stringify(flashMessages.get(name) || value || ''))
 
 <div class="flex flex-col gap-1">
   @!atoms.appLabel({
