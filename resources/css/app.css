@@ -12,42 +12,7 @@ html {
 
 @font-face {
   font-family: 'Montserrat';
-  font-weight: 300;
-  src: url('../../public/fonts/Montserrat-VariableFont_wght.ttf');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  font-weight: 400;
-  src: url('../../public/fonts/Montserrat-VariableFont_wght.ttf');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  font-weight: 500;
-  src: url('../../public/fonts/Montserrat-VariableFont_wght.ttf');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  font-weight: 600;
-  src: url('../../public/fonts/Montserrat-VariableFont_wght.ttf');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  font-weight: 700;
-  src: url('../../public/fonts/Montserrat-VariableFont_wght.ttf');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  font-weight: 800;
-  src: url('../../public/fonts/Montserrat-VariableFont_wght.ttf');
+  font-weight: 300 900;
+  src: url('../../public/fonts/Montserrat-VariableFont_wght.ttf') format('ttf-variations');
   font-display: swap;
 }
