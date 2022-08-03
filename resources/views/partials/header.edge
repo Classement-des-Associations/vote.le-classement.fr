@@ -28,7 +28,7 @@
           @endif
           @if(auth.isLoggedIn)
           <li>
-            <a href="{{ route('VotesController.index') }}"
+            <a href="{{ route('VotesController.index') }}" up-target="[layout-main]"
               class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
               Votes
             </a>
@@ -91,7 +91,8 @@
                 @endif
                 @if(auth.isLoggedIn)
                 <li>
-                  <a href="{{ route('VotesController.index') }}" class="text-white text-lg font-semibold">
+                  <a href="{{ route('VotesController.index') }}" class="text-white text-lg font-semibold"
+                    up-target="[layout-main]">
                     Votes
                   </a>
                 </li>

@@ -7,7 +7,8 @@
   <div class="max-w-screen-lg mx-auto">
     <div class="flex flex-row justify-between items-end">
       <div class="flex flex-col gap-1">
-        <a href="{{ route('VotesController.index') }}" class="text-primary-base mb-1">Votes</a>
+        <a href="{{ route('VotesController.index') }}" class="text-primary-base mb-1"
+          up-target="[layout-main]">Votes</a>
 
         @atoms.appTitle()
         Les Votes - {{ total }}
@@ -24,7 +25,7 @@
           </span>
           @if(vote.association)
           pour <a href="{{ route('AssociationsController.show', { id: vote.association.slug }) }}"
-            class="hover:text-primary-variation-1 transition ease-in">
+            class="hover:text-primary-variation-1 transition ease-in" up-target="[layout-main]">
             {{ vote.association.name }}
           </a>
           @endif
