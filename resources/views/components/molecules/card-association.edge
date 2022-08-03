@@ -4,9 +4,9 @@
     up-target="[layout-main]">
     <div class="flex-grow flex flex-col gap-3">
       @if(association.image)
-      <figure class="w-full rounded-lg overflow-hidden">
-        <img class="w-ful h-auto aspect-w-square aspect-h-square object-contain" width="512" height="512"
-          alt="Image de l'association {{ association.name }}" src="{{ association.image.url }}" loading="lazy" />
+      <figure class="w-full rounded-lg overflow-hidden aspect-w-square aspect-h-square">
+        <img class="w-full object-contain" width="512" height="512" alt="Image de l'association {{ association.name }}"
+          src="{{ association.image.url }}" loading="lazy" />
       </figure>
       @endif
       <div class="flex-grow flex flex-col justify-end">
