@@ -15,7 +15,7 @@ All the participating associations are present with the different reports they c
 
 ## Tech Stack
 
-**Client:** TailwindCSS, Alpine.js
+**Client:** TailwindCSS, Alpine.js, Unpoly.js
 
 **Server:** AdonisJS
 

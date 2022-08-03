@@ -1,7 +1,7 @@
 @layout('layouts/main')
 @set('title', 'Les Associations')
 
-@section('body')
+@section('main')
 
 <section class="relative px-4 pt-12 pb-20 lg:py-40">
   <span class="hidden md:block absolute top-6 right-10">
@@ -24,7 +24,7 @@
     <div class="mt-14 flex flex-col lg:flex-row justify-center items-center gap-4 lg:gap-6">
       @atoms.appButton()
       @slot('main', scope)
-      <a class="{{ scope.className }} {{ scope.color }}">
+      <a class="{{ scope.className }} {{ scope.color }}" href="#list">
         Découvrir les associations
       </a>
       @endslot
@@ -40,6 +40,7 @@
   </div>
 </section>
 
+@if(up.targetIncludes('[layout-main]'))
 <section class="px-4 py-14 lg:py-[7.5rem] bg-primary-base text-white">
   <div class="max-w-screen-xl mx-auto grid grid-cols-1 gap-10 lg:grid-cols-3 justify-items-center">
     <div class="p-4 max-w-[16rem]">
@@ -66,15 +67,17 @@
     </div>
   </div>
 </section>
+@endif
 
-<section class="px-4 py-14 lg:pb-[4.5rem]" id="liste">
+<section class="px-4 py-14 lg:pb-[4.5rem]" id="list" layout-grid>
   <div class="max-w-screen-xl mx-auto">
     <div class="flex flex-row justify-between items-start">
       <h2 class="text-[1.75rem] lg:text-[2.5rem] text-black font-bold"> Les associations </h2>
       @if(auth.isLoggedIn)
       @atoms.appButton()
       @slot('main', scope)
-      <a href="{{ route('AssociationsController.create') }}" class="{{ scope.className }} {{ scope.color }}">
+      <a href="{{ route('AssociationsController.create') }}" class="{{ scope.className }} {{ scope.color }}"
+        up-target="[layout-main]">
         Créer
       </a>
       @endslot
@@ -83,13 +86,16 @@
     </div>
     <div class="mt-6 lg:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4 place-items-start">
       <div class="lg:sticky top-4 w-full">
+        @if(up.targetIncludes('[layout-main]'))
         @!molecules.filterAssociations({
         categories,
         schools
         })
+        @endif
       </div>
 
-      <ul class="lg:col-span-2 w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <ul class="lg:col-span-2 w-full grid grid-cols-1 sm:grid-cols-2 gap-4" grid id="#grid">
+        @if(up.targetIncludes('[grid]'))
         @if(associations.length > 0)
         @each(association in associations)
         <li>
@@ -103,10 +109,11 @@
           </p>
 
           <a class="block mt-8 text-black hover:text-primary-base transition ease-in"
-            href="{{ route('AssociationsController.index') }}#liste">
+            href="{{ route('AssociationsController.index') }}#list" up-target="[layout-grid]">
             Réinitialiser les filtres ?
           </a>
         </li>
+        @endif
         @endif
       </ul>
     </div>

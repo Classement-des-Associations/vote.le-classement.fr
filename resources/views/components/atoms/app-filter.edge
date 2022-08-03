@@ -1,4 +1,5 @@
-<form class="rounded-2xl bg-ultra-light-grey p-4 flex flex-col gap-12" action="{{ action }}" method="GET"
+<form up-submit up-target="[grid]" up-fail-target="form" up-history="true"
+  class="rounded-2xl bg-ultra-light-grey p-4 flex flex-col gap-12" action="{{ action }}" method="GET"
   x-data="{ open: false }">
 
   <div class="lg:flex flex-col gap-8" :class="{ 'hidden': !open, 'flex': open }" x-cloak>
@@ -6,12 +7,12 @@
   </div>
 
   <div class="lg:flex flex-row justify-between items-center" :class="{ 'hidden': !open, 'flex': open }" x-cloak>
-    <a class="text-accent-purple text-sm leading-4 font-semibold" href="{{ action }}">
+    <a class="text-accent-purple text-sm leading-4 font-semibold" href="{{ action }}" up-target="[layout-grid]">
       Réinitialiser
     </a>
     @atoms.appButton({ accentPurple: true })
     @slot('main', scope)
-    <button type="submit" x-on:click="open = false" class="{{ scope.className }} {{ scope.color }}">
+    <button type="submit" class="{{ scope.className }} {{ scope.color }}">
       Filtrer les associations
     </button>
     @endslot

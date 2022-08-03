@@ -1,6 +1,7 @@
 <article
   class="hover:shadow-lg bg-ultra-light-grey rounded-2xl p-4 flex flex-col gap-4 text-black transition ease-in duration-200">
-  <a class="flex flex-col gap-4" href="{{ route('AssociationsController.show', { id: association.slug }) }}">
+  <a class="flex flex-col gap-4" href="{{ route('AssociationsController.show', { id: association.slug }) }}"
+    up-target="[layout-main]">
     <div class="flex-grow flex flex-col gap-3">
       @if(association.image)
       <figure class="w-full rounded-lg overflow-hidden">
@@ -46,7 +47,7 @@
       </button>
       <a href="{{ route('AssociationsController.show', { id: association.slug }) }}"
         class="px-3 py-1 bg-white text-accent-purple hover:text-primary-variation-1 rounded-md transition ease-in"
-        x-on:click="expanded = !expanded">
+        up-target="[layout-main]">
         En savoir plus
       </a>
     </div>

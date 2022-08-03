@@ -1,14 +1,15 @@
 @layout('layouts/main')
 @set('title', 'Créer une catégorie')
 
-@section('body')
+@section('main')
 
 <section class="mt-6 mb-14 lg:mb-[4.5rem] px-4">
 
   <div class="max-w-screen-lg mx-auto">
     <div class="flex flex-row justify-between items-start">
       <div class="flex flex-col gap-1">
-        <a href="{{ route('CategoriesController.index') }}" class="text-primary-base mb-1">Catégories</a>
+        <a href="{{ route('CategoriesController.index') }}" class="text-primary-base mb-1"
+          up-target="[layout-main]">Catégories</a>
 
         @atoms.appTitle()
         Créer
@@ -16,7 +17,8 @@
       </div>
     </div>
 
-    <form class="mt-6" action="{{ route('CategoriesController.store') }}" method="POST">
+    <form up-submit up-target="[layout-main]" class="mt-6" action="{{ route('CategoriesController.store') }}"
+      method="POST">
       {{ csrfField() }}
 
       @!atoms.appInput({
