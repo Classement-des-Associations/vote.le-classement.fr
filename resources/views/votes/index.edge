@@ -1,0 +1,61 @@
+@layout('layouts/main')
+@set('title', 'Votes')
+
+@section('body')
+<section class="mt-6 mb-14 lg:mb-[4.5rem]  px-4">
+
+  <div class="max-w-screen-lg mx-auto">
+    <div class="flex flex-row justify-between items-end">
+      <div class="flex flex-col gap-1">
+        <a href="{{ route('VotesController.index') }}" class="text-primary-base mb-1">Votes</a>
+
+        @atoms.appTitle()
+        Les Votes - {{ total }}
+        @end
+      </div>
+    </div>
+
+    <ul class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
+      @each(vote in votes)
+      <li class="rounded-lg bg-ultra-light-grey p-4 flex flex-col">
+        <div>
+          <span class="font-semibold">
+            {{ vote.email }}
+          </span>
+          @if(vote.association)
+          pour <a href="{{ route('AssociationsController.show', { id: vote.association.slug }) }}"
+            class="hover:text-primary-variation-1 transition ease-in">
+            {{ vote.association.name }}
+          </a>
+          @endif
+        </div>
+        <div class="text-sm">
+          {{ vote.createdAt.setLocale('fr')
+          .toFormat('HH:mm - dd LLLL yyyy') }}
+        </div>
+        <table class="mt-2">
+          <tr>
+            <td>
+              <label for="classement"> Actualité du Classement </label>
+            </td>
+            <td>
+              <input id="classement" type="checkbox" name="vote" {{ vote.acceptClassement ? 'checked' : '' }} disabled
+                class="border-0 border-transparent rounded w-4 h-4 disabled:checked:bg-primary-base disabled:bg-light-grey" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label for="activities"> Actualité des associations</label>
+            </td>
+            <td>
+              <input id="activities" type="checkbox" name="vote" {{ vote.acceptActivities ? 'checked' : '' }} disabled
+                class="border-0 border-transparent rounded w-4 h-4 disabled:checked:bg-primary-base disabled:bg-light-grey" />
+            </td>
+          </tr>
+        </table>
+      </li>
+      @endeach
+    </ul>
+  </div>
+</section>
+@endsection

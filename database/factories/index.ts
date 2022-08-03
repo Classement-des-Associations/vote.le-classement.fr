@@ -1,10 +1,11 @@
 import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite'
 import Drive from '@ioc:Adonis/Core/Drive'
+import { file } from '@ioc:Adonis/Core/Helpers'
 import Factory from '@ioc:Adonis/Lucid/Factory'
 import Association from 'App/Models/Association'
 import Category from 'App/Models/Category'
 import School from 'App/Models/School'
-import { file } from '@ioc:Adonis/Core/Helpers'
+import Vote from 'App/Models/Vote'
 
 export const CategoryFactory = Factory.define(Category, ({ faker }) => ({
   name: faker.lorem.words(),
@@ -13,6 +14,14 @@ export const CategoryFactory = Factory.define(Category, ({ faker }) => ({
 export const SchoolFactory = Factory.define(School, ({ faker }) => ({
   name: faker.lorem.words(),
 })).build()
+
+export const VoteFactory = Factory.define(Vote, ({ faker }) => ({
+  email: faker.internet.email(),
+  acceptClassement: faker.datatype.boolean(),
+  acceptActivities: faker.datatype.boolean(),
+}))
+  .relation('association', () => AssociationFactory)
+  .build()
 
 export const AssociationFactory = Factory.define(Association, async ({ faker }) => {
   const image = new Attachment({
@@ -48,4 +57,5 @@ export const AssociationFactory = Factory.define(Association, async ({ faker }) 
 })
   .relation('category', () => CategoryFactory)
   .relation('school', () => SchoolFactory)
+  .relation('votes', () => VoteFactory)
   .build()

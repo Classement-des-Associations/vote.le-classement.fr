@@ -1,93 +1,92 @@
-{{-- <div x-data="{ open: {{ flashMessages.has('errors') ? true : false }} }"
-  class="w-full lg:w-auto flex flex-col gap-1"> --}}
-  <div x-data="{ open: true }" class="w-full lg:w-auto flex flex-col gap-1" modal-vote>
-    @atoms.appButton()
-    @slot('main', scope)
-    <button x-on:click="open = true"
-      class="{{ scope.className }} {{ scope.color }} flex flex-row justify-center items-center gap-2">
-      @!atoms.icons.star({
-      className: "hidden lg:block w-4 h-4",
-      })
-      <span>
-        Voter pour l'association
-      </span>
-    </button>
-    @endslot
-    @end
-    <div x-show="open" style="display: none" x-on:keydown.escape.prevent.stop="open = false" role="dialog"
-      aria-modal="true" x-id="['modal-title']" :aria-labelledby="$id('modal-title')"
-      class="fixed inset-0 overflow-y-auto z-10">
-      <div x-show="open" x-transition.opacity class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-[32px]">
-      </div>
+<div x-data="{ open: {{ flashMessages.has('errors') ? true : false }} }" class="w-full lg:w-auto flex flex-col gap-1"
+  modal-vote>
+  @atoms.appButton()
+  @slot('main', scope)
+  <button x-on:click="open = true"
+    class="{{ scope.className }} {{ scope.color }} flex flex-row justify-center items-center gap-2">
+    @!atoms.icons.star({
+    className: "hidden lg:block w-4 h-4",
+    })
+    <span>
+      Voter pour l'association
+    </span>
+  </button>
+  @endslot
+  @end
+  <div x-show="open" style="display: none" x-on:keydown.escape.prevent.stop="open = false" role="dialog"
+    aria-modal="true" x-id="['modal-title']" :aria-labelledby="$id('modal-title')"
+    class="fixed inset-0 overflow-y-auto z-10">
+    <div x-show="open" x-transition.opacity class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-[32px]">
+    </div>
 
-      <div x-show="open" x-transition x-on:click="open = false"
-        class="relative min-h-screen flex items-center justify-center">
-        <div x-on:click.stop x-trap.noscroll.inert="open"
-          class="relative max-w-screen-sm sm:rounded-2xl bg-ultra-light-grey w-full p-4 overflow-y-auto">
-          <div class="flex flex-row justify-between items-start">
-            <h2 class="text-2xl text-black font-bold" :id="$id('modal-title')">Voter pour {{ association.name }}
-            </h2>
-            <button x-on:click="open = false">
-              @!atoms.icons.close({
-              className: "flex-shrink-0 w-6 h-6"
-              })
-            </button>
-          </div>
-
-          <form up-target="[modal-vote]" class="mt-10"
-            action="{{ route('AssociationsController.sendEmailVote', { id: association.slug }) }}" method="POST">
-            {{ csrfField() }}
-
-            <input value="{{ flashMessages.get('email') ?? '' }}" type="email" name="email" placeholder="Adresse mail"
-              class="w-full border-0 bg-white px-4 py-6 placeholder:text-slate-400 text-black selection:bg-primary-base focus:outline-none focus:ring-2 focus:ring-primary-base transition ease-in">
-            @if(flashMessages.has('errors.email'))
-            <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.email') }} </p>
-            @end
-            <p class="mt-2 text-black text-sm italic">En validant, vous allez recevoir un courriel
-              avec
-              un lien
-              pour confirmer
-              votre vote
-            </p>
-
-            <div class="mt-10 flex flex-row items-center gap-4">
-              <input
-                class="flex-shrink-0 hover:ring-primary-base focus:ring-primary-base border-0 border-transparent hover:border hover:border-primary-base rounded w-6 h-6 checked:bg-primary-base hover:checked:bg-primary-base focus:checked:bg-primary-base transition-all ease-in"
-                {{ flashMessages.get('acceptClassement') ? 'checked' : '' }} type="checkbox" name="acceptClassement"
-                value="true" id="classement" />
-              <label class="text-black text-sm" for="classement">
-                En cochant, j'accepte d'être recontacté à mon adresse mail pour des informations sur le
-                Classement
-              </label>
-            </div>
-            @if(flashMessages.has('errors.acceptClassement'))
-            <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.acceptClassement') }} </p>
-            @end
-            <div class="mt-2 flex flex-row items-center gap-4">
-              <input {{ flashMessages.get('acceptActivities') ? 'checked' : '' }}
-                class="flex-shrink-0 hover:ring-primary-base focus:ring-primary-base border-0 border-transparent hover:border hover:border-primary-base rounded w-6 h-6 checked:bg-primary-base hover:checked:bg-primary-base focus:checked:bg-primary-base transition-all ease-in"
-                type="checkbox" name="acceptActivities" value="true" id="activities">
-              <label class="text-black text-sm" for="activities">
-                En cochant, j'accepte d'être recontacté à mon adresse mail dans le cadre des activitétés des
-                associations organisatrices
-              </label>
-            </div>
-            @if(flashMessages.has('errors.acceptActivities'))
-            <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.acceptActivities') }} </p>
-            @end
-
-            <div class="mt-4 flex flex-row justify-end">
-              @atoms.appButton()
-              @slot('main', scope)
-              <button type="submit" class="{{ scope.className }} {{ scope.color }}">Valider le vote</button>
-              @endslot
-              @end
-            </div>
-          </form>
+    <div x-show="open" x-transition x-on:click="open = false"
+      class="relative min-h-screen flex items-center justify-center">
+      <div x-on:click.stop x-trap.noscroll.inert="open"
+        class="relative max-w-screen-sm sm:rounded-2xl bg-ultra-light-grey w-full p-4 overflow-y-auto">
+        <div class="flex flex-row justify-between items-start">
+          <h2 class="text-2xl text-black font-bold" :id="$id('modal-title')">Voter pour {{ association.name }}
+          </h2>
+          <button x-on:click="open = false">
+            @!atoms.icons.close({
+            className: "flex-shrink-0 w-6 h-6"
+            })
+          </button>
         </div>
+
+        <form class="mt-10" action="{{ route('AssociationsController.sendEmailVote', { id: association.slug }) }}"
+          up-target="[modal-vote]" method="POST">
+          {{ csrfField() }}
+
+          <input value="{{ flashMessages.get('email') ?? '' }}" type="email" name="email" placeholder="Adresse mail"
+            class="w-full border-0 bg-white px-4 py-6 placeholder:text-slate-400 text-black focus:outline-none focus:ring-2 focus:ring-primary-base transition ease-in">
+          @if(flashMessages.has('errors.email'))
+          <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.email') }} </p>
+          @end
+          <p class="mt-2 text-black text-sm italic">En validant, vous allez recevoir un courriel
+            avec
+            un lien
+            pour confirmer
+            votre vote
+          </p>
+
+          <div class="mt-10 flex flex-row items-center gap-4">
+            <input
+              class="flex-shrink-0 hover:ring-primary-base focus:ring-primary-base border-0 border-transparent hover:border hover:border-primary-base rounded w-6 h-6 checked:bg-primary-base hover:checked:bg-primary-base focus:checked:bg-primary-base transition-all ease-in"
+              {{ flashMessages.get('acceptClassement') ? 'checked' : '' }} type="checkbox" name="acceptClassement"
+              value="true" id="classement" />
+            <label class="text-black text-sm" for="classement">
+              En cochant, j'accepte d'être recontacté à mon adresse mail pour des informations sur le
+              Classement
+            </label>
+          </div>
+          @if(flashMessages.has('errors.acceptClassement'))
+          <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.acceptClassement') }} </p>
+          @end
+          <div class="mt-2 flex flex-row items-center gap-4">
+            <input {{ flashMessages.get('acceptActivities') ? 'checked' : '' }}
+              class="flex-shrink-0 hover:ring-primary-base focus:ring-primary-base border-0 border-transparent hover:border hover:border-primary-base rounded w-6 h-6 checked:bg-primary-base hover:checked:bg-primary-base focus:checked:bg-primary-base transition-all ease-in"
+              type="checkbox" name="acceptActivities" value="true" id="activities">
+            <label class="text-black text-sm" for="activities">
+              En cochant, j'accepte d'être recontacté à mon adresse mail dans le cadre des activitétés des
+              associations organisatrices
+            </label>
+          </div>
+          @if(flashMessages.has('errors.acceptActivities'))
+          <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.acceptActivities') }} </p>
+          @end
+
+          <div class="mt-4 flex flex-row justify-end">
+            @atoms.appButton()
+            @slot('main', scope)
+            <button type="submit" class="{{ scope.className }} {{ scope.color }}">Valider le vote</button>
+            @endslot
+            @end
+          </div>
+        </form>
       </div>
     </div>
-    <p class="text-black text-right text-sm">
-      {{ association.$extras.votes_count ?? 0 }} voix et bientôt la tienne ?
-    </p>
   </div>
+  <p class="text-black text-right text-sm">
+    {{ association.$extras.votes_count ?? 0 }} voix et bientôt la tienne ?
+  </p>
+</div>

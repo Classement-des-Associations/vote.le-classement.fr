@@ -14,7 +14,7 @@ export default class AssociationStoreValidator {
         column: 'name',
       }),
     ]),
-    description: schema.string.optional([rules.trim(), rules.maxLength(4096), rules.escape()]),
+    description: schema.string.optional([rules.trim(), rules.maxLength(4096)]),
     facebook: schema.string.optional([rules.trim(), rules.maxLength(255), rules.url()]),
     twitter: schema.string.optional([rules.trim(), rules.maxLength(255), rules.url()]),
     instagram: schema.string.optional([rules.trim(), rules.maxLength(255), rules.url()]),

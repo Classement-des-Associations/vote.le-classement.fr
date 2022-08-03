@@ -1,9 +1,16 @@
+@set('value', stringify(flashMessages.get(name) || value || ''))
+
 <div class="flex flex-col gap-1">
   @!atoms.appLabel({
   label: label,
   name: name,
   })
-  <textarea
-    class="px-[0.75rem] py-[0.375rem] border-2 border-accent-purple hover:border-primary-variation-1 focus:border-primary-variation-1 rounded-lg text-base text-black focus:outline-none transition ease-in focus:ring-0"
-    id="{{ name }}" name="{{ name }}" placeholder="{{ placeholder }}" rows="5">{{ content }}</textarea>
+  <div x-data="{ value: {{ value }} }" x-init="$refs.trix.editor.loadHTML(value ?? '')" x-id="['trix']"
+    @trix-change="value = $refs.input.value" @trix-file-accept.prevent>
+    <input :id="$id('trix')" name="description" type="hidden" x-ref="input">
+
+    <trix-editor x-ref="trix" :input="$id('trix')"
+      class="prose max-w-none form-textarea rounded-lg bg-white focus:ring-0 border-2 border-accent-purple hover:border-primary-variation-1 focus:border-primary-variation-1 transition ease-in">
+    </trix-editor>
+  </div>
 </div>

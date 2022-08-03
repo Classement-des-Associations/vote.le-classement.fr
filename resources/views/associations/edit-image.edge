@@ -1,14 +1,64 @@
-<form up-target="[layout-main]"
-  action="{{ route('AssociationsController.updateImage', {id: association.slug }) }}?_method=PATCH" method="POST"
-  enctype="multipart/form-data">
-  {{ csrfField() }}
+@layout('layouts/main')
+@set('title', 'Éditer l\'image de ' + association.name)
 
-  <label for="image">Image</label>
-  <input type=file id="image" name="image" accept="image/png, image/jpg, image/jpeg, image/webp">
-  @if(flashMessages.has('errors.image'))
-  <p> {{ flashMessages.get('errors.image') }} </p>
-  @endif
+@section('body')
 
-  <button type="submit">Éditer l'image</button>
+<section class="mt-6 mb-14 lg:mb-[4.5rem] px-4">
 
-</form>
+  <div class="max-w-screen-lg mx-auto">
+
+    <div class="flex flex-row justify-between items-start">
+      <div class="flex flex-col gap-1">
+        <a href="{{ route('AssociationsController.index') }}" class="text-primary-base mb-1">Associations</a>
+
+        @atoms.appTitle()
+        {{ association.name }}
+        @end
+      </div>
+    </div>
+
+    <section class="mt-6">
+      <h2 class="mb-2 text-[1.75rem] lg:text-[2.5rem] text-black font-bold">Image actuelle</h2>
+      @if(association.image)
+      <figure><img src="{{ association.image.url }}" alt="{{ association.name }}" class="mx-auto max-h-64" height="256"
+          width="256" /></figure>
+      @else
+      <p>Aucune image n'est associée à cette association.</p>
+      @endif
+    </section>
+
+    <section class="mt-6">
+      <h2 class="text-[1.75rem] lg:text-[2.5rem] text-black font-bold">Changer l'image</h2>
+      <form class="mt-4" up-target="[layout-main]"
+        action="{{ route('AssociationsController.updateImage', {id: association.slug }) }}?_method=PATCH" method="POST"
+        enctype="multipart/form-data">
+        {{ csrfField() }}
+
+        <div class="flex flex-col gap-1">
+          @!atoms.appLabel({
+          label: 'Image',
+          name: 'image',
+          })
+          <input
+            class="text-black file:px-[0.75rem] file:py-[0.375rem] file:bg-primary-base file:bg-opacity-20 file:rounded-md file:border-0 hover:file:bg-opacity-40 focus:file:outline-none file:transition file:ease-in file:cursor-pointer"
+            type=file id="image" name="image" accept="image/png, image/jpg, image/jpeg, image/webp">
+          @if(flashMessages.has('errors.image'))
+          <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.image') }} </p>
+          @endif
+        </div>
+
+        <div class="lg:col-span-2 flex flex-row justify-end">
+          @atoms.appButton()
+          @slot('main', scope)
+          <button class="{{ scope.className }} {{ scope.color }}" type="submit">Éditer l'image</button>
+          @endslot
+          @end
+        </div>
+
+      </form>
+    </section>
+
+  </div>
+
+</section>
+@endsection
