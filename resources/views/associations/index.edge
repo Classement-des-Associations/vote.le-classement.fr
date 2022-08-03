@@ -95,7 +95,7 @@
       </div>
 
       <ul class="lg:col-span-2 w-full grid grid-cols-1 sm:grid-cols-2 gap-4" grid id="#grid">
-        @if(up.targetIncludes('[grid]'))
+        @if(up.targetIncludes('[grid]') || up.targetIncludes('[layout-main]'))
         @if(associations.length > 0)
         @each(association in associations)
         <li>
