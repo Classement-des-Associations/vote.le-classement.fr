@@ -11,7 +11,7 @@
           up-target="[layout-main]">Votes</a>
 
         @atoms.appTitle()
-        Les Votes - {{ total }}
+        Les Votes - {{ total }} - {{ env('ENABLE_VOTE') ? 'Actif' : 'Inactif' }}
         @end
       </div>
     </div>

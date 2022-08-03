@@ -1,5 +1,6 @@
 import { bind } from '@adonisjs/route-model-binding'
 import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite'
+import Env from '@ioc:Adonis/Core/Env'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Route from '@ioc:Adonis/Core/Route'
 import VerifyEmail from 'App/Mailers/VerifyEmail'
@@ -152,7 +153,14 @@ export default class AssociationsController {
   }
 
   @bind()
-  public async sendEmailVote({ request, view }: HttpContextContract, association: Association) {
+  public async sendEmailVote(
+    { request, response, view }: HttpContextContract,
+    association: Association
+  ) {
+    if (!Env.get('ENABLE_VOTE')) {
+      return response.redirect().toRoute('AssociationsController.show', { id: association.slug })
+    }
+
     const { email, acceptClassement, acceptActivities } = await request.validate(VoteStoreValidator)
 
     const signedUrl = Route.makeSignedUrl(
@@ -177,35 +185,42 @@ export default class AssociationsController {
     { request, params, view, logger }: HttpContextContract,
     association: Association
   ) {
-    if (request.hasValidSignature()) {
-      const { email } = params
-      const { acceptClassement, acceptActivities } = request.qs()
-
-      try {
-        await association.related('votes').create({
-          email,
-          acceptClassement,
-          acceptActivities,
-        })
-      } catch (error) {
-        logger.error(error)
-        logger.error(email)
-        return view.render('vote/index', {
-          title: 'Vous avez déjà voté pour cette association',
-          subtitle: 'Mais tu peux continuer à suivre le Classement sur ses réseaux !',
-        })
-      }
-
+    if (!Env.get('ENABLE_VOTE')) {
       return view.render('vote/index', {
-        title: 'Votre voix a été prise en compte',
-        subtitle:
-          "Merci d'avoir voté. Tu peux continuer à suivre le Classement via ses réseaux si tu le souhaites !",
+        title: 'Le vote est fermé',
+        subtitle: "Désolé, il n'est pas possible de voter",
+      })
+    }
+
+    if (!request.hasValidSignature()) {
+      return view.render('vote/index', {
+        title: "Ce lien n'est pas valide",
+        subtitle: 'Tu peux réessayer en retournant sur la page de ton association !',
+      })
+    }
+
+    const { email } = params
+    const { acceptClassement, acceptActivities } = request.qs()
+
+    try {
+      await association.related('votes').create({
+        email,
+        acceptClassement,
+        acceptActivities,
+      })
+    } catch (error) {
+      logger.error(error)
+      logger.error(email)
+      return view.render('vote/index', {
+        title: 'Vous avez déjà voté pour cette association',
+        subtitle: 'Mais tu peux continuer à suivre le Classement sur ses réseaux !',
       })
     }
 
     return view.render('vote/index', {
-      title: "Ce lien n'est pas valide",
-      subtitle: 'Tu peux réessayer en retournant sur la page de ton association !',
+      title: 'Votre voix a été prise en compte',
+      subtitle:
+        "Merci d'avoir voté. Tu peux continuer à suivre le Classement via ses réseaux si tu le souhaites !",
     })
   }
 }

@@ -13,7 +13,7 @@ import Logger from '@ioc:Adonis/Core/Logger'
 Mail.monitorQueue((error, result) => {
   if (error) {
     Logger.error('Unable to send email')
-    Logger.error(error.name, error.message)
+    Logger.error(error.name + ': ' + error.message)
     return
   }
 
