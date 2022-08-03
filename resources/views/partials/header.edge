@@ -15,7 +15,7 @@
           <li>
             <a href="{{ route('CategoriesController.index') }}" up-target="[layout-main]"
               class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
-              Catégories
+              Les catégories
             </a>
           </li>
           @endif
@@ -23,7 +23,7 @@
           <li>
             <a href="{{ route('SchoolsController.index') }}" up-target="[layout-main]"
               class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
-              Écoles
+              Les écoles
             </a>
           </li>
           @endif
@@ -31,20 +31,20 @@
           <li>
             <a href="{{ route('VotesController.index') }}" up-target="[layout-main]"
               class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
-              Votes
+              Les voix
             </a>
           </li>
           @endif
           <li>
-            <a
+            <a href="{{ route('AssociationsController.index') }}#list" up-target="[layout-main]" up-scroll="#list"
               class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
-              Le Classement
+              Les associations
             </a>
           </li>
           <li>
-            <a
+            <a href="https://le-classement.fr/contact" target="_blank"
               class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
-              Contact
+              Nous contacter
             </a>
           </li>
         </ul>
@@ -78,7 +78,7 @@
                 <li>
                   <a href="{{ route('CategoriesController.index') }}" class="text-white text-lg font-semibold"
                     up-target="[layout-main]" x-on:click="open = false">
-                    Catégories
+                    Les catégories
                   </a>
                 </li>
                 @endif
@@ -86,7 +86,7 @@
                 <li>
                   <a href="{{ route('SchoolsController.index') }}" class="text-white text-lg font-semibold"
                     up-target="[layout-main]" x-on:click="open = false">
-                    Écoles
+                    Les écoles
                   </a>
                 </li>
                 @endif
@@ -94,18 +94,19 @@
                 <li>
                   <a href="{{ route('VotesController.index') }}" class="text-white text-lg font-semibold"
                     up-target="[layout-main]" x-on:click="open = false">
-                    Votes
+                    Les voix
                   </a>
                 </li>
                 @endif
                 <li>
-                  <a class="text-white text-lg font-semibold">
-                    Le Classement
+                  <a href="{{ route('AssociationsController.index') }}#list" up-target="[layout-main]" up-scroll="#list"
+                    class="text-white text-lg font-semibold">
+                    Les associations
                   </a>
                 </li>
                 <li>
-                  <a class="text-white text-lg font-semibold">
-                    Contact
+                  <a href="https://le-classement.fr/contact" target="_blank" class="text-white text-lg font-semibold">
+                    Nous contacter
                   </a>
                 </li>
               </ul>
