@@ -14,7 +14,7 @@
           @if(auth.isLoggedIn)
           <li>
             <a href="{{ route('CategoriesController.index') }}" up-target="[layout-main]"
-              class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
+              class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
               Catégories
             </a>
           </li>
@@ -22,7 +22,7 @@
           @if(auth.isLoggedIn)
           <li>
             <a href="{{ route('SchoolsController.index') }}" up-target="[layout-main]"
-              class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
+              class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
               Écoles
             </a>
           </li>
@@ -30,20 +30,20 @@
           @if(auth.isLoggedIn)
           <li>
             <a href="{{ route('VotesController.index') }}" up-target="[layout-main]"
-              class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
+              class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
               Votes
             </a>
           </li>
           @endif
           <li>
             <a
-              class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
+              class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
               Le Classement
             </a>
           </li>
           <li>
             <a
-              class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
+              class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
               Contact
             </a>
           </li>
