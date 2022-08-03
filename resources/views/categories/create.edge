@@ -17,7 +17,8 @@
       </div>
     </div>
 
-    <form up-target="[layout-main]" class="mt-6" action="{{ route('CategoriesController.store') }}" method="POST">
+    <form up-submit up-target="[layout-main]" class="mt-6" action="{{ route('CategoriesController.store') }}"
+      method="POST">
       {{ csrfField() }}
 
       @!atoms.appInput({

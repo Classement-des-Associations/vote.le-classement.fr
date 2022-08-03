@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <form up-target="[layout-main]" class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6"
+    <form up-submit up-target="[layout-main]" class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6"
       action="{{ route('AssociationsController.store') }}" method="POST" enctype="multipart/form-data">
       {{ csrfField() }}
 

@@ -1,5 +1,6 @@
-<form up-target="grid" up-history="true" class="rounded-2xl bg-ultra-light-grey p-4 flex flex-col gap-12"
-  action="{{ action }}" method="GET" x-data="{ open: false }">
+<form up-submit up-target="[grid]" up-fail-target="form" up-history="true"
+  class="rounded-2xl bg-ultra-light-grey p-4 flex flex-col gap-12" action="{{ action }}" method="GET"
+  x-data="{ open: false }">
 
   <div class="lg:flex flex-col gap-8" :class="{ 'hidden': !open, 'flex': open }" x-cloak>
     {{{ await $slots.main() }}}
@@ -11,7 +12,7 @@
     </a>
     @atoms.appButton({ accentPurple: true })
     @slot('main', scope)
-    <button type="submit" x-on:click="open = false" class="{{ scope.className }} {{ scope.color }}">
+    <button type="submit" class="{{ scope.className }} {{ scope.color }}">
       Filtrer les associations
     </button>
     @endslot

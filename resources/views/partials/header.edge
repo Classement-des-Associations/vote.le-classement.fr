@@ -1,4 +1,5 @@
 <header class="p-4 bg-white" x-data="{ open: false }">
+  @if(up.targetIncludes('header'))
   <div class="max-w-screen-xl mx-auto flex flex-row justify-between items-center">
     <div class="flex flex-row items-center">
       <a class="block text-black hover:text-primary-variation-1 transition ease-in duration-200"
@@ -71,12 +72,12 @@
                 })
               </button>
             </div>
-            <nav class="mt-14" aria-labelledby="Mobile navigation" up-nav>
+            <nav class="mt-14" aria-labelledby="Mobile navigation" mobile-nav up-nav>
               <ul class="flex flex-col space-y-10">
                 @if(auth.isLoggedIn)
                 <li>
                   <a href="{{ route('CategoriesController.index') }}" class="text-white text-lg font-semibold"
-                    up-target="[layout-main]">
+                    up-target="[layout-main]" x-on:click="open = false">
                     Catégories
                   </a>
                 </li>
@@ -84,7 +85,7 @@
                 @if(auth.isLoggedIn)
                 <li>
                   <a href="{{ route('SchoolsController.index') }}" class="text-white text-lg font-semibold"
-                    up-target="[layout-main]">
+                    up-target="[layout-main]" x-on:click="open = false">
                     Écoles
                   </a>
                 </li>
@@ -92,7 +93,7 @@
                 @if(auth.isLoggedIn)
                 <li>
                   <a href="{{ route('VotesController.index') }}" class="text-white text-lg font-semibold"
-                    up-target="[layout-main]">
+                    up-target="[layout-main]" x-on:click="open = false">
                     Votes
                   </a>
                 </li>
@@ -122,4 +123,5 @@
     @endslot
     @end
   </div>
+  @endif
 </header>

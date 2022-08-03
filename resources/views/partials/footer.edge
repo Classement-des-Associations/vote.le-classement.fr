@@ -1,4 +1,5 @@
 <footer class="px-4 py-11 bg-black">
+  @if(up.targetIncludes('footer'))
   <div
     class="max-w-screen-xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-0 justify-center lg:justify-between items-center">
     <div class="contents lg:flex flex-row">
@@ -60,4 +61,5 @@
       </ul>
     </nav>
   </div>
+  @endif
 </footer>

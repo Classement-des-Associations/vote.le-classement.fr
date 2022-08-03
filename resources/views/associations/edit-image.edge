@@ -30,7 +30,7 @@
 
     <section class="mt-6">
       <h2 class="text-[1.75rem] lg:text-[2.5rem] text-black font-bold">Changer l'image</h2>
-      <form class="mt-4" up-target="[layout-main]"
+      <form up-submit class="mt-4" up-target="[layout-main]"
         action="{{ route('AssociationsController.updateImage', {id: association.slug }) }}?_method=PATCH" method="POST"
         enctype="multipart/form-data">
         {{ csrfField() }}

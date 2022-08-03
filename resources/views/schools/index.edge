@@ -33,7 +33,7 @@
           {{ school.name }}
         </a>
         <div class="flex flex-row gap-6">
-          <form up-target="[layout-main]"
+          <form up-submit up-target="[layout-main]"
             action="{{ route('SchoolsController.destroy', { id: school.slug }) }}?_method=DELETE" method="POST" x-data="{
               validate: () => {
                 const toDelete = confirm('Êtes-vous sûr de vouloir supprimer cette école ?');

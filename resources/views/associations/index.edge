@@ -40,6 +40,7 @@
   </div>
 </section>
 
+@if(up.targetIncludes('[layout-main]'))
 <section class="px-4 py-14 lg:py-[7.5rem] bg-primary-base text-white">
   <div class="max-w-screen-xl mx-auto grid grid-cols-1 gap-10 lg:grid-cols-3 justify-items-center">
     <div class="p-4 max-w-[16rem]">
@@ -66,6 +67,7 @@
     </div>
   </div>
 </section>
+@endif
 
 <section class="px-4 py-14 lg:pb-[4.5rem]" id="list" layout-grid>
   <div class="max-w-screen-xl mx-auto">
@@ -84,13 +86,16 @@
     </div>
     <div class="mt-6 lg:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4 place-items-start">
       <div class="lg:sticky top-4 w-full">
+        @if(up.targetIncludes('[layout-main]'))
         @!molecules.filterAssociations({
         categories,
         schools
         })
+        @endif
       </div>
 
-      <ul class="lg:col-span-2 w-full grid grid-cols-1 sm:grid-cols-2 gap-4" grid>
+      <ul class="lg:col-span-2 w-full grid grid-cols-1 sm:grid-cols-2 gap-4" grid id="#grid">
+        @if(up.targetIncludes('[grid]'))
         @if(associations.length > 0)
         @each(association in associations)
         <li>
@@ -108,6 +113,7 @@
             Réinitialiser les filtres ?
           </a>
         </li>
+        @endif
         @endif
       </ul>
     </div>

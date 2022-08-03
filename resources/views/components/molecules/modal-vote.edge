@@ -33,7 +33,8 @@
           </button>
         </div>
 
-        <form class="mt-10" action="{{ route('AssociationsController.sendEmailVote', { id: association.slug }) }}"
+        <form up-submit class="mt-10"
+          action="{{ route('AssociationsController.sendEmailVote', { id: association.slug }) }}"
           up-target="[modal-vote]" method="POST">
           {{ csrfField() }}
 
