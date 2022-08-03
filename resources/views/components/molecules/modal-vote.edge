@@ -1,8 +1,10 @@
 <div x-data="{ open: {{ flashMessages.has('errors') ? true : false }} }" class="w-full lg:w-auto flex flex-col gap-1">
   @atoms.appButton()
   @slot('main', scope)
-  <button x-on:click="open = true"
-    class="{{ scope.className }} {{ scope.color }} flex flex-row justify-center items-center gap-2">
+  <button
+    class="{{ scope.className }} {{ scope.color }} flex flex-row justify-center items-center gap-2 disabled:cursor-not-allowed disabled:bg-primary-base/20 disabled:border-primary-base/10 hover:disabled:bg-primary-base/20 hover:disabled:border-primary-base/10"
+    {{{ env('ENABLE_VOTE') ? 'x-on:click="open = true"' : 'disabled' }}}
+    title="{{ env('ENABLE_VOTE') ? '': 'Le vote n\'est pas ouvert'  }}">
     @!atoms.icons.star({
     className: "hidden lg:block w-4 h-4",
     })
@@ -86,6 +88,6 @@
     </div>
   </div>
   <p class="text-black text-right text-sm">
-    {{ association.$extras.votes_count ?? 0 }} voix et bientôt la tienne ?
+    {{ association.$extras.votes_count ?? 0 }} voix {{ env('ENABLE_VOTE') ? 'et bientôt la tienne ?' : '' }}
   </p>
 </div>

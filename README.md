@@ -53,6 +53,8 @@ To run this project, you will need to copy `.env.example` to `.env` and fill eve
 
 For the mail service, you can choose a local [MailHog](https://github.com/mailhog/MailHog), any mailing service with SMTP or SES.
 
+The env `ENABLE_VOTE` can be set to `true` or `false` to enable or disable the voting feature, useful to start and stop easily the voting process.
+
 ## Deployment
 
 To deploy this project run

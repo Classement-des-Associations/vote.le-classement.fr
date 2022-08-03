@@ -32,4 +32,5 @@ export default Env.rules({
   PG_DB_NAME: Env.schema.string(),
   AUTH_USERNAME: Env.schema.string(),
   AUTH_PASSWORD: Env.schema.string(),
+  ENABLE_VOTE: Env.schema.boolean(),
 })
