@@ -7,7 +7,7 @@ html {
 }
 
 .up-current {
-  @apply font-semibold text-primary-variation-1;
+  @apply cursor-default font-semibold text-primary-variation-1 hover:!scale-100;
 }
 
 up-progress-bar {

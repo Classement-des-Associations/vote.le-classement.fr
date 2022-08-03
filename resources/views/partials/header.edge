@@ -14,7 +14,7 @@
           @if(auth.isLoggedIn)
           <li>
             <a href="{{ route('CategoriesController.index') }}" up-target="[layout-main]"
-              class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
+              class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
               Les catégories
             </a>
           </li>
@@ -22,7 +22,7 @@
           @if(auth.isLoggedIn)
           <li>
             <a href="{{ route('SchoolsController.index') }}" up-target="[layout-main]"
-              class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
+              class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
               Les écoles
             </a>
           </li>
@@ -30,20 +30,20 @@
           @if(auth.isLoggedIn)
           <li>
             <a href="{{ route('VotesController.index') }}" up-target="[layout-main]"
-              class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
+              class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
               Les voix
             </a>
           </li>
           @endif
           <li>
             <a href="{{ route('AssociationsController.index') }}#list" up-target="[layout-main]" up-scroll="#list"
-              class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
+              class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
               Les associations
             </a>
           </li>
           <li>
             <a href="https://le-classement.fr/contact" target="_blank"
-              class="px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:font-semibold transition-all ease-in duration-200">
+              class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
               Nous contacter
             </a>
           </li>
