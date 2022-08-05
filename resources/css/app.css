@@ -22,6 +22,19 @@ up-progress-bar {
   display: none !important;
 }
 
+.related-description,
+.related-description > * {
+  @apply inline-flex flex-col text-justify text-sm font-normal text-black;
+}
+
+.related-description br {
+  @apply hidden;
+}
+
+.related-description strong {
+  @apply font-normal;
+}
+
 @font-face {
   font-family: 'Montserrat';
   font-weight: 300 900;
