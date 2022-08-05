@@ -86,7 +86,7 @@
     </div>
     <div class="mt-6 lg:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4 place-items-start">
       <div class="lg:sticky top-4 w-full">
-        @if(up.targetIncludes('[layout-main]'))
+        @if(up.targetIncludes('[layout-grid]') || up.targetIncludes('[layout-main]'))
         @!molecules.filterAssociations({
         categories,
         schools
@@ -95,7 +95,7 @@
       </div>
 
       <ul class="lg:col-span-2 w-full grid grid-cols-1 sm:grid-cols-2 gap-4" grid id="#grid">
-        @if(up.targetIncludes('[grid]') || up.targetIncludes('[layout-main]'))
+        @if(up.targetIncludes('[grid]') || up.targetIncludes('[layout-grid]') || up.targetIncludes('[layout-main]'))
         @if(associations.length > 0)
         @each(association in associations)
         <li>
