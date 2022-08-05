@@ -37,7 +37,7 @@
   </a>
   @if(association.description)
   <div class="text-sm" x-data="{ expanded: false }">
-    <div x-show="expanded" x-collapse.min.40px>
+    <div x-show="expanded" x-collapse.min.40px x-on:click="expanded = !expanded" class="cursor-pointer">
       {{{ association.description }}}
     </div>
     <div class="mt-2 flex flex-row justify-between">
