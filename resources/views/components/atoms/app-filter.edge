@@ -1,4 +1,4 @@
-<form up-submit up-target="[grid]" up-fail-target="form" up-history="true"
+<form up-submit up-target="[grid]" up-fail-target="form" up-history="true" up-scroll="#list"
   class="rounded-2xl bg-ultra-light-grey p-4 flex flex-col gap-12" action="{{ action }}" method="GET"
   x-data="{ open: false }">
 
@@ -7,7 +7,8 @@
   </div>
 
   <div class="lg:flex flex-row justify-between items-center" :class="{ 'hidden': !open, 'flex': open }" x-cloak>
-    <a class="text-accent-purple text-sm leading-4 font-semibold" href="{{ action }}" up-target="[layout-grid]">
+    <a class="text-accent-purple text-sm leading-4 font-semibold" href="{{ action }}#list" up-target="[layout-grid]"
+      up-scroll="#list" up-history="true">
       Réinitialiser
     </a>
     @atoms.appButton({ accentPurple: true })
