@@ -33,4 +33,5 @@ export default Env.rules({
   AUTH_USERNAME: Env.schema.string(),
   AUTH_PASSWORD: Env.schema.string(),
   ENABLE_VOTE: Env.schema.boolean(),
+  CLARITY_ID: Env.schema.string(),
 })
