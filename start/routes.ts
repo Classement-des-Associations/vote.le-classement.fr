@@ -17,12 +17,21 @@
 | import './routes/customer''
 |
 */
-
+import Application from '@ioc:Adonis/Core/Application'
 import Route from '@ioc:Adonis/Core/Route'
+import Markdown from 'App/Services/Markdown'
+import fs from 'fs/promises'
 
 Route.get('/', async ({ response }) => {
   return response.redirect().toRoute('AssociationsController.index')
 }).as('home')
+
+Route.get('/understand', async ({ view }) => {
+  const file = await fs.readFile(Application.makePath('content/understand.md'), 'utf8')
+  const html = await Markdown.render(file)
+
+  return view.render('layouts/content', { html })
+}).as('understand')
 
 Route.resource('associations', 'AssociationsController').middleware({
   create: ['auth'],

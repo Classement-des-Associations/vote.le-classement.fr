@@ -31,7 +31,7 @@
       @end
       @atoms.appButton({ outline: true })
       @slot('main', scope)
-      <a class="{{ scope.className }} {{ scope.color }}">
+      <a class="{{ scope.className }} {{ scope.color }}" href="{{ route('understand') }}" up-target="[layout-main]">
         Comprendre le vote
       </a>
       @endslot
