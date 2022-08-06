@@ -139,8 +139,9 @@
 
     <div class="mt-6 lg:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
       @each(association in relatedAssociations)
-      <a href="{{ route('AssociationsController.show', { id: association.slug }) }}">
-        <article class="h-full bg-ultra-light-grey rounded-xl p-4 flex flex-col gap-3">
+      <a href="{{ route('AssociationsController.show', { id: association.slug }) }}" up-target="[layout-main]">
+        <article
+          class="h-full hover:shadow-lg bg-ultra-light-grey rounded-xl p-4 flex flex-col gap-3 transition ease-in duration-200">
           <h3 class="text-black text-lg font-bold">
             {{ association.name }}
           </h3>
@@ -150,9 +151,9 @@
           </p>
           @endif
           @if(association.description)
-          <p class="text-black text-sm">
-            {{ truncate(association.description, 200) }}
-          </p>
+          <div class="related-description">
+            {{{ truncate(association.description, 200) }}}
+          </div>
           @endif
         </article>
       </a>

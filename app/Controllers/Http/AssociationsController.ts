@@ -35,8 +35,8 @@ export default class AssociationsController {
   }
 
   public async create({ view }: HttpContextContract) {
-    const categories = await Category.all()
-    const schools = await School.all()
+    const categories = await Category.query().orderBy('name', 'asc')
+    const schools = await School.query().orderBy('name', 'asc')
 
     return view.render('associations/create', {
       categories: categories.map((c) => {
@@ -82,8 +82,8 @@ export default class AssociationsController {
 
   @bind()
   public async edit({ view }: HttpContextContract, association: Association) {
-    const categories = await Category.all()
-    const schools = await School.all()
+    const categories = await Category.query().orderBy('name', 'asc')
+    const schools = await School.query().orderBy('name', 'asc')
 
     return view.render('associations/edit', {
       association,
