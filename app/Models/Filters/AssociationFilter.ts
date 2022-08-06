@@ -17,7 +17,7 @@ export default class AssociationFilter extends BaseModelFilter {
   }
 
   public name(name: string) {
-    return this.$query.where('name', 'like', `%${name}%`)
+    return this.$query.whereILike('name', `%${name}%`)
   }
 
   public category(id: number) {
