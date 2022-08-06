@@ -44,6 +44,10 @@
     {
       "pattern": "resources/views/**/*.edge",
       "reloadServer": false
+    },
+    {
+      "pattern": "content/**",
+      "reloadServer": false
     }
   ],
   "aceProviders": [
