@@ -7,7 +7,7 @@
   </a>
 </p>
 
-# votes.le-classement.fr
+# vote.le-classement.fr
 
 This project is a voting platform for ["Le Classement des Associations"](https://le-classement.fr).
 
@@ -24,13 +24,13 @@ All the participating associations are present with the different reports they c
 Clone the project
 
 ```bash
-  git clone https://github.com/Barbapapazes/votes.le-classement.fr
+  git clone https://github.com/Barbapapazes/vote.le-classement.fr
 ```
 
 Go to the project directory
 
 ```bash
-  cd votes.le-classement.fr
+  cd vote.le-classement.fr
 ```
 
 Install dependencies
