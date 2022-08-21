@@ -176,7 +176,7 @@ export default class AssociationsController {
     return view.render('vote/index', {
       title: 'Pense à valider ton vote',
       subtitle:
-        "Merci d'avoir voté ! Tu vas recevoir d'ici quelques instant un mail pour valider ton vote.",
+        "Merci d'avoir voté ! Tu vas recevoir d'ici quelques instants un mail pour valider ton vote.",
     })
   }
 
@@ -218,7 +218,7 @@ export default class AssociationsController {
     }
 
     return view.render('vote/index', {
-      title: 'Votre voix a été prise en compte',
+      title: 'Ta voix a été prise en compte',
       subtitle:
         "Merci d'avoir voté. Tu peux continuer à suivre le Classement via ses réseaux si tu le souhaites !",
     })
