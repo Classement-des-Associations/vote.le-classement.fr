@@ -13,9 +13,10 @@ export default class VoteStoreValidator {
         allLowercase: true,
         gmailRemoveDots: true,
         gmailRemoveSubaddress: true,
-        icloudRemoveSubaddress: true,
+        gmailConvertGooglemaildotcom: true,
         outlookdotcomRemoveSubaddress: true,
         yahooRemoveSubaddress: true,
+        icloudRemoveSubaddress: true,
       }),
       rules.unique({
         table: 'votes',
