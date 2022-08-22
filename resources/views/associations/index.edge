@@ -1,6 +1,7 @@
 @layout('layouts/main')
 @set('title', 'Les Associations')
 
+@set('time', timeRemaining())
 @section('main')
 
 <section class="relative px-4 pt-12 pb-20 lg:py-40">
@@ -45,7 +46,7 @@
   <div class="max-w-screen-xl mx-auto grid grid-cols-1 gap-10 lg:grid-cols-3 justify-items-center">
     <div class="p-4 max-w-[16rem]">
       <h2 class="flex flex-col justify-center items-center">
-        <span class="text-[4rem] font-extrabold">+150</span>
+        <span class="text-[4rem] font-extrabold">+140</span>
         <span class="mt-8 text-lg font-semibold">Associations</span>
       </h2>
       <p class="mt-3 text-center text-sm leading-[1.125rem]">À découvrir cette année au Classement des Associations</p>
@@ -60,10 +61,14 @@
     </div>
     <div class="p-4 max-w-[16rem]">
       <h2 class="flex flex-col justify-center items-center">
-        <span class="text-[4rem] font-extrabold">{{ timeRemaining() }}</span>
-        <span class="mt-8 text-lg font-semibold">Jours</span>
+        <span class="text-[4rem] font-extrabold">
+          {{ time < 0 ? '0' : time }} </span>
+            <span class="mt-8 text-lg font-semibold">
+              {{ time > 1 ? 'Jours' : 'Jour' }}
+            </span>
       </h2>
-      <p class="mt-3 text-center text-sm leading-[1.125rem]">Restant avant la fin du vote</p>
+      <p class="mt-3 text-center text-sm leading-[1.125rem]">{{ time > 1 ? 'Restants' : 'Restant' }} avant la fin du
+        vote</p>
     </div>
   </div>
 </section>

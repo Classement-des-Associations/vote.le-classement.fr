@@ -43,7 +43,7 @@
     <div class="mt-2 flex flex-row justify-between">
       <button class="py-1 rounded-md text-black hover:text-primary-variation-1 transition ease-in"
         x-on:click="expanded = !expanded">
-        <span x-text="expanded ? 'Voir moins' : 'Voir le texte'"></span>
+        <span x-text="expanded ? 'Voir moins' : 'Voir plus'"></span>
       </button>
       <a href="{{ route('AssociationsController.show', { id: association.slug }) }}"
         class="px-3 py-1 bg-white text-black hover:text-primary-variation-1 rounded-md transition ease-in"
