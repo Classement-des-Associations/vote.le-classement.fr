@@ -1,65 +1,72 @@
 <footer class="px-4 py-11 bg-black">
   @if(up.targetIncludes('footer'))
-  <div
-    class="max-w-screen-xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-0 justify-center lg:justify-between items-center">
-    <div class="contents lg:flex flex-row">
-      @!atoms.logos.classementFull({
-      className: 'text-white h-16 lg:h-12'
-      })
-      <ul class="lg:ml-16 flex flex-row gap-[1.375rem]">
-        <li>
-          <a href="https://www.linkedin.com/company/le-classement/" target="_blank" rel="noopener"
-            class="w-12 h-12 flex flex-row justify-center items-center rounded-full hover:bg-white text-white hover:text-black transition ease-in duration-200">
-            @!atoms.icons.linkedin({
-            className: 'w-6 h-6'
-            })
-          </a>
-        </li>
-        <li>
-          <a href="https://www.facebook.com/le.classement" target="_blank" rel="noopener"
-            class="w-12 h-12 flex flex-row justify-center items-center rounded-full hover:bg-white text-white hover:text-black transition ease-in duration-200">
-            @!atoms.icons.facebook({
-            className: 'w-6 h-6'
-            })
-          </a>
-        </li>
-        <li>
-          <a href="https://www.instagram.com/leclassement/" target="_blank" rel="noopener"
-            class="w-12 h-12 flex flex-row justify-center items-center rounded-full hover:bg-white text-white hover:text-black transition ease-in duration-200">
-            @!atoms.icons.instagram({
-            className: 'w-6 h-6'
-            })
-          </a>
-        </li>
-        <li>
-          <a href="https://twitter.com/Leclassement" target="_blank" rel="noopener"
-            class="w-12 h-12 flex flex-row justify-center items-center rounded-full hover:bg-white text-white hover:text-black transition ease-in duration-200">
-            @!atoms.icons.twitter({
-            className: 'w-6 h-6'
-            })
-          </a>
-        </li>
-      </ul>
+  <div class="max-w-screen-xl mx-auto flex flex-col gap-14">
+    <div class="flex flex-col gap-11 lg:gap-0 lg:flex-row lg:justify-between lg:items-center">
+      <div class="contents lg:flex lg:flex-row lg:items-center">
+        @!atoms.logos.classementFull({
+        className: 'text-white h-16 lg:h-12'
+        })
+        <ul class="lg:ml-16 flex flex-row gap-[1.375rem]">
+          <li>
+            <a href="https://www.linkedin.com/company/le-classement/" target="_blank" rel="noopener"
+              class="w-12 h-12 flex flex-row justify-center items-center rounded-full hover:bg-white text-white hover:text-black transition ease-in duration-200">
+              @!atoms.icons.linkedin({
+              className: 'w-6 h-6'
+              })
+            </a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/le.classement" target="_blank" rel="noopener"
+              class="w-12 h-12 flex flex-row justify-center items-center rounded-full hover:bg-white text-white hover:text-black transition ease-in duration-200">
+              @!atoms.icons.facebook({
+              className: 'w-6 h-6'
+              })
+            </a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/leclassement/" target="_blank" rel="noopener"
+              class="w-12 h-12 flex flex-row justify-center items-center rounded-full hover:bg-white text-white hover:text-black transition ease-in duration-200">
+              @!atoms.icons.instagram({
+              className: 'w-6 h-6'
+              })
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/Leclassement" target="_blank" rel="noopener"
+              class="w-12 h-12 flex flex-row justify-center items-center rounded-full hover:bg-white text-white hover:text-black transition ease-in duration-200">
+              @!atoms.icons.twitter({
+              className: 'w-6 h-6'
+              })
+            </a>
+          </li>
+        </ul>
+      </div>
+      <nav aria-labelledby="secondary-nav">
+        <span id="secondary-nav" class="sr-only">Navigation secondaire</span>
+        <ul
+          class="grid grid-cols-3 lg:grid-cols-5 gap-4 justify-items-center text-white text-sm leading-4 tracking-wider font-semibold">
+          <li><a href="https://le-classement.fr/about-us" class="hover:underline hover:underline-offset-4">À propos</a>
+          </li>
+          <li>
+            <a aria-current="page" href="https://le-classement.fr/contact"
+              class="router-link-active router-link-exact-active hover:underline hover:underline-offset-4">Contact</a>
+          </li>
+          <li><a href="https://le-classement.fr/faq" class="hover:underline hover:underline-offset-4">FAQ</a></li>
+          <li><a href="https://le-classement.fr/rules" class="hover:underline hover:underline-offset-4">Règlement</a>
+          </li>
+          <li><a href="https://le-classement.fr/terms" class="hover:underline hover:underline-offset-4">CGU</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav aria-labelledby="footer navigation">
-      <ul class="flex flex-row gap-10 justify-center items-center text-sm text-white font-semibold">
-        <li>
-          <a class="hover:underline" href="https://le-classement.fr/cgu" target="_blank">
-            CGU
-          </a>
-        </li>
-        <li>
-          <a class="hover:underline" href="https://le-classement.fr/contact#faq" target="_blank">
-            FAQ
-          </a>
-        </li>
-        <li>
-          <a class="hover:underline" href="https://le-classement.fr/contact" target="_blank">
-            Nous contacter
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <div class="flex flex-col items-center gap-4">
+      <div class="h-[1px] w-full max-w-[256px] rounded-full bg-white"></div>
+      <p class="flex flex-col md:flex-row items-center gap-2 md:gap-0 text-white text-sm font-light">
+        <span>Le Classement des Associations - 2022</span><span class="hidden md:inline">&nbsp;-&nbsp;</span><span>Par
+          <a href="https://aneo.eu" rel="noopener" target="_blank">Aneo</a>, le
+          <a href="https://bnei.fr" rel="noopener" target="_blank">BNEI</a> et le
+          <a href="https://bnem.fr" rel="noopener" target="_blank">BNEM</a></span>
+      </p>
+    </div>
   </div>
   @endif
 </footer>
