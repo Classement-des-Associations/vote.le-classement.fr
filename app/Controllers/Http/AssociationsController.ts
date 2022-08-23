@@ -155,7 +155,7 @@ export default class AssociationsController {
 
   @bind()
   public async sendEmailVote(
-    { request, response, view, logger }: HttpContextContract,
+    { request, response, logger }: HttpContextContract,
     association: Association
   ) {
     if (!Env.get('ENABLE_VOTE')) {
