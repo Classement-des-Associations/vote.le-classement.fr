@@ -24,7 +24,6 @@ export default class AssociationStoreValidator {
     categoryId: schema.number([rules.exists({ table: 'categories', column: 'id' })]),
     image: schema.file.optional({
       extnames: ['png', 'jpg', 'jpeg', 'webp'],
-      size: '500kb',
     }),
     document: schema.file.optional({
       extnames: ['pdf'],

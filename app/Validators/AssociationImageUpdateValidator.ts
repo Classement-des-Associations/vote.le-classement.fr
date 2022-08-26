@@ -7,7 +7,6 @@ export default class AssociationImageUpdateValidator {
   public schema = schema.create({
     image: schema.file.optional({
       extnames: ['png', 'jpg', 'jpeg', 'webp'],
-      size: '500kb',
     }),
   })
 
