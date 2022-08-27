@@ -118,11 +118,27 @@
         })
       </a>
       @endif
+      @if(association.tiktok)
+      <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
+        href="{{{ association.tiktok }}}" target="_blank" rel="noopener">
+        @!atoms.icons.tiktok({
+        className: 'lg:w-8 lg:h-8'
+        })
+      </a>
+      @endif
       @if(association.twitter)
       <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
         href="{{{ association.twitter }}}" target="_blank" rel="noopener">
         @!atoms.icons.twitter({
         className: 'lg:w-8 lg'
+        })
+      </a>
+      @endif
+      @if(association.youtube)
+      <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
+        href="{{{ association.youtube }}}" target="_blank" rel="noopener">
+        @!atoms.icons.youtube({
+        className: 'lg:w-8 lg:h-8'
         })
       </a>
       @endif
