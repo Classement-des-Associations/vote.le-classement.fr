@@ -1,5 +1,5 @@
 @layout('layouts/admin')
-@set('title', 'Éditer ' + association.name)
+@set('title', 'Éditer ' + safe(association.name))
 
 @section('main')
 
@@ -13,7 +13,7 @@
           up-target="[layout-main]">Associations</a>
 
         @atoms.appTitle()
-        Éditer {{ association.name }}
+        Éditer {{{ association.name }}}
         @end
       </div>
     </div>
