@@ -3,7 +3,7 @@
   @atoms.appButton()
   @slot('main', scope)
   <button
-    class="{{ scope.className }} {{ scope.color }} flex flex-row justify-center items-center gap-2 disabled:cursor-not-allowed disabled:bg-primary-base/20 disabled:border-primary-base/10 hover:disabled:bg-primary-base/20 hover:disabled:border-primary-base/10"
+    class="{{ scope.className }} {{ scope.color }} whitespace-nowrap flex flex-row justify-center items-center gap-2 disabled:cursor-not-allowed disabled:bg-primary-base/20 disabled:border-primary-base/10 hover:disabled:bg-primary-base/20 hover:disabled:border-primary-base/10"
     {{{ env('ENABLE_VOTE') ? 'x-on:click="open = true"' : 'disabled' }}}
     title="{{ env('ENABLE_VOTE') ? '': 'Le vote n\'est pas ouvert'  }}">
     @!atoms.icons.star({
