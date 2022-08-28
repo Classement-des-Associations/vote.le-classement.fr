@@ -43,6 +43,12 @@ export default class Association extends compose(BaseModel, Filterable) {
   public linkedin?: string
 
   @column()
+  public tiktok?: string
+
+  @column()
+  public youtube?: string
+
+  @column()
   public website?: string
 
   @column()

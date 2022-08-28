@@ -103,6 +103,32 @@
 
       <div>
         @!atoms.appInput({
+        label: 'TikTok',
+        name: 'tiktok',
+        type: 'url',
+        placeholder: 'TikTok de l\'association',
+        value: association.tiktok ? association.tiktok : '',
+        })
+        @if(flashMessages.has('errors.tiktok'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.tiktok') }} </p>
+        @endif
+      </div>
+
+      <div>
+        @!atoms.appInput({
+        label: 'Youtube',
+        name: 'youtube',
+        type: 'url',
+        placeholder: 'Youtube de l\'association',
+        value: association.youtube ? association.youtube : '',
+        })
+        @if(flashMessages.has('errors.youtube'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.youtube') }} </p>
+        @endif
+      </div>
+
+      <div>
+        @!atoms.appInput({
         label: 'Website',
         name: 'website',
         type: 'url',
