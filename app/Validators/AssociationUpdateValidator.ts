@@ -9,7 +9,6 @@ export default class AssociationUpdateValidator {
       rules.required(),
       rules.trim(),
       rules.maxLength(255),
-      rules.escape(),
       rules.unique({
         table: 'associations',
         column: 'name',
