@@ -1,5 +1,5 @@
 @layout('layouts/main')
-@set('title', safe(association.name))
+@set('title', association.name)
 
 @section('main')
 <section class="mt-6 mb-14 px-4">
@@ -12,7 +12,7 @@
       <div class="contents w-full lg:flex lg:flex-row lg:justify-between">
         <div>
           @atoms.appTitle()
-          {{{ association.name }}}
+          {{ association.name }}
           @end
           @if(association.school)
           <p class="mt-1 lg:text-4xl"> {{ association.school.name }}</p>
@@ -68,7 +68,7 @@
 
       <div class="row-start-3 prose w-full max-w-none lg:prose-xl text-black">
         @if(association.description)
-        {{{ association.description }}}
+        {{ safe(association.description) }}
         @endif
       </div>
     </header>
@@ -88,7 +88,7 @@
     <div class="mt-8 -ml-3 lg:ml-0 lg:-mr-3 flex flex-row lg:justify-end gap-10">
       @if(association.website)
       <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
-        href="{{{ association.website }}}" target="_blank" rel="noopener">
+        href="{{ safe(association.website) }}" target="_blank" rel="noopener">
         @!atoms.icons.globe({
         className: 'lg:w-8 lg:h-8'
         })
@@ -96,7 +96,7 @@
       @endif
       @if(association.linkedin)
       <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
-        href="{{{ association.linkedin }}}" target="_blank" rel="noopener">
+        href="{{ safe(association.linkedin) }}" target="_blank" rel="noopener">
         @!atoms.icons.linkedin({
         className: 'lg:w-8 lg:h-8'
         })
@@ -104,7 +104,7 @@
       @endif
       @if(association.facebook)
       <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
-        href="{{{ association.facebook }}}" target="_blank" rel="noopener">
+        href="{{ safe(association.facebook) }}" target="_blank" rel="noopener">
         @!atoms.icons.facebook({
         className: 'lg:w-8 lg:h-8'
         })
@@ -112,7 +112,7 @@
       @endif
       @if(association.instagram)
       <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
-        href="{{{ association.instagram }}}" target="_blank" rel="noopener">
+        href="{{ safe(association.instagram) }}" target="_blank" rel="noopener">
         @!atoms.icons.instagram({
         className: 'lg:w-8 lg:h-8'
         })
@@ -120,7 +120,7 @@
       @endif
       @if(association.tiktok)
       <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
-        href="{{{ association.tiktok }}}" target="_blank" rel="noopener">
+        href="{{ safe(association.tiktok) }}" target="_blank" rel="noopener">
         @!atoms.icons.tiktok({
         className: 'lg:w-8 lg:h-8'
         })
@@ -128,7 +128,7 @@
       @endif
       @if(association.twitter)
       <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
-        href="{{{ association.twitter }}}" target="_blank" rel="noopener">
+        href="{{ safe(association.twitter) }}" target="_blank" rel="noopener">
         @!atoms.icons.twitter({
         className: 'lg:w-8 lg:h-8'
         })
@@ -136,7 +136,7 @@
       @endif
       @if(association.youtube)
       <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
-        href="{{{ association.youtube }}}" target="_blank" rel="noopener">
+        href="{{ safe(association.youtube) }}" target="_blank" rel="noopener">
         @!atoms.icons.youtube({
         className: 'lg:w-8 lg:h-8'
         })
@@ -159,7 +159,7 @@
         <article
           class="h-full hover:shadow-lg bg-ultra-light-grey rounded-xl p-4 flex flex-col gap-3 transition ease-in duration-200">
           <h3 class="text-black text-lg font-bold">
-            {{{ association.name }}}
+            {{ association.name }}
           </h3>
           @if(association.school)
           <p class="text-black text-sm">
@@ -168,7 +168,7 @@
           @endif
           @if(association.description)
           <div class="related-description">
-            {{{ truncate(association.description, 200) }}}
+            {{ safe(truncate(association.description, 200)) }}
           </div>
           @endif
         </article>

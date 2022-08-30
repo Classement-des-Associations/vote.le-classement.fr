@@ -8,7 +8,6 @@ export default class AssociationStoreValidator {
     name: schema.string([
       rules.trim(),
       rules.maxLength(255),
-      rules.escape(),
       rules.unique({
         table: 'associations',
         column: 'name',

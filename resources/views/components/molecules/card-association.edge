@@ -26,7 +26,7 @@
     </div>
     <div class="flex flex-col gap-1">
       <h2 class="text-xl font-bold">
-        {{{ association.name }}}
+        {{ association.name }}
       </h2>
       @if(association.school)
       <p>
@@ -38,7 +38,7 @@
   @if(association.description)
   <div class="text-sm" x-data="{ expanded: false }">
     <div x-show="expanded" x-collapse.min.40px x-on:click="expanded = !expanded" class="cursor-pointer">
-      {{{ association.description }}}
+      {{ safe(association.description) }}
     </div>
     <div class="mt-2 flex flex-row justify-between">
       <button class="py-1 rounded-md text-black hover:text-primary-variation-1 transition ease-in"
