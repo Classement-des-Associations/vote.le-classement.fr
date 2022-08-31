@@ -217,7 +217,7 @@ export default class AssociationsController {
     } catch (error) {
       logger.error(error)
       logger.error(email)
-      return response.redirect().toRoute('invalidated')
+      return response.redirect().toRoute('alreadyVoted')
     }
 
     return response.redirect().toRoute('validated')
