@@ -165,7 +165,7 @@ export default class AssociationsController {
     const throttleKey = `vote_${request.ip()}`
 
     const limiter = Limiter.use({
-      requests: 6,
+      requests: 30,
       duration: '1m',
       blockDuration: '15m',
     })
