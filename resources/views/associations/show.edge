@@ -68,7 +68,7 @@
 
       <div class="row-start-3 prose w-full max-w-none lg:prose-xl text-black">
         @if(association.description)
-        {{{ association.description }}}
+        {{ safe(association.description) }}
         @endif
       </div>
     </header>
@@ -88,7 +88,7 @@
     <div class="mt-8 -ml-3 lg:ml-0 lg:-mr-3 flex flex-row lg:justify-end gap-10">
       @if(association.website)
       <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
-        href="{{{ association.website }}}" target="_blank" rel="noopener">
+        href="{{ safe(association.website) }}" target="_blank" rel="noopener">
         @!atoms.icons.globe({
         className: 'lg:w-8 lg:h-8'
         })
@@ -96,7 +96,7 @@
       @endif
       @if(association.linkedin)
       <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
-        href="{{{ association.linkedin }}}" target="_blank" rel="noopener">
+        href="{{ safe(association.linkedin) }}" target="_blank" rel="noopener">
         @!atoms.icons.linkedin({
         className: 'lg:w-8 lg:h-8'
         })
@@ -104,25 +104,41 @@
       @endif
       @if(association.facebook)
       <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
-        href="{{{ association.facebook }}}" target="_blank" rel="noopener">
+        href="{{ safe(association.facebook) }}" target="_blank" rel="noopener">
         @!atoms.icons.facebook({
-        className: 'lg:w-8 lg'
+        className: 'lg:w-8 lg:h-8'
         })
       </a>
       @endif
       @if(association.instagram)
       <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
-        href="{{{ association.instagram }}}" target="_blank" rel="noopener">
+        href="{{ safe(association.instagram) }}" target="_blank" rel="noopener">
         @!atoms.icons.instagram({
-        className: 'lg:w-8 lg'
+        className: 'lg:w-8 lg:h-8'
+        })
+      </a>
+      @endif
+      @if(association.tiktok)
+      <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
+        href="{{ safe(association.tiktok) }}" target="_blank" rel="noopener">
+        @!atoms.icons.tiktok({
+        className: 'lg:w-8 lg:h-8'
         })
       </a>
       @endif
       @if(association.twitter)
       <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
-        href="{{{ association.twitter }}}" target="_blank" rel="noopener">
+        href="{{ safe(association.twitter) }}" target="_blank" rel="noopener">
         @!atoms.icons.twitter({
-        className: 'lg:w-8 lg'
+        className: 'lg:w-8 lg:h-8'
+        })
+      </a>
+      @endif
+      @if(association.youtube)
+      <a class="rounded-full p-3 flex flex-row justify-center items-center text-black hover:bg-black hover:text-white transition ease-in"
+        href="{{ safe(association.youtube) }}" target="_blank" rel="noopener">
+        @!atoms.icons.youtube({
+        className: 'lg:w-8 lg:h-8'
         })
       </a>
       @endif
@@ -131,7 +147,7 @@
 </section>
 
 @if(relatedAssociations.length > 0)
-<section class="mb-14 lg:mb-[4.5rem] px-4">
+<section class="relative z-30 mb-14 lg:mb-[4.5rem] px-4">
   <div class="max-w-screen-xl mx-auto">
     <h2 class="text-black text-xl text-[1.75rem] font-bold">
       Découvrir d'autres associations
@@ -152,7 +168,7 @@
           @endif
           @if(association.description)
           <div class="related-description">
-            {{{ truncate(association.description, 200) }}}
+            {{ safe(truncate(association.description, 200)) }}
           </div>
           @endif
         </article>

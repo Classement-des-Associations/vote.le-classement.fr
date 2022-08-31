@@ -3,7 +3,7 @@
   @atoms.appButton()
   @slot('main', scope)
   <button
-    class="{{ scope.className }} {{ scope.color }} flex flex-row justify-center items-center gap-2 disabled:cursor-not-allowed disabled:bg-primary-base/20 disabled:border-primary-base/10 hover:disabled:bg-primary-base/20 hover:disabled:border-primary-base/10"
+    class="{{ scope.className }} {{ scope.color }} whitespace-nowrap flex flex-row justify-center items-center gap-2 disabled:cursor-not-allowed disabled:bg-primary-base/20 disabled:border-primary-base/10 hover:disabled:bg-primary-base/20 hover:disabled:border-primary-base/10"
     {{{ env('ENABLE_VOTE') ? 'x-on:click="open = true"' : 'disabled' }}}
     title="{{ env('ENABLE_VOTE') ? '': 'Le vote n\'est pas ouvert'  }}">
     @!atoms.icons.star({
@@ -40,7 +40,7 @@
           up-target="[modal-vote]" method="POST">
           {{ csrfField() }}
 
-          <input value="{{ flashMessages.get('email') ?? '' }}" type="email" name="email" placeholder="Adresse mail"
+          <input value="{{ flashMessages.get('email') ?? '' }}" type="email" name="email" placeholder="Adresse mail" required
             class="w-full border-0 bg-white px-4 py-6 placeholder:text-slate-400 text-black focus:outline-none focus:ring-2 focus:ring-primary-base transition ease-in">
           @if(flashMessages.has('errors.email'))
           <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.email') }} </p>
@@ -49,7 +49,8 @@
             avec
             un lien
             pour confirmer
-            ton vote
+            ton vote !<br />
+            Pense à vérifier tes spams.
           </p>
 
           <div class="mt-10 flex flex-row items-center gap-4">

@@ -51,6 +51,8 @@ export const AssociationFactory = Factory.define(Association, async ({ faker }) 
     instagram: faker.internet.url(),
     twitter: faker.internet.url(),
     linkedin: faker.internet.url(),
+    youtube: faker.internet.url(),
+    tiktok: faker.internet.url(),
     image,
     document,
   }

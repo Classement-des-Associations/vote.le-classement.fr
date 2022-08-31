@@ -8,7 +8,6 @@ export default class AssociationStoreValidator {
     name: schema.string([
       rules.trim(),
       rules.maxLength(255),
-      rules.escape(),
       rules.unique({
         table: 'associations',
         column: 'name',
@@ -19,12 +18,13 @@ export default class AssociationStoreValidator {
     twitter: schema.string.optional([rules.trim(), rules.maxLength(255), rules.url()]),
     instagram: schema.string.optional([rules.trim(), rules.maxLength(255), rules.url()]),
     linkedin: schema.string.optional([rules.trim(), rules.maxLength(255), rules.url()]),
+    tiktok: schema.string.optional([rules.trim(), rules.maxLength(255), rules.url()]),
+    youtube: schema.string.optional([rules.trim(), rules.maxLength(255), rules.url()]),
     website: schema.string.optional([rules.trim(), rules.maxLength(255), rules.url()]),
     schoolId: schema.number([rules.exists({ table: 'schools', column: 'id' })]),
     categoryId: schema.number([rules.exists({ table: 'categories', column: 'id' })]),
     image: schema.file.optional({
       extnames: ['png', 'jpg', 'jpeg', 'webp'],
-      size: '500kb',
     }),
     document: schema.file.optional({
       extnames: ['pdf'],
