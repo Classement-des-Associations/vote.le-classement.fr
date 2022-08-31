@@ -19,7 +19,8 @@
     "./start/routes",
     "./start/kernel",
     "./start/view",
-    "./start/mail"
+    "./start/mail",
+    "./start/limiter"
   ],
   "providers": [
     "./providers/AppProvider",
@@ -34,7 +35,8 @@
     "@adonisjs/attachment-lite",
     "adonis-lucid-filter",
     "@adonisjs/mail",
-    "@adonisjs/auth"
+    "@adonisjs/auth",
+    "@adonisjs/limiter"
   ],
   "metaFiles": [
     {

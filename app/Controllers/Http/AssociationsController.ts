@@ -1,3 +1,4 @@
+import { Limiter } from '@adonisjs/limiter/build/services/index'
 import { bind } from '@adonisjs/route-model-binding'
 import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite'
 import Env from '@ioc:Adonis/Core/Env'
@@ -154,14 +155,29 @@ export default class AssociationsController {
 
   @bind()
   public async sendEmailVote(
-    { request, response, view }: HttpContextContract,
+    { request, response, logger }: HttpContextContract,
     association: Association
   ) {
     if (!Env.get('ENABLE_VOTE')) {
       return response.redirect().toRoute('AssociationsController.show', { id: association.slug })
     }
 
+    const throttleKey = `vote_${request.ip()}`
+
+    const limiter = Limiter.use({
+      requests: 30,
+      duration: '1m',
+      blockDuration: '15m',
+    })
+
+    if (await limiter.isBlocked(throttleKey)) {
+      logger.warn(`${request.ip()} is blocked for voting`)
+      return response.redirect().toRoute('limited')
+    }
+
     const { email, acceptClassement, acceptActivities } = await request.validate(VoteStoreValidator)
+
+    await limiter.increment(throttleKey)
 
     const signedUrl = Route.makeSignedUrl(
       'AssociationsController.vote',
@@ -173,30 +189,20 @@ export default class AssociationsController {
 
     await new VerifyEmail(email, association.name, signedUrl).sendLater()
 
-    return view.render('vote/index', {
-      title: 'Pense à valider ton vote',
-      subtitle:
-        "Merci d'avoir voté ! Tu vas recevoir d'ici quelques instants un mail pour valider ton vote.",
-    })
+    return response.redirect().toRoute('checkEmail')
   }
 
   @bind()
   public async vote(
-    { request, params, view, logger }: HttpContextContract,
+    { request, params, logger, response }: HttpContextContract,
     association: Association
   ) {
     if (!Env.get('ENABLE_VOTE')) {
-      return view.render('vote/index', {
-        title: 'Le vote est fermé',
-        subtitle: "Désolé, il n'est pas possible de voter",
-      })
+      return response.redirect().toRoute('closed')
     }
 
     if (!request.hasValidSignature()) {
-      return view.render('vote/index', {
-        title: "Ce lien n'est pas valide",
-        subtitle: 'Tu peux réessayer en retournant sur la page de ton association !',
-      })
+      return response.redirect().toRoute('invalidated')
     }
 
     const { email } = params
@@ -211,16 +217,9 @@ export default class AssociationsController {
     } catch (error) {
       logger.error(error)
       logger.error(email)
-      return view.render('vote/index', {
-        title: 'Vous avez déjà voté pour cette association',
-        subtitle: 'Mais tu peux continuer à suivre le Classement sur ses réseaux !',
-      })
+      return response.redirect().toRoute('alreadyVoted')
     }
 
-    return view.render('vote/index', {
-      title: 'Ta voix a été prise en compte',
-      subtitle:
-        "Merci d'avoir voté. Tu peux continuer à suivre le Classement via ses réseaux si tu le souhaites !",
-    })
+    return response.redirect().toRoute('validated')
   }
 }

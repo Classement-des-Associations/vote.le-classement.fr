@@ -41,7 +41,15 @@ Route.resource('associations', 'AssociationsController').middleware({
   destroy: ['auth'],
 })
 Route.post('associations/:id/send-email-vote', 'AssociationsController.sendEmailVote')
+
 Route.get('associations/:id/vote/:email', 'AssociationsController.vote')
+
+Route.get('check-email', 'VotesController.checkEmail').as('checkEmail')
+Route.get('validated', 'VotesController.validated').as('validated')
+Route.get('invalidated', 'VotesController.invalidated').as('invalidated')
+Route.get('already-voted', 'VotesController.alreadyVoted').as('alreadyVoted')
+Route.get('closed', 'VotesController.closed').as('closed')
+Route.get('limited', 'VotesController.limited').as('limited')
 
 Route.group(() => {
   Route.get('associations/:id/image/edit', 'AssociationsController.editImage')
