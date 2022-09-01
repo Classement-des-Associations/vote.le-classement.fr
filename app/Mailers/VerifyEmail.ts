@@ -1,6 +1,7 @@
 import { BaseMailer, MessageContract } from '@ioc:Adonis/Addons/Mail'
 import Application from '@ioc:Adonis/Core/Application'
 import View from '@ioc:Adonis/Core/View'
+import Env from '@ioc:Adonis/Core/Env'
 import mjml2html from 'mjml'
 
 export default class VerifyEmail extends BaseMailer {
@@ -22,7 +23,10 @@ export default class VerifyEmail extends BaseMailer {
       .embed(Application.publicPath('images/mail_instagram.png'), 'mail_instagram')
       .embed(Application.publicPath('images/mail_twitter.png'), 'mail_twitter')
       .subject('Valide ta voix - Le Classement des Associations ✨')
-      .from('no-reply@le-classement.fr')
+      .from(
+        Env.get('MAILER_EMAIL_ADDRESS') || 'no-reply@le-classement.fr',
+        'No Reply - Le Classement des Associations ✨'
+      )
       .to(this.email)
       .html(html)
   }
