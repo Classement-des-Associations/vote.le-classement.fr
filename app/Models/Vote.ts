@@ -1,8 +1,13 @@
+import { Filterable } from '@ioc:Adonis/Addons/LucidFilter'
+import { compose } from '@ioc:Adonis/Core/Helpers'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'
 import Association from './Association'
+import VoteFilter from './Filters/VoteFilter'
 
-export default class Vote extends BaseModel {
+export default class Vote extends compose(BaseModel, Filterable) {
+  public static $filter = () => VoteFilter
+
   @column({ isPrimary: true })
   public id: number
 
