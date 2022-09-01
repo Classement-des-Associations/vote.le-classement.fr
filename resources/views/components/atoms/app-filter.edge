@@ -1,5 +1,5 @@
-<form up-submit up-target="[grid]" up-fail-target="form" up-history="true" up-scroll="#list"
-  class="rounded-2xl bg-ultra-light-grey p-4 flex flex-col gap-12" action="{{ action }}" method="GET"
+<form up-submit up-target="{{ target ? target : '[grid]' }}" up-fail-target="form" up-history="true" up-scroll="#list"
+  class="rounded-2xl bg-ultra-light-grey p-4 flex flex-col gap-12" action="{{ action }}#list" method="GET"
   x-data="{ open: false }">
 
   <div class="lg:flex flex-col gap-8" :class="{ 'hidden': !open, 'flex': open }" x-cloak>

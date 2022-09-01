@@ -4,59 +4,113 @@
 @section('main')
 <section class="mt-6 mb-14 lg:mb-[4.5rem] px-4">
 
-  <div class="max-w-screen-lg mx-auto">
+  <div class="max-w-screen-xl mx-auto">
     <div class="flex flex-row justify-between items-end">
-      <div class="flex flex-col gap-1">
+      <div class="flex flex-col gap-1" title>
         <a href="{{ route('VotesController.index') }}" class="text-primary-base mb-1"
           up-target="[layout-main]">Votes</a>
 
         @atoms.appTitle()
-        Les Votes - {{ total }} - {{ env('ENABLE_VOTE') ? 'Actif' : 'Inactif' }}
+        Les Votes - {{ votes.total }} - {{ env('ENABLE_VOTE') ? 'Actif' : 'Inactif' }}
         @end
       </div>
     </div>
+  </div>
 
-    <ul class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
-      @each(vote in votes)
-      <li class="rounded-lg bg-ultra-light-grey p-4 flex flex-col">
-        <div>
-          <span class="font-semibold">
-            {{ vote.email }}
-          </span>
-          @if(vote.association)
-          pour <a href="{{ route('AssociationsController.show', { id: vote.association.slug }) }}"
-            class="hover:text-primary-variation-1 transition ease-in" up-target="[layout-main]">
-            {{ vote.association.name }}
-          </a>
+  <section class="px-4 mt-6" layout-grid id="list">
+    <div class="max-w-screen-xl mx-auto">
+      <div class="mt-6 lg:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4 place-items-start">
+        <div class="lg:sticky top-4 w-full">
+          @if(up.targetIncludes('[layout-grid]') || up.targetIncludes('[layout-main]'))
+          @!molecules.filterVote({
+          associations
+          })
           @endif
         </div>
-        <div class="text-sm">
-          {{ vote.createdAt.setLocale('fr')
-          .toFormat('HH:mm - dd LLLL yyyy') }}
+
+        <div class="lg:col-span-2 w-full" grid id="grid">
+          <ul class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+            @if(up.targetIncludes('[grid]') || up.targetIncludes('[layout-grid]') ||
+            up.targetIncludes('[layout-main]'))
+            @if(votes.length > 0)
+            @each(vote in votes)
+            <li class="rounded-lg bg-ultra-light-grey p-4 flex flex-col">
+              <div>
+                <span class="font-semibold">
+                  {{ vote.email }}
+                </span>
+                @if(vote.association)
+                pour <a href="{{ route('AssociationsController.show', { id: vote.association.slug }) }}"
+                  class="hover:text-primary-variation-1 transition ease-in" up-target="[layout-main]">
+                  {{ vote.association.name }}
+                </a>
+                @endif
+              </div>
+              <div class="text-sm">
+                {{ vote.createdAt.setZone('Europe/Paris').setLocale('fr')
+                .toFormat('HH:mm - dd LLLL yyyy') }}
+              </div>
+              <table class="mt-2">
+                <tr>
+                  <td>
+                    <label for="classement"> Actualité du Classement </label>
+                  </td>
+                  <td>
+                    <input id="classement" type="checkbox" name="vote" {{ vote.acceptClassement ? 'checked' : '' }}
+                      disabled
+                      class="border-0 border-transparent rounded w-4 h-4 disabled:checked:bg-primary-base disabled:bg-light-grey" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label for="activities"> Actualité des associations</label>
+                  </td>
+                  <td>
+                    <input id="activities" type="checkbox" name="vote" {{ vote.acceptActivities ? 'checked' : '' }}
+                      disabled
+                      class="border-0 border-transparent rounded w-4 h-4 disabled:checked:bg-primary-base disabled:bg-light-grey" />
+                  </td>
+                </tr>
+              </table>
+            </li>
+            @endeach
+            @else
+            <li class="col-span-2 w-full text-center text-black">
+              <p>
+                Aucun vote n'a été trouvé.
+              </p>
+
+              <a class="block mt-8 text-black hover:text-primary-base transition ease-in"
+                href="{{ route('VotesController.index') }}" up-target="[layout-grid], [title]">
+                Réinitialiser les filtres ?
+              </a>
+            </li>
+            @endif
+            @endif
+          </ul>
+
+          <div class="mt-8 flex flex-row justify-center items-center gap-4">
+            @atoms.appButton()
+            @slot('main', scope)
+            <a href="{{votes.currentPage > 1 ? votes.getPreviousPageUrl() : '' }}" up-target="[grid]" up-history="true"
+              up-scroll="#grid"
+              class="{{ scope.className }} {{ scope.color }} {{ votes.currentPage > 1 ? '' : 'cursor-not-allowed bg-primary-base/20 border-primary-base/10 hover:bg-primary-base/20 hover:border-primary-base/10' }}">
+              Précédent
+            </a>
+            @endslot
+            @end
+            @atoms.appButton()
+            @slot('main', scope)
+            <a href="{{votes.currentPage < votes.lastPage ? votes.getNextPageUrl() : '' }}" up-target="[grid]"
+              up-history="true" up-scroll="#grid"
+              class="{{ scope.className }} {{ scope.color }} {{ votes.currentPage < votes.lastPage ? '' : 'cursor-not-allowed bg-primary-base/20 border-primary-base/10 hover:bg-primary-base/20 hover:border-primary-base/10' }}">
+              Suivant
+            </a>
+            @endslot
+            @end
+          </div>
         </div>
-        <table class="mt-2">
-          <tr>
-            <td>
-              <label for="classement"> Actualité du Classement </label>
-            </td>
-            <td>
-              <input id="classement" type="checkbox" name="vote" {{ vote.acceptClassement ? 'checked' : '' }} disabled
-                class="border-0 border-transparent rounded w-4 h-4 disabled:checked:bg-primary-base disabled:bg-light-grey" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label for="activities"> Actualité des associations</label>
-            </td>
-            <td>
-              <input id="activities" type="checkbox" name="vote" {{ vote.acceptActivities ? 'checked' : '' }} disabled
-                class="border-0 border-transparent rounded w-4 h-4 disabled:checked:bg-primary-base disabled:bg-light-grey" />
-            </td>
-          </tr>
-        </table>
-      </li>
-      @endeach
-    </ul>
-  </div>
+      </div>
+  </section>
 </section>
 @endsection

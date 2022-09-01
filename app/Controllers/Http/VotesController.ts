@@ -1,18 +1,31 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Database from '@ioc:Adonis/Lucid/Database'
+import Association from 'App/Models/Association'
 import Vote from 'App/Models/Vote'
 
 export default class VotesController {
-  public async index({ view }: HttpContextContract) {
-    const votes = await Vote.query()
+  public async index({ view, request }: HttpContextContract) {
+    const page = request.input('page', 1)
+    const limit = request.input('limit', 20)
+
+    const qs = request.qs()
+
+    const votes = await Vote.filter(qs)
       .preload('association', (loader) => {
         loader.select('name', 'slug')
       })
-      .orderBy('created_at', 'desc')
+      .paginate(page, limit)
 
-    const total = await Database.from('votes').count('* as total')
+    votes.baseUrl('/votes')
+    votes.queryString(qs)
 
-    return view.render('votes/index', { votes, total: total[0].total })
+    const associations = await Association.query().select('name', 'id').orderBy('name', 'asc')
+
+    return view.render('votes/index', {
+      votes,
+      associations: associations.map((s) => {
+        return { value: s.id, label: s.name }
+      }),
+    })
   }
 
   public async checkEmail({ view }: HttpContextContract) {
