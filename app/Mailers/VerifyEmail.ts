@@ -23,7 +23,10 @@ export default class VerifyEmail extends BaseMailer {
       .embed(Application.publicPath('images/mail_instagram.png'), 'mail_instagram')
       .embed(Application.publicPath('images/mail_twitter.png'), 'mail_twitter')
       .subject('Valide ta voix - Le Classement des Associations ✨')
-      .from(Env.get('MAILER_EMAIL_ADDRESS'), 'No Reply - Le Classement')
+      .from(
+        Env.get('MAILER_EMAIL_ADDRESS') || 'no-reply@le-classement.fr',
+        'No Reply - Le Classement des Associations ✨'
+      )
       .to(this.email)
       .html(html)
   }
