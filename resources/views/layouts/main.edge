@@ -24,6 +24,9 @@
 
   <body class="font-montserrat overflow-x-hidden">
 
+    @if(env('MESSAGE_BANNER'))
+    @include('partials/message-banner')
+    @endif
     @include('partials/over-header')
     @include('partials/header')
 
