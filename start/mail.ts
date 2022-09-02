@@ -17,5 +17,5 @@ Mail.monitorQueue((error, result) => {
     return
   }
 
-  Logger.info(`Email sent to ${result?.response?.envelope?.to}`)
+  Logger.info(`Email sent - "${result?.response?.envelope?.to}"`)
 })
