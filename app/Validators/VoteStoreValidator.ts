@@ -8,7 +8,20 @@ export default class VoteStoreValidator {
     email: schema.string([
       rules.trim(),
       rules.maxLength(255),
-      rules.email(),
+      rules.email({
+        hostBlacklist: [
+          'yopmail.fr',
+          'yopmail.net',
+          'cool.fr.nf',
+          'jetable.fr.nf',
+          'courriel.fr.nf',
+          'moncourrier.fr.nf',
+          'monemail.fr.nf',
+          'monmail.fr.nf',
+          'hide.biz.st',
+          'mymail.infos.st',
+        ],
+      }),
       rules.normalizeEmail({
         allLowercase: true,
         gmailRemoveDots: true,
