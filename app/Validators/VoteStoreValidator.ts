@@ -9,6 +9,9 @@ export default class VoteStoreValidator {
       rules.trim(),
       rules.maxLength(255),
       rules.email({
+        /* Can't be used for now because of a bug in Adonis/Core/Validator
+        @see https://github.com/adonisjs/validator/issues/154
+        */
         hostBlacklist: [
           'yopmail.fr',
           'yopmail.net',
