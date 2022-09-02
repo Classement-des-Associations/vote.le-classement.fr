@@ -11,7 +11,7 @@ selected: request.qs().order_by ?? '',
 options: [
 {
 label: 'Date',
-value: '',
+value: 'created_at',
 },
 {
 label: 'Adresse mail',
@@ -26,13 +26,13 @@ name: 'order',
 selected: request.qs().order ?? '',
 options: [
 {
+label: 'Décroissant',
+value: 'desc',
+},
+{
 label: 'Croissant',
 value: 'asc',
 },
-{
-label: 'Décroissant',
-value: 'desc',
-}
 ],
 })
 

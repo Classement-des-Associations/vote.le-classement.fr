@@ -5,6 +5,12 @@ import Vote from 'App/Models/Vote'
 export default class VoteFilter extends BaseModelFilter {
   public $query: ModelQueryBuilderContract<typeof Vote, Vote>
 
+  public setup() {
+    if (!this.$input['order_by']) {
+      this.$query.orderBy('created_at', 'desc')
+    }
+  }
+
   public orderBy(field: string) {
     this.$query.orderBy(field, this.$input['order'] ?? 'asc')
   }
