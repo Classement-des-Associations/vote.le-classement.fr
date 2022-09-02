@@ -159,6 +159,12 @@ export default class AssociationsController {
     association: Association
   ) {
     if (!Env.get('ENABLE_VOTE')) {
+      logger.warn("Voting is disabled - Can't send email")
+      return response.redirect().toRoute('AssociationsController.show', { id: association.slug })
+    }
+
+    if (!request.hasBotFieldEmpty()) {
+      logger.warn(`Bot field is not empty - "${request.input('email')}"`)
       return response.redirect().toRoute('AssociationsController.show', { id: association.slug })
     }
 
@@ -198,10 +204,12 @@ export default class AssociationsController {
     association: Association
   ) {
     if (!Env.get('ENABLE_VOTE')) {
+      logger.warn("Voting is disabled - Can't validate email")
       return response.redirect().toRoute('closed')
     }
 
     if (!request.hasValidSignature()) {
+      logger.warn(`Invalid signature - "${params.email}"`)
       return response.redirect().toRoute('invalidated')
     }
 
