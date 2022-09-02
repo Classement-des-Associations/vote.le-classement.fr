@@ -1,6 +1,8 @@
 import { ApplicationContract } from '@ioc:Adonis/Core/Application'
 
 export default class AppProvider {
+  public static needsApplication = true
+
   constructor(protected app: ApplicationContract) {}
 
   public register() {
@@ -9,6 +11,11 @@ export default class AppProvider {
 
   public async boot() {
     // IoC container is ready
+    const Request = this.app.container.use('Adonis/Core/Request')
+
+    Request.macro('hasBotFieldEmpty', function (field: string = 'bot-field') {
+      return !this.ctx!.request.input(field)
+    })
   }
 
   public async ready() {
