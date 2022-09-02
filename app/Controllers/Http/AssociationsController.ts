@@ -183,6 +183,28 @@ export default class AssociationsController {
 
     const { email, acceptClassement, acceptActivities } = await request.validate(VoteStoreValidator)
 
+    /**
+     * Workaround of a bug in Adonis/Core/Validator
+      @see https://github.com/adonisjs/validator/issues/154
+    */
+    const hostBlacklist = [
+      'yopmail.fr',
+      'yopmail.net',
+      'cool.fr.nf',
+      'jetable.fr.nf',
+      'courriel.fr.nf',
+      'moncourrier.fr.nf',
+      'monemail.fr.nf',
+      'monmail.fr.nf',
+      'hide.biz.st',
+      'mymail.infos.st',
+    ]
+
+    if (hostBlacklist.includes(email.split('@')[1])) {
+      logger.warn(`Host is blacklisted - ${email}`)
+      return response.redirect().toRoute('AssociationsController.show', { id: association.slug })
+    }
+
     await limiter.increment(throttleKey)
 
     const signedUrl = Route.makeSignedUrl(
