@@ -11,7 +11,7 @@ selected: request.qs().order_by ?? '',
 options: [
 {
 label: 'Nombre de voix',
-value: '',
+value: 'votes_count',
 },
 {
 label: 'Aléatoire',
@@ -30,13 +30,13 @@ name: 'order',
 selected: request.qs().order ?? '',
 options: [
 {
+label: 'Décroissant',
+value: 'desc',
+},
+{
 label: 'Croissant',
 value: 'asc',
 },
-{
-label: 'Décroissant',
-value: 'desc',
-}
 ],
 })
 
