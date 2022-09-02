@@ -159,7 +159,7 @@ export default class AssociationsController {
     association: Association
   ) {
     if (!Env.get('ENABLE_VOTE')) {
-      logger.warn("Voting is disabled - Can't send email")
+      logger.warn(`Voting is disabled - Can't send email - "${request.input('email')}"`)
       return response.redirect().toRoute('AssociationsController.show', { id: association.slug })
     }
 
@@ -177,7 +177,7 @@ export default class AssociationsController {
     })
 
     if (await limiter.isBlocked(throttleKey)) {
-      logger.warn(`${request.ip()} is blocked for voting`)
+      logger.warn(`IP blocked for sending email - "${request.ip()}"`)
       return response.redirect().toRoute('limited')
     }
 
@@ -226,7 +226,7 @@ export default class AssociationsController {
     association: Association
   ) {
     if (!Env.get('ENABLE_VOTE')) {
-      logger.warn("Voting is disabled - Can't validate email")
+      logger.warn(`Voting is disabled - Can't validate email - "${params.email}"`)
       return response.redirect().toRoute('closed')
     }
 
@@ -238,18 +238,21 @@ export default class AssociationsController {
     const { email } = params
     const { acceptClassement, acceptActivities } = request.qs()
 
-    try {
-      await association.related('votes').create({
+    const vote = await association.related('votes').firstOrCreate(
+      { email },
+      {
         email,
         acceptClassement,
         acceptActivities,
-      })
-    } catch (error) {
-      logger.error(error)
-      logger.error(email)
+      }
+    )
+
+    if (vote.$isLocal) {
+      logger.info(`Vote created - "${email}"`)
+      return response.redirect().toRoute('validated')
+    } else {
+      logger.warn(`Email has already voted - "${email}"`)
       return response.redirect().toRoute('alreadyVoted')
     }
-
-    return response.redirect().toRoute('validated')
   }
 }
