@@ -59,4 +59,5 @@ Route.group(() => {
   Route.resource('categories', 'CategoriesController')
   Route.resource('schools', 'SchoolsController')
   Route.get('votes', 'VotesController.index')
+  Route.get('votes/graph', 'VotesController.graph')
 }).middleware('auth')
