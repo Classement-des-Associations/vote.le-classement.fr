@@ -46,10 +46,18 @@ up-modal-backdrop {
   @apply fixed inset-0 bg-black bg-opacity-70 backdrop-blur-[32px];
 }
 
+up-modal-viewport {
+  @apply flex w-full  items-center justify-center !p-0;
+}
+
 up-modal-box {
-  @apply rounded-xl bg-white p-4 shadow-none;
+  @apply max-w-screen-sm bg-ultra-light-grey p-4 shadow-none sm:rounded-2xl;
 }
 
 up-modal[size='medium'] up-modal-box {
   @apply w-full md:w-3/4 lg:w-1/2;
+}
+
+up-modal-dismiss {
+  @apply hidden;
 }

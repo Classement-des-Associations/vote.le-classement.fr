@@ -30,12 +30,15 @@ export default class VotesController {
     })
   }
 
-  public async totalByTen({ view }: HttpContextContract) {
-    const result = await Database.rawQuery(
-      "select count(id) as value, date_trunc('day', created_at) as date from votes group by date_trunc('day', created_at) order by date"
-    )
+  public async totalByDay({ view, request }: HttpContextContract) {
+    const qs = request.qs()
 
-    const votes = result.rows as { value: Number; date: Date }[]
+    const result = await Database.from(Vote.filter(qs).as('votes'))
+      .select(Database.raw("date_trunc('day', created_at) as date"))
+      .count('id as value')
+      .groupByRaw("date_trunc('day', created_at)")
+
+    const votes = result as { value: Number; date: Date }[]
 
     return view.render('votes/charts/total-by-day', {
       votes: {
@@ -48,9 +51,11 @@ export default class VotesController {
   }
 
   /**
-   * Used to draw a chart of the ten most voted association day by day
+   * Used to draw a chart of the most voted association day by day
    */
-  public async topTen({ view }: HttpContextContract) {
+  public async topByDay({ view, request }: HttpContextContract) {
+    const limit = request.input('limit', 10)
+
     // Get the ten most voted associations ids
     const associationsIds = Database.from(
       Database.from('votes')
@@ -58,8 +63,8 @@ export default class VotesController {
         .count('id')
         .groupBy('association_id')
         .orderBy('count', 'desc')
-        .limit(10)
-        .as('ten')
+        .limit(limit)
+        .as('most_voted')
     ).select('association_id')
 
     // Group votes by date and association id

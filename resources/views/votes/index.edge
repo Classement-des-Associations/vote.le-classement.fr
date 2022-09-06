@@ -4,29 +4,36 @@
 @section('main')
 <section class="mt-6 mb-14 lg:mb-[4.5rem] px-4">
 
-  <div class="max-w-screen-xl mx-auto">
+  <div class="max-w-screen-xl mx-auto flex flex-col">
     <div class="flex flex-row justify-between items-end">
-      <div class="flex flex-col gap-1" title>
+      <div class="flex flex-col gap-1">
         <a href="{{ route('VotesController.index') }}" class="text-primary-base mb-1"
           up-target="[layout-main]">Votes</a>
 
         @atoms.appTitle()
-        Les Votes - {{ votes.total }} - {{ env('ENABLE_VOTE') ? 'Actif' : 'Inactif' }}
+        Les Votes
         @end
       </div>
-
       @atoms.appButton()
       @slot('main', scope)
-      <a class="{{ scope.className }} {{ scope.color }}" href="{{ route('VotesController.totalByDay') }}"
-        up-target="canvas" up-layer="new modal" up-history="true">
+      <a class="{{ scope.className }} {{ scope.color }}"
+        href="{{ route('VotesController.totalByDay', { qs: request.qs() }) }}" up-target="[modal]" up-layer="new modal"
+        chart>
         Voir l'évolution
       </a>
       @endslot
       @end
     </div>
+
+    <div class="text-black">
+      <span value>
+        {{ votes.total }}
+      </span>
+      - {{ env('ENABLE_VOTE') ? 'Actif' : 'Inactif' }}
+    </div>
   </div>
 
-  <section class="px-4 mt-6" layout-grid id="list">
+  <section class="mt-6" layout-grid id="list">
     <div class="max-w-screen-xl mx-auto">
       <div class="mt-6 lg:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4 place-items-start">
         <div class="lg:sticky top-4 w-full">
@@ -90,7 +97,8 @@
               </p>
 
               <a class="block mt-8 text-black hover:text-primary-base transition ease-in"
-                href="{{ route('VotesController.index') }}" up-target="[layout-grid], [title]">
+                href="{{ route('VotesController.index') }}" up-target="[layout-grid], [value], [chart]"
+                up-history="true">
                 Réinitialiser les filtres ?
               </a>
             </li>
@@ -98,26 +106,30 @@
             @endif
           </ul>
 
+          @if(votes.length > 0)
           <div class="mt-8 flex flex-row justify-center items-center gap-4">
+            @if(votes.currentPage > 1)
             @atoms.appButton()
             @slot('main', scope)
-            <a href="{{votes.currentPage > 1 ? votes.getPreviousPageUrl() : '' }}" up-target="[grid]" up-history="true"
-              up-scroll="#grid"
-              class="{{ scope.className }} {{ scope.color }} {{ votes.currentPage > 1 ? '' : 'cursor-not-allowed bg-primary-base/20 border-primary-base/10 hover:bg-primary-base/20 hover:border-primary-base/10' }}">
+            <a href="{{ votes.getPreviousPageUrl() }}" up-target="[grid]" up-history="true" up-scroll="#grid"
+              class="{{ scope.className }} {{ scope.color }}">
               Précédent
             </a>
             @endslot
             @end
+            @endif
+            @if(votes.lastPage > votes.currentPage)
             @atoms.appButton()
             @slot('main', scope)
-            <a href="{{votes.currentPage < votes.lastPage ? votes.getNextPageUrl() : '' }}" up-target="[grid]"
-              up-history="true" up-scroll="#grid"
-              class="{{ scope.className }} {{ scope.color }} {{ votes.currentPage < votes.lastPage ? '' : 'cursor-not-allowed bg-primary-base/20 border-primary-base/10 hover:bg-primary-base/20 hover:border-primary-base/10' }}">
+            <a href="{{ votes.getNextPageUrl() }}" up-target="[grid]" up-history="true" up-scroll="#grid"
+              class="{{ scope.className }} {{ scope.color }}">
               Suivant
             </a>
             @endslot
             @end
+            @endif
           </div>
+          @endif
         </div>
       </div>
   </section>
