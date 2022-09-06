@@ -17,8 +17,8 @@
 
       @atoms.appButton()
       @slot('main', scope)
-      <a class="{{ scope.className }} {{ scope.color }}" href="{{ route('VotesController.chart') }}" up-target="canvas"
-        up-layer="new modal" up-history="true">
+      <a class="{{ scope.className }} {{ scope.color }}" href="{{ route('VotesController.totalByDay') }}"
+        up-target="canvas" up-layer="new modal" up-history="true">
         Voir l'évolution
       </a>
       @endslot
