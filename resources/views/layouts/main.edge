@@ -7,10 +7,13 @@
     <title>{{ title }} - Le Classement des Associations</title>
     <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon.png') }}">
     @!section('head')
-    @entryPointScripts('editor')
-    @entryPointStyles('editor')
     @entryPointScripts('app')
     @entryPointStyles('app')
+    @if(auth.isLoggedIn)
+    @entryPointScripts('editor')
+    @entryPointStyles('editor')
+    @entryPointScripts('chart')
+    @endif
     @if(env('NODE_ENV') == 'production')
     <script type="text/javascript">
       (function(c,l,a,r,i,t,y){

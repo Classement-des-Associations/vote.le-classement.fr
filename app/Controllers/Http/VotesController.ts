@@ -1,6 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Database from '@ioc:Adonis/Lucid/Database'
 import Association from 'App/Models/Association'
 import Vote from 'App/Models/Vote'
+import { DateTime } from 'luxon'
 
 export default class VotesController {
   public async index({ view, request }: HttpContextContract) {
@@ -25,6 +27,23 @@ export default class VotesController {
       associations: associations.map((s) => {
         return { value: s.id, label: s.name }
       }),
+    })
+  }
+
+  public async chart({ view }: HttpContextContract) {
+    const result = await Database.rawQuery(
+      "select count(id) as value, date_trunc('day', created_at) as date from votes group by date_trunc('day', created_at) order by date"
+    )
+
+    const votes = result.rows as { value: Number; date: Date }[]
+
+    return view.render('votes/chart', {
+      votes: {
+        labels: [
+          ...votes.map((vote) => DateTime.fromISO(vote.date.toISOString()).toFormat('dd/LL')),
+        ],
+        data: [...votes.map((vote) => vote.value)],
+      },
     })
   }
 

@@ -56,7 +56,11 @@ Route.group(() => {
   Route.patch('associations/:id/image', 'AssociationsController.updateImage')
   Route.get('associations/:id/document/edit', 'AssociationsController.editDocument')
   Route.patch('associations/:id/document', 'AssociationsController.updateDocument')
+  Route.get('/associations/:id/chart', 'AssociationsController.chart')
+
   Route.resource('categories', 'CategoriesController')
   Route.resource('schools', 'SchoolsController')
+
   Route.get('votes', 'VotesController.index')
+  Route.get('votes/chart', 'VotesController.chart')
 }).middleware('auth')
