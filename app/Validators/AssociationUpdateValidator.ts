@@ -25,8 +25,8 @@ export default class AssociationUpdateValidator {
     tiktok: schema.string.nullable([rules.trim(), rules.maxLength(255), rules.url()]),
     youtube: schema.string.nullable([rules.trim(), rules.maxLength(255), rules.url()]),
     website: schema.string.nullable([rules.trim(), rules.maxLength(255), rules.url()]),
-    schoolId: schema.number.nullable([rules.exists({ table: 'schools', column: 'id' })]),
-    categoryId: schema.number.nullable([rules.exists({ table: 'categories', column: 'id' })]),
+    schoolId: schema.number.optional([rules.exists({ table: 'schools', column: 'id' })]),
+    categoryId: schema.number.optional([rules.exists({ table: 'categories', column: 'id' })]),
   })
 
   /**
