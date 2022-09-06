@@ -63,5 +63,5 @@ Route.group(() => {
 
   Route.get('votes', 'VotesController.index')
   Route.get('votes/charts/total-by-day', 'VotesController.totalByDay')
-  Route.get('votes/charts/top-ten', 'VotesController.topTen')
+  Route.get('votes/charts/top-by-day', 'VotesController.topByDay')
 }).middleware('auth')

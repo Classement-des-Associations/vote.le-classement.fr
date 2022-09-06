@@ -30,7 +30,7 @@ export default class VotesController {
     })
   }
 
-  public async totalByTen({ view, request }: HttpContextContract) {
+  public async totalByDay({ view, request }: HttpContextContract) {
     const qs = request.qs()
 
     const result = await Database.from(Vote.filter(qs).as('votes'))
@@ -51,9 +51,11 @@ export default class VotesController {
   }
 
   /**
-   * Used to draw a chart of the ten most voted association day by day
+   * Used to draw a chart of the most voted association day by day
    */
-  public async topTen({ view }: HttpContextContract) {
+  public async topByDay({ view, request }: HttpContextContract) {
+    const limit = request.input('limit', 10)
+
     // Get the ten most voted associations ids
     const associationsIds = Database.from(
       Database.from('votes')
@@ -61,8 +63,8 @@ export default class VotesController {
         .count('id')
         .groupBy('association_id')
         .orderBy('count', 'desc')
-        .limit(10)
-        .as('ten')
+        .limit(limit)
+        .as('most_voted')
     ).select('association_id')
 
     // Group votes by date and association id
