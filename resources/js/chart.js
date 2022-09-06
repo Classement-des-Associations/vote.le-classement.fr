@@ -13,3 +13,17 @@ up.compiler('canvas#chart', function (element, data) {
     },
   })
 })
+
+up.compiler('canvas#chartBar', function (element, data) {
+  new Chart(element, {
+    type: 'bar',
+    data,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  })
+})
