@@ -1,0 +1,33 @@
+@layout('layouts/main')
+@set('title', 'Graph')
+
+@section('main')
+<section class="mt-6 mb-14 lg:mb-[4.5rem] px-4">
+
+  <div class="max-w-screen-xl mx-auto">
+    <div class="flex flex-row justify-between items-end">
+      <div class="flex flex-col gap-1" title>
+        <a href="{{ route('VotesController.index') }}" class="text-primary-base mb-1"
+          up-target="[layout-main]">Votes</a>
+
+        @atoms.appTitle()
+        Top {{ numberOfAssociations }}
+        @end
+      </div>
+    </div>
+
+    <section class="mt-6">
+      <h2 class="text-black text-xl lg:text-3xl font-semibold">Nombre de votes par jour sur les {{ numberOfAssociations
+        }}
+        associations les plus
+        votées</h2>
+
+      <div class="mt-2">
+        <canvas id="chart" width="400" height="400" up-data='{
+        "datasets": {{ votes }}
+      }'></canvas>
+      </div>
+    </section>
+  </div>
+</section>
+@endsection
