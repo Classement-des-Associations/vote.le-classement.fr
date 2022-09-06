@@ -28,28 +28,28 @@ export default class Association extends compose(BaseModel, Filterable) {
   public name: string
 
   @column()
-  public description?: string
+  public description: string | null
 
   @column()
-  public facebook?: string
+  public facebook: string | null
 
   @column()
-  public twitter?: string
+  public twitter: string | null
 
   @column()
-  public instagram?: string
+  public instagram: string | null
 
   @column()
-  public linkedin?: string
+  public linkedin: string | null
 
   @column()
-  public tiktok?: string
+  public tiktok: string | null
 
   @column()
-  public youtube?: string
+  public youtube: string | null
 
   @column()
-  public website?: string
+  public website: string | null
 
   @column()
   public categoryId?: number
