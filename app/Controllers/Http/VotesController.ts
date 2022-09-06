@@ -50,10 +50,36 @@ export default class VotesController {
     })
   }
 
+  public async topAssociations({ request, view }: HttpContextContract) {
+    const limit = request.input('limit', 10)
+
+    const votes = await Database.from('votes')
+      .select('name as label')
+      .count('votes.id as value')
+      .join('associations', 'votes.association_id', '=', 'associations.id')
+      .groupBy('association_id', 'name')
+      .orderBy('value', 'desc')
+      .limit(limit)
+
+    return view.render('votes/charts/top-associations', {
+      votes: {
+        labels: JSON.stringify(votes.map((vote) => vote.label)),
+        data: JSON.stringify(votes.map((vote) => vote.value)),
+      },
+      backgroundColors: JSON.stringify(
+        votes.map((_, index) => 'hsl(' + Math.floor((360 / 10) * index + 12) + ', 100%, 84%)')
+      ),
+      borderColors: JSON.stringify(
+        votes.map((_, index) => 'hsl(' + Math.floor((360 / 10) * index + 12) + ', 100%, 58%)')
+      ),
+      numberOfAssociations: votes.length,
+    })
+  }
+
   /**
    * Used to draw a chart of the most voted association day by day
    */
-  public async topByDay({ view, request }: HttpContextContract) {
+  public async topAssociationsByDay({ view, request }: HttpContextContract) {
     const limit = request.input('limit', 10)
 
     // Get the ten most voted associations ids
@@ -110,7 +136,7 @@ export default class VotesController {
       return acc
     }, [] as { fill: boolean; borderColor: string; tension: number; label: string; data: { x: string; y: number }[] }[])
 
-    return view.render('votes/charts/top-by-day', {
+    return view.render('votes/charts/top-associations-by-day', {
       votes: JSON.stringify(votesByAssociation),
       numberOfAssociations: votesByAssociation.length,
     })
