@@ -93,14 +93,13 @@
       </div>
     </div>
   </div>
-  <div class="flex flex-col space-x-1 text-black text-right text-sm">
+  <div class="flex flex-col items-end text-black text-right text-sm">
     <p>
       {{ association.$extras.votes_count ?? 0 }} voix {{ env('ENABLE_VOTE') ? 'et bientôt la tienne ?' : '' }}
     </p>
     @if(auth.isLoggedIn)
     <a href="{{ route('AssociationsController.chart', { id: association.slug }) }}"
-      class="hover:text-primary-variation-1 transition ease-in" up-layer="new modal" up-history="true"
-      up-target="canvas">
+      class="hover:text-primary-variation-1 transition ease-in" up-layer="new modal" up-target="[modal]">
       Analyser les voix
     </a>
     @endif

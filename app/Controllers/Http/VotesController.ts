@@ -30,12 +30,15 @@ export default class VotesController {
     })
   }
 
-  public async chart({ view }: HttpContextContract) {
-    const result = await Database.rawQuery(
-      "select count(id) as value, date_trunc('day', created_at) as date from votes group by date_trunc('day', created_at) order by date"
-    )
+  public async chart({ view, request }: HttpContextContract) {
+    const qs = request.qs()
 
-    const votes = result.rows as { value: Number; date: Date }[]
+    const result = await Database.from(Vote.filter(qs).as('votes'))
+      .select(Database.raw("date_trunc('day', created_at) as date"))
+      .count('id as value')
+      .groupByRaw("date_trunc('day', created_at)")
+
+    const votes = result as { value: Number; date: Date }[]
 
     return view.render('votes/chart', {
       votes: {
