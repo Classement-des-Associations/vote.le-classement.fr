@@ -30,14 +30,14 @@ export default class VotesController {
     })
   }
 
-  public async graph({ view }: HttpContextContract) {
+  public async chart({ view }: HttpContextContract) {
     const result = await Database.rawQuery(
       "select count(id) as value, date_trunc('day', created_at) as date from votes group by date_trunc('day', created_at) order by date"
     )
 
     const votes = result.rows as { value: Number; date: Date }[]
 
-    return view.render('votes/graph', {
+    return view.render('votes/chart', {
       votes: {
         labels: [
           ...votes.map((vote) => DateTime.fromISO(vote.date.toISOString()).toFormat('dd/LL')),

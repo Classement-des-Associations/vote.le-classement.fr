@@ -16,9 +16,9 @@
         "http://localhost:8080/assets/editor.js"
       ]
     },
-    "graph": {
+    "chart": {
       "js": [
-        "http://localhost:8080/assets/graph.js"
+        "http://localhost:8080/assets/chart.js"
       ]
     }
   }

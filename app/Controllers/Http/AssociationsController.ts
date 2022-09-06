@@ -4,6 +4,7 @@ import { Attachment } from '@ioc:Adonis/Addons/AttachmentLite'
 import Env from '@ioc:Adonis/Core/Env'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Route from '@ioc:Adonis/Core/Route'
+import Database from '@ioc:Adonis/Lucid/Database'
 import VerifyEmail from 'App/Mailers/VerifyEmail'
 import Association from 'App/Models/Association'
 import Category from 'App/Models/Category'
@@ -13,6 +14,7 @@ import AssociationImageUpdateValidator from 'App/Validators/AssociationImageUpda
 import AssociationStoreValidator from 'App/Validators/AssociationStoreValidator'
 import AssociationUpdateValidator from 'App/Validators/AssociationUpdateValidator'
 import VoteStoreValidator from 'App/Validators/VoteStoreValidator'
+import { DateTime } from 'luxon'
 
 export default class AssociationsController {
   public async index({ request, view }: HttpContextContract) {
@@ -254,5 +256,25 @@ export default class AssociationsController {
       logger.warn(`Email has already voted - "${email}"`)
       return response.redirect().toRoute('alreadyVoted')
     }
+  }
+
+  @bind()
+  public async chart({ view }: HttpContextContract, association: Association) {
+    const results = await Database.rawQuery(
+      "select count(created_at) as value, date_trunc('day', created_at) as date from votes where association_id = ? group by date_trunc('day', created_at) order by date asc",
+      [association.id]
+    )
+
+    const votes = results.rows as { value: number; date: Date }[]
+
+    return view.render('associations/chart', {
+      votes: {
+        labels: [
+          ...votes.map((vote) => DateTime.fromISO(vote.date.toISOString()).toFormat('dd/MM')),
+        ],
+        data: [...votes.map((vote) => vote.value)],
+      },
+      association,
+    })
   }
 }

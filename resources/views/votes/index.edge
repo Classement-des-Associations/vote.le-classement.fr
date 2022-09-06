@@ -14,6 +14,15 @@
         Les Votes - {{ votes.total }} - {{ env('ENABLE_VOTE') ? 'Actif' : 'Inactif' }}
         @end
       </div>
+
+      @atoms.appButton()
+      @slot('main', scope)
+      <a class="{{ scope.className }} {{ scope.color }}" href="{{ route('VotesController.chart') }}" up-target="canvas"
+        up-layer="new modal" up-history="true">
+        Voir l'évolution
+      </a>
+      @endslot
+      @end
     </div>
   </div>
 

@@ -41,3 +41,15 @@ up-progress-bar {
   src: url('../../public/fonts/Montserrat-VariableFont_wght.ttf');
   font-display: swap;
 }
+
+up-modal-backdrop {
+  @apply fixed inset-0 bg-black bg-opacity-70 backdrop-blur-[32px];
+}
+
+up-modal-box {
+  @apply rounded-xl bg-white p-4 shadow-none;
+}
+
+up-modal[size='medium'] up-modal-box {
+  @apply w-full md:w-3/4 lg:w-1/2;
+}
