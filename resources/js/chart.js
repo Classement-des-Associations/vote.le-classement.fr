@@ -27,3 +27,10 @@ up.compiler('canvas#chartBar', function (element, data) {
     },
   })
 })
+
+up.compiler('canvas#chartPie', function (element, data) {
+  new Chart(element, {
+    type: 'pie',
+    data,
+  })
+})

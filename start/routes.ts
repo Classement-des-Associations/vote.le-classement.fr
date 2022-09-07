@@ -63,7 +63,10 @@ Route.group(() => {
 
   Route.get('votes', 'VotesController.index')
 
-  Route.get('votes/charts/total-by-day', 'VotesController.totalByDay')
-  Route.get('votes/charts/top-associations', 'VotesController.topAssociations')
-  Route.get('votes/charts/top-associations-by-day', 'VotesController.topAssociationsByDay')
+  Route.get('votes/charts', 'ChartsController.index')
+  Route.get('votes/charts/total-by-day', 'ChartsController.totalByDay')
+  Route.get('votes/charts/top-associations', 'ChartsController.topAssociations')
+  Route.get('votes/charts/top-associations-by-day', 'ChartsController.topAssociationsByDay')
+  Route.get('votes/charts/accept-news-classement', 'ChartsController.acceptNewsClassement')
+  Route.get('votes/charts/accept-news-activities', 'ChartsController.acceptNewsActivities')
 }).middleware('auth')

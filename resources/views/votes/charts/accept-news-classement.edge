@@ -11,7 +11,7 @@
           up-target="[layout-main]">Votes</a>
 
         @atoms.appTitle()
-        Top {{ numberOfAssociations }}
+        Volonté de recevoir l'actualité du Classement
         @end
       </div>
     </div>
@@ -19,8 +19,7 @@
     <section class="mt-6">
       <div modal>
         <div class="flex flex-row justify-between items-start">
-          <h2 class="text-2xl text-black font-bold">Top {{ numberOfAssociations
-            }} des associations</h2>
+          <h2 class="text-2xl text-black font-bold">Actualité du Classement</h2>
 
           @if(up.getMode() === 'modal')
           <button up-dismiss>
@@ -32,14 +31,12 @@
         </div>
 
         <div class="mt-2">
-          <canvas id="chartBar" width="400" height="400" up-data='{
+          <canvas id="chartPie" width="400" height="400" up-data='{
         "labels": {{ votes.labels }},
         "datasets": [{
-        "label": "Nombre de votes",
+        "label": "Nombre de volontés",
         "data": {{ votes.data }},
-        "backgroundColor": {{ backgroundColors }},
-        "borderColor":  {{ borderColors }},
-        "borderWidth": 1
+        "backgroundColor": ["#4b3069", "#f9b666"]
         }]
       }'></canvas>
         </div>

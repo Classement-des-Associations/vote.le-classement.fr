@@ -9,52 +9,69 @@
         className: "h-[3.125rem]"
         })
       </a>
-      <nav class="hidden lg:flex ml-8" aria-labelledby="primary navigation" up-nav>
-        <ul class="flex flex-row">
+      <div class="hidden lg:flex ml-8">
+        <div x-data="dropdown" class="w-full lg:w-auto flex flex-col lg:flex-row items-start">
           @if(auth.isLoggedIn)
-          <li>
-            <a href="{{ route('CategoriesController.index') }}" up-target="[layout-main]"
-              class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
-              Les catégories
-            </a>
-          </li>
+          <div x-on:keydown.escape.prevent.stop="close($refs.button)"
+            x-on:focusin.window="! $refs.panel.contains($event.target) && close()" x-id="['dropdown-button']"
+            class="relative">
+            <button x-ref="button" x-on:click="toggle()" :aria-expanded="open" :aria-controls="$id('dropdown-button')"
+              type="button"
+              class="flex flex-row gap-2 items-center px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
+              Administrer
+              </span>
+            </button>
+            <nav x-ref="panel" x-show="open" x-transition.origin.top.left x-on:click.outside="close($refs.button)"
+              :id="$id('dropdown-button')" style="display: none;"
+              class="absolute z-30 left-0 mt-2 py-2 px-3 overflow-hidden rounded-[0.625rem] bg-white shadow-lg flex flex-col gap-3"
+              up-nav aria-labelledby="admin navigation">
+              <a href="{{ route('CategoriesController.index') }}"
+                class="whitespace-nowrap text-black hover:text-primary-variation-1 hover:scale-105 transition ease-in"
+                up-target="[layout-main]">
+                Les catégories
+              </a>
+              <a href="{{ route('SchoolsController.index') }}"
+                class="whitespace-nowrap text-black hover:text-primary-variation-1 hover:scale-105 transition ease-in"
+                up-target="[layout-main]">
+                Les écoles
+              </a>
+              <a href="{{ route('VotesController.index') }}"
+                class="whitespace-nowrap text-black hover:text-primary-variation-1 hover:scale-105 transition ease-in"
+                up-target="[layout-main]">
+                Les voix
+              </a>
+              <a href="{{ route('ChartsController.index') }}"
+                class="whitespace-nowrap text-black hover:text-primary-variation-1 hover:scale-105 transition ease-in"
+                up-target="[layout-main]">
+                Les graphiques
+              </a>
+            </nav>
+          </div>
           @endif
-          @if(auth.isLoggedIn)
-          <li>
-            <a href="{{ route('SchoolsController.index') }}" up-target="[layout-main]"
-              class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
-              Les écoles
-            </a>
-          </li>
-          @endif
-          @if(auth.isLoggedIn)
-          <li>
-            <a href="{{ route('VotesController.index') }}" up-target="[layout-main]"
-              class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
-              Les voix
-            </a>
-          </li>
-          @endif
-          <li>
-            <a href="{{ route('AssociationsController.index') }}#list" up-target="[layout-main]" up-scroll="#list"
-              class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
-              Les associations
-            </a>
-          </li>
-          <li>
-            <a href="https://le-classement.fr/about-us" target="_blank"
-              class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
-              À propos
-            </a>
-          </li>
-          <li>
-            <a href="https://le-classement.fr/contact" target="_blank"
-              class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
-              Nous contacter
-            </a>
-          </li>
-        </ul>
-      </nav>
+        </div>
+        <nav class="flex" aria-labelledby="primary navigation" up-nav>
+          <ul class="flex flex-row">
+            <li>
+              <a href="{{ route('AssociationsController.index') }}#list" up-target="[layout-main]" up-scroll="#list"
+                class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
+                Les associations
+              </a>
+            </li>
+            <li>
+              <a href="https://le-classement.fr/about-us" target="_blank"
+                class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
+                À propos
+              </a>
+            </li>
+            <li>
+              <a href="https://le-classement.fr/contact" target="_blank"
+                class="inline-block px-4 py-2 text-black hover:text-primary-variation-1 text-sm font-normal hover:scale-105 transition ease-in">
+                Nous contacter
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
     <button type="button" x-on:click="open = true" class="lg:hidden">
       <span class="sr-only">Ouvrir le menu</span>
@@ -101,6 +118,14 @@
                   <a href="{{ route('VotesController.index') }}" class="text-white text-lg font-semibold"
                     up-target="[layout-main]" x-on:click="open = false">
                     Les voix
+                  </a>
+                </li>
+                @endif
+                @if(auth.isLoggedIn)
+                <li>
+                  <a href="{{ route('ChartsController.index') }}" class="text-white text-lg font-semibold"
+                    up-target="[layout-main]" x-on:click="open = false">
+                    Les graphiques
                   </a>
                 </li>
                 @endif
