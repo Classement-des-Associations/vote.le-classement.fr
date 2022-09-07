@@ -21,7 +21,7 @@
     <div x-show="open" x-transition.opacity class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-[32px]">
     </div>
 
-    <div x-show="open" x-transition x-on:click="open = false"
+    <div x-show="open" x-transition.opacity x-transition.duration.300ms x-on:click="open = false"
       class="relative min-h-screen flex items-center justify-center">
       <div x-on:click.stop x-trap.noscroll.inert="open"
         class="relative max-w-screen-sm sm:rounded-2xl bg-ultra-light-grey w-full p-4 overflow-y-auto">
