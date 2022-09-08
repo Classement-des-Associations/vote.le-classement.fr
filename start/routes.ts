@@ -65,6 +65,7 @@ Route.group(() => {
 
   Route.get('votes/charts', 'ChartsController.index')
   Route.get('votes/charts/total-by-day', 'ChartsController.totalByDay')
+  Route.get('votes/charts/total-by-hour', 'ChartsController.totalByHour')
   Route.get('votes/charts/top-associations', 'ChartsController.topAssociations')
   Route.get('votes/charts/top-associations-by-day', 'ChartsController.topAssociationsByDay')
   Route.get('votes/charts/accept-news-classement', 'ChartsController.acceptNewsClassement')

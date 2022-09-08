@@ -29,6 +29,29 @@ export default class ChartsController {
     })
   }
 
+  public async totalByHour({ view, request }: HttpContextContract) {
+    const qs = request.qs()
+
+    const result = await Database.from(Vote.filter(qs).as('votes'))
+      .select(Database.raw("date_trunc('hour', created_at) as date"))
+      .count('id as value')
+      .groupByRaw("date_trunc('hour', created_at)")
+      .orderBy('date')
+
+    const votes = result as { value: Number; date: Date }[]
+
+    return view.render('votes/charts/total-by-hour', {
+      votes: {
+        labels: [
+          ...votes.map((vote) =>
+            DateTime.fromISO(vote.date.toISOString()).toFormat('HH:mm - dd/LL')
+          ),
+        ],
+        data: [...votes.map((vote) => vote.value)],
+      },
+    })
+  }
+
   public async topAssociations({ request, view }: HttpContextContract) {
     const limit = request.input('limit', 10)
 

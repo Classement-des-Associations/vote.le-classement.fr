@@ -1,5 +1,5 @@
 @layout('layouts/main')
-@set('title', 'Voix par jour')
+@set('title', 'Voix par hour')
 
 @section('main')
 
@@ -12,7 +12,7 @@
           up-target="[layout-main]">Graphiques</a>
 
         @atoms.appTitle()
-        Voix par jour
+        Voix par heure
         @end
       </div>
     </div>
@@ -20,7 +20,7 @@
     <section class="mt-6">
       <div modal>
         <div class="flex flex-row justify-between items-start">
-          <h2 class="text-2xl text-black font-bold">Nombre de voix par jour</h2>
+          <h2 class="text-2xl text-black font-bold">Nombre de voix par heure</h2>
 
           @if(up.getMode() === 'modal')
           <button up-dismiss>
