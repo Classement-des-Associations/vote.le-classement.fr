@@ -70,4 +70,10 @@ Route.group(() => {
   Route.get('votes/charts/top-associations-by-day', 'ChartsController.topAssociationsByDay')
   Route.get('votes/charts/accept-news-classement', 'ChartsController.acceptNewsClassement')
   Route.get('votes/charts/accept-news-activities', 'ChartsController.acceptNewsActivities')
+
+  Route.group(() => {
+    Route.get('votes', 'VotesController.index')
+  })
+    .prefix('api')
+    .namespace('App/Controllers/Http/Api')
 }).middleware('auth')
