@@ -192,6 +192,7 @@ export default class AssociationsController {
     const hostBlacklist = [
       'yopmail.fr',
       'yopmail.net',
+      'yopmail.com',
       'cool.fr.nf',
       'jetable.fr.nf',
       'courriel.fr.nf',
