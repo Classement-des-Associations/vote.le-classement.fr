@@ -200,6 +200,7 @@ export default class AssociationsController {
       'monmail.fr.nf',
       'hide.biz.st',
       'mymail.infos.st',
+      'boxomail.live',
     ]
 
     if (hostBlacklist.includes(email.split('@')[1])) {
