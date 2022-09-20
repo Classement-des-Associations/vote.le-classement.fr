@@ -205,6 +205,10 @@ export default class AssociationsController {
       'cdfaq.com',
       'nezid.com',
       'xcoxc.com',
+      'edxplus.com',
+      'dnitem.com',
+      'bongcs.com',
+      'dineroa.com',
     ]
 
     if (hostBlacklist.includes(email.split('@')[1])) {
