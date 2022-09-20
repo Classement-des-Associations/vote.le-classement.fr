@@ -209,6 +209,9 @@ export default class AssociationsController {
       'dnitem.com',
       'bongcs.com',
       'dineroa.com',
+      'kvhrs.com',
+      'orlydns.com',
+      'geekjun.com',
     ]
 
     if (hostBlacklist.includes(email.split('@')[1])) {
