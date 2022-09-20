@@ -207,7 +207,8 @@ export default class AssociationsController {
       'xcoxc.com',
       'edxplus.com',
       'dnitem.com',
-      'bongcs.com'
+      'bongcs.com',
+      'dineroa.com',
     ]
 
     if (hostBlacklist.includes(email.split('@')[1])) {
