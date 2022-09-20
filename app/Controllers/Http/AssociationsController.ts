@@ -201,6 +201,9 @@ export default class AssociationsController {
       'hide.biz.st',
       'mymail.infos.st',
       'boxomail.live',
+      'cdfaq.com',
+      'nezid.com',
+      'xcoxc.com',
     ]
 
     if (hostBlacklist.includes(email.split('@')[1])) {
