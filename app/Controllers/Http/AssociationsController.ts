@@ -212,6 +212,7 @@ export default class AssociationsController {
       'kvhrs.com',
       'orlydns.com',
       'geekjun.com',
+      'psnator.com',
     ]
 
     if (hostBlacklist.includes(email.split('@')[1])) {
