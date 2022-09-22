@@ -213,6 +213,9 @@ export default class AssociationsController {
       'orlydns.com',
       'geekjun.com',
       'psnator.com',
+      'mailo.icu',
+      'teleg.eu',
+      'decabg.eu',
     ]
 
     if (hostBlacklist.includes(email.split('@')[1])) {
