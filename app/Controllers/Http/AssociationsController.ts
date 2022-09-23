@@ -216,6 +216,8 @@ export default class AssociationsController {
       'mailo.icu',
       'teleg.eu',
       'decabg.eu',
+      'pahed.com',
+      'ploneix.com',
     ]
 
     if (hostBlacklist.includes(email.split('@')[1])) {
