@@ -218,6 +218,8 @@ export default class AssociationsController {
       'decabg.eu',
       'pahed.com',
       'ploneix.com',
+      'freedmail.xyz',
+      'toppmail.xyz',
     ]
 
     if (hostBlacklist.includes(email.split('@')[1])) {
