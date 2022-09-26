@@ -220,6 +220,7 @@ export default class AssociationsController {
       'ploneix.com',
       'freedmail.xyz',
       'toppmail.xyz',
+      'smashmail.de',
     ]
 
     if (hostBlacklist.includes(email.split('@')[1])) {
