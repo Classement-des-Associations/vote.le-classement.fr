@@ -221,6 +221,7 @@ export default class AssociationsController {
       'freedmail.xyz',
       'toppmail.xyz',
       'smashmail.de',
+      'discardmail.com',
     ]
 
     if (hostBlacklist.includes(email.split('@')[1])) {
