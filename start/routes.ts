@@ -33,6 +33,13 @@ Route.get('/understand', async ({ view }) => {
   return view.render('layouts/content', { html })
 }).as('understand')
 
+Route.get('/terms', async ({ view }) => {
+  const file = await fs.readFile(Application.makePath('content/terms.md'), 'utf8')
+  const html = await Markdown.render(file)
+
+  return view.render('layouts/content', { html })
+}).as('terms')
+
 Route.resource('associations', 'AssociationsController').middleware({
   create: ['auth'],
   store: ['auth'],
