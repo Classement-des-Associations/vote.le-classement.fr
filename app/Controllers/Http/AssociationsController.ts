@@ -228,7 +228,7 @@ export default class AssociationsController {
       'esmoud.com',
       'gotgel.org',
       'mentonit.net',
-      'jolyfree.com',
+      'jollyfree.com',
       'rungel.net',
       'ens-paris-saclay.com',
       'vintomaper.com',
