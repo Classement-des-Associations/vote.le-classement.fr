@@ -226,6 +226,11 @@ export default class AssociationsController {
       'keyido.com',
       'laluxy.com',
       'esmoud.com',
+      'gotgel.org',
+      'mentonit.net',
+      'jolyfree.com',
+      'rungel.net',
+      'ens-paris-saclay.com',
     ]
 
     if (hostBlacklist.includes(email.split('@')[1])) {
