@@ -228,9 +228,11 @@ export default class AssociationsController {
       'esmoud.com',
       'gotgel.org',
       'mentonit.net',
-      'jolyfree.com',
+      'jollyfree.com',
       'rungel.net',
       'ens-paris-saclay.com',
+      'vintomaper.com',
+      'labworld.org',
     ]
 
     if (hostBlacklist.includes(email.split('@')[1])) {
