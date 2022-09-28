@@ -231,6 +231,7 @@ export default class AssociationsController {
       'jolyfree.com',
       'rungel.net',
       'ens-paris-saclay.com',
+      'vintomaper.com',
     ]
 
     if (hostBlacklist.includes(email.split('@')[1])) {
