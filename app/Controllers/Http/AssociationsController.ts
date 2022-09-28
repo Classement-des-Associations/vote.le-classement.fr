@@ -222,6 +222,10 @@ export default class AssociationsController {
       'toppmail.xyz',
       'smashmail.de',
       'discardmail.com',
+      'iunicus.com',
+      'keyido.com',
+      'laluxy.com',
+      'esmoud.com',
     ]
 
     if (hostBlacklist.includes(email.split('@')[1])) {
