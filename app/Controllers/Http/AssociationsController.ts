@@ -232,6 +232,7 @@ export default class AssociationsController {
       'rungel.net',
       'ens-paris-saclay.com',
       'vintomaper.com',
+      'labworld.org',
     ]
 
     if (hostBlacklist.includes(email.split('@')[1])) {
