@@ -233,6 +233,12 @@ export default class AssociationsController {
       'ens-paris-saclay.com',
       'vintomaper.com',
       'labworld.org',
+      'lutota.com',
+      'ishyp.com',
+      '163.com',
+      'migonom.com',
+      'deitada.com',
+      'ktolike.fr',
     ]
 
     if (hostBlacklist.includes(email.split('@')[1])) {
