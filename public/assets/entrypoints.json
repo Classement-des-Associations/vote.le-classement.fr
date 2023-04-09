@@ -2,23 +2,23 @@
   "entrypoints": {
     "app": {
       "css": [
-        "http://localhost:8080/assets/app.css"
+        "/assets/app.9d05e051.css"
       ],
       "js": [
-        "http://localhost:8080/assets/app.js"
+        "/assets/app.d1d69456.js"
       ]
     },
     "editor": {
       "css": [
-        "http://localhost:8080/assets/editor.css"
+        "/assets/editor.b1e60883.css"
       ],
       "js": [
-        "http://localhost:8080/assets/editor.js"
+        "/assets/editor.e38b7a49.js"
       ]
     },
     "chart": {
       "js": [
-        "http://localhost:8080/assets/chart.js"
+        "/assets/chart.e1de7d3d.js"
       ]
     }
   }

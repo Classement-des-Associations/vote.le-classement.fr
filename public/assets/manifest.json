@@ -1,9 +1,9 @@
 {
-  "assets/app.css": "http://localhost:8080/assets/app.css",
-  "assets/app.js": "http://localhost:8080/assets/app.js",
-  "assets/editor.css": "http://localhost:8080/assets/editor.css",
-  "assets/editor.js": "http://localhost:8080/assets/editor.js",
-  "assets/chart.js": "http://localhost:8080/assets/chart.js",
-  "assets/fonts/Montserrat-VariableFont_wght.ttf": "http://localhost:8080/assets/fonts/Montserrat-VariableFont_wght.3068cdb4.ttf",
-  "assets/images/favicon.png": "http://localhost:8080/assets/images/favicon.94cebf54.png"
+  "assets/app.css": "/assets/app.9d05e051.css",
+  "assets/app.js": "/assets/app.d1d69456.js",
+  "assets/editor.css": "/assets/editor.b1e60883.css",
+  "assets/editor.js": "/assets/editor.e38b7a49.js",
+  "assets/chart.js": "/assets/chart.e1de7d3d.js",
+  "assets/fonts/Montserrat-VariableFont_wght.ttf": "/assets/fonts/Montserrat-VariableFont_wght.3068cdb4.ttf",
+  "assets/images/favicon.png": "/assets/images/favicon.94cebf54.png"
 }
