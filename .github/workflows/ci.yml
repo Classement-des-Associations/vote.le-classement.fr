@@ -20,6 +20,9 @@ jobs:
           node-version: 18
           cache: 'pnpm'
 
+      - name: Install dependencies
+        run: nci
+
       - name: Lint
         run: nr lint
 
