@@ -5,5 +5,6 @@
   "assets/editor.js": "http://localhost:8080/assets/editor.js",
   "assets/chart.js": "http://localhost:8080/assets/chart.js",
   "assets/fonts/Montserrat-VariableFont_wght.ttf": "http://localhost:8080/assets/fonts/Montserrat-VariableFont_wght.3068cdb4.ttf",
-  "assets/images/favicon.png": "http://localhost:8080/assets/images/favicon.94cebf54.png"
+  "assets/images/favicon.png": "http://localhost:8080/assets/images/favicon.4da7e0e0.png",
+  "assets/images/icon-rounded-black (5).png": "http://localhost:8080/assets/images/icon-rounded-black (5).b8f4f351.png"
 }
