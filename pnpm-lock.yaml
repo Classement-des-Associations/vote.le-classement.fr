@@ -151,8 +151,8 @@ devDependencies:
     specifier: ^4.9.5
     version: 4.9.5
   unpoly:
-    specifier: ^2.7.2
-    version: 2.7.2
+    specifier: ^3.0.0
+    version: 3.0.0
   youch:
     specifier: ^3.2.3
     version: 3.2.3
@@ -10138,8 +10138,8 @@ packages:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
     engines: {node: '>= 0.8'}
 
-  /unpoly@2.7.2:
-    resolution: {integrity: sha512-jfBbBRBQMCZZcNS6fckKpFunfdiTDBXW8yxRKqLs09jSrYYUDPd+YuyDoXjABXOro0aDUIMcmyTc7moc1/Z5Tw==}
+  /unpoly@3.0.0:
+    resolution: {integrity: sha512-cjSrnawlfsL0bOYfbK8JoArTMfJvGrRC5pa8SMrsPJkKgS0kZhigOksw26QRrESqYWe8AZqW0IxD3W7/RPtltg==}
     dev: true
 
   /unset-value@1.0.0:
