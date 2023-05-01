@@ -40,6 +40,8 @@ Route.get('/terms', async ({ view }) => {
   return view.render('layouts/content', { html })
 }).as('terms')
 
+Route.resource('participations', 'ParticipationsController')
+
 Route.resource('associations', 'AssociationsController').middleware({
   create: ['auth'],
   store: ['auth'],

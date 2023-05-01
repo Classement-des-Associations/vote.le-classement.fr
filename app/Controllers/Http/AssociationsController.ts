@@ -19,7 +19,7 @@ import { DateTime } from 'luxon'
 export default class AssociationsController {
   public async index({ request, view }: HttpContextContract) {
     const associations = await Association.filter(request.qs())
-      .withCount('votes')
+      // .withCount('votes')
       .preload('category')
       .preload('school')
 
