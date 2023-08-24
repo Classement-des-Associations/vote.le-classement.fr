@@ -1,0 +1,62 @@
+@layout('layouts/main')
+@set('title', 'Les Années')
+
+@section('main')
+
+<section class="mt-6 mb-14 lg:mb-[4.5rem]  px-4">
+
+  <div class="max-w-screen-lg mx-auto">
+    <header class="flex flex-row justify-between items-end">
+      <div class="flex flex-col gap-1">
+        <a href="{{ route('YearsController.index') }}" class="text-primary-base mb-1"
+          up-target="[layout-main]">Années</a>
+
+        @atoms.appTitle()
+        Les années
+        @end
+      </div>
+
+      @app.button()
+      @slot('main', scope)
+      <a class="{{ scope.className }} {{ scope.color }}" href="{{ route('YearsController.create') }}"
+        up-target="[layout-main]">
+        Créer
+      </a>
+      @endslot
+      @end
+    </header>
+
+    <ul class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
+      @each(year in years)
+      <li class="rounded-lg bg-ultra-light-grey p-4 flex flex-row justify-between items-center">
+        <a href="{{ route('YearsController.show', { id: year.slug }) }}" up-target="[layout-main]">
+          {{ year.year }}
+        </a>
+        <div class="flex flex-row gap-6">
+          <form up-submit up-target="[layout-main]"
+            action="{{ route('YearsController.destroy', { id: year.slug }) }}?_method=DELETE" method="POST" x-data="{
+              validate: () => {
+                const toDelete = confirm('Êtes-vous sûr de vouloir supprimer cette année ?');
+
+                if (toDelete) {
+                  return true;
+                }
+              }
+            }" x-on:submit.prevent="validate() && $el.submit()">
+            {{ csrfField() }}
+            <button type="submit">
+              <span class="sr-only">Supprimer</span>
+              @svg('heroicons:trash', { class: 'text-black w-6 h-6' })
+            </button>
+          </form>
+          <a href="{{ route('YearsController.edit', { id: year.slug }) }}" up-target="[layout-main]">
+            <span class="sr-only">Éditer</span>
+            @svg('heroicons:pencil', { class: 'text-accent-blue w-6 h-6' })
+          </a>
+        </div>
+      </li>
+      @endeach
+    </ul>
+  </div>
+</section>
+@endsection

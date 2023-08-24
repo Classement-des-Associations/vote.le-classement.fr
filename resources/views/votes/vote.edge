@@ -1,0 +1,41 @@
+@layout('layouts/main')
+@set('title', title)
+
+@section('main')
+<section class="mt-6 mb-14 lg:mb-[4.5rem] px-4">
+
+  <div class="max-w-screen-sm mx-auto text-center">
+    <h1 class="text-black text-2xl font-bold">{{ title }}</h1>
+    <p class="mt-2 text-gray-700 text-lg max-w-sm mx-auto"> {{ subtitle }}</p>
+
+    <section class="mt-16">
+      <h2 class="sr-only">Nos réseaux</h2>
+      <ul class="mt-4 flex flex-row justify-evenly">
+        <li>
+          <a href="https://www.linkedin.com/company/le-classement/" target="_blank" rel="noopener"
+            class="w-14 h-14 flex flex-row justify-center items-center rounded-full hover:bg-accent-purple text-accent-purple hover:text-white transition ease-in duration-200">
+            @!atoms.icons.linkedin({
+            className: 'w-8 h-8'
+            })
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/leclassement/" target="_blank" rel="noopener"
+            class="w-12 h-12 flex flex-row justify-center items-center rounded-full hover:bg-accent-purple text-accent-purple hover:text-white transition ease-in duration-200">
+            @!atoms.icons.instagram({
+            className: 'w-8 h-8'
+            })
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <div class="mt-20 flex flex-row justify-center">
+      <a class="text-gray-600 hover:underline" href="{{ route(home) }}" up-target="[layout-main]">
+        Revenir à l'accueil
+      </a>
+    </div>
+  </div>
+
+</section>
+@endsection

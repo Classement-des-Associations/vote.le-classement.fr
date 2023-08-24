@@ -22,10 +22,25 @@ export default class extends BaseSchema {
           })
         })
       )
+
+      const associationsWithParticipations = await db
+        .from('associations')
+        .select('category_id', 'participations.id as participation_id')
+        .join('participations', 'associations.id', '=', 'participations.association_id')
+        .where('participations.year_id', year.id)
+
+      await Promise.all(
+        associationsWithParticipations.map(async (association) => {
+          return db.table('category_participation').insert({
+            category_id: association.category_id,
+            participation_id: association.participation_id,
+          })
+        })
+      )
     })
 
     this.schema.alterTable(this.tableName, (table) => {
-      table.dropColumns('description', 'image', 'document')
+      table.dropColumns('description', 'image', 'document', 'category_id')
     })
   }
 
@@ -34,6 +49,7 @@ export default class extends BaseSchema {
       table.text('description').nullable()
       table.json('image').nullable()
       table.json('document').nullable()
+      table.integer('category_id').unsigned().nullable()
     })
 
     this.defer(async (db) => {
@@ -50,6 +66,28 @@ export default class extends BaseSchema {
             description: participation.description,
             image: participation.image,
             document: participation.document,
+          })
+        })
+      )
+
+      const participationsWithCategories = await db
+        .from('participations')
+        .select(
+          'category_participation.category_id as category_id',
+          'participations.association_id as association_id'
+        )
+        .join(
+          'category_participation',
+          'participations.id',
+          '=',
+          'category_participation.participation_id'
+        )
+        .where('participations.year_id', year.id)
+
+      await Promise.all(
+        participationsWithCategories.map(async (participation) => {
+          return db.from('associations').where('id', participation.association_id).update({
+            category_id: participation.category_id,
           })
         })
       )

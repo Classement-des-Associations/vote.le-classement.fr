@@ -11,10 +11,10 @@
           up-target="[layout-main]">Votes</a>
 
         @atoms.appTitle()
-        Les Votes
+        Les votes
         @end
       </div>
-      @atoms.appButton()
+      @app.button()
       @slot('main', scope)
       <a class="{{ scope.className }} {{ scope.color }}"
         href="{{ route('ChartsController.totalByDay', { qs: request.qs() }) }}" up-target="[modal]" up-layer="new modal"
@@ -39,7 +39,8 @@
         <div class="lg:sticky top-4 w-full">
           @if(up.targetIncludes('[layout-grid]') || up.targetIncludes('[layout-main]'))
           @!molecules.filterVote({
-          associations
+          associations,
+          years,
           })
           @endif
         </div>
@@ -55,10 +56,10 @@
                 <span class="font-semibold">
                   {{ vote.email }}
                 </span>
-                @if(vote.association)
-                pour <a href="{{ route('AssociationsController.show', { id: vote.association.slug }) }}"
+                @if(vote.participation.association && vote.participation.year)
+                pour <a href="{{ route('ParticipationsController.show', { id: vote.participation.id }) }}"
                   class="hover:text-primary-variation-1 transition ease-in" up-target="[layout-main]">
-                  {{ vote.association.name }}
+                  {{ vote.participation.association.name }} - {{ vote.participation.year.year }}
                 </a>
                 @endif
               </div>
@@ -79,10 +80,10 @@
                 </tr>
                 <tr>
                   <td>
-                    <label for="activities"> Actualité des associations</label>
+                    <label for="activities"> Actualité des partenaires</label>
                   </td>
                   <td>
-                    <input id="activities" type="checkbox" name="vote" {{ vote.acceptActivities ? 'checked' : '' }}
+                    <input id="activities" type="checkbox" name="vote" {{ vote.acceptPartners ? 'checked' : '' }}
                       disabled
                       class="border-0 border-transparent rounded w-4 h-4 disabled:checked:bg-primary-base disabled:bg-light-grey" />
                   </td>
@@ -109,7 +110,7 @@
           @if(votes.length > 0)
           <div class="mt-8 flex flex-row justify-center items-center gap-4">
             @if(votes.currentPage > 1)
-            @atoms.appButton()
+            @app.button()
             @slot('main', scope)
             <a href="{{ votes.getPreviousPageUrl() }}" up-target="[grid]" up-history="true" up-scroll="#grid"
               class="{{ scope.className }} {{ scope.color }}">
@@ -119,7 +120,7 @@
             @end
             @endif
             @if(votes.lastPage > votes.currentPage)
-            @atoms.appButton()
+            @app.button()
             @slot('main', scope)
             <a href="{{ votes.getNextPageUrl() }}" up-target="[grid]" up-history="true" up-scroll="#grid"
               class="{{ scope.className }} {{ scope.color }}">

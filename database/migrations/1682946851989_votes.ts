@@ -34,7 +34,7 @@ export default class extends BaseSchema {
 
     this.schema.alterTable(this.tableName, (table) => {
       table.dropColumn('association_id')
-
+      table.dropUnique(['email'])
       table.unique(['year_id', 'email'])
     })
   }
@@ -42,7 +42,7 @@ export default class extends BaseSchema {
   public async down() {
     this.schema.alterTable(this.tableName, (table) => {
       table.dropUnique(['year_id', 'email'])
-
+      table.unique(['email'])
       table.integer('association_id').unsigned().nullable()
     })
 

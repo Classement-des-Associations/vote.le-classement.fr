@@ -43,11 +43,22 @@ module.exports = {
       fontFamily: {
         montserrat: ['Montserrat', ...defaultTheme.fontFamily.sans],
       },
+      linearBorderGradients: ({ theme }) => ({
+        colors: {
+          'associations': [theme('colors.primary.base'), theme('colors.primary.variation-1')],
+          'associations-light': [
+            theme('colors.primary.base / 0.3'),
+            theme('colors.primary.variation-1 / 0.3'),
+          ],
+        },
+        background: theme('colors'),
+      }),
     },
   },
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
+    require('tailwindcss-border-gradient-radius'),
   ],
 }

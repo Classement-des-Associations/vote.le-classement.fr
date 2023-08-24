@@ -9,6 +9,7 @@ export default class extends BaseSchema {
 
       table.integer('association_id').unsigned().notNullable()
       table.integer('year_id').unsigned().notNullable()
+      table.integer('trophy_id').unsigned().nullable()
 
       table.text('description').nullable()
 

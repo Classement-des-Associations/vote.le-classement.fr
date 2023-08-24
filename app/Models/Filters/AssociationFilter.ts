@@ -5,11 +5,7 @@ import Association from 'App/Models/Association'
 export default class AssociationFilter extends BaseModelFilter {
   public $query: ModelQueryBuilderContract<typeof Association, Association>
 
-  public setup() {
-    if (!this.$input['order_by']) {
-      // this.$query.orderBy('votes_count', 'desc')
-    }
-  }
+  public setup() {}
 
   public orderBy(field: string) {
     if (field === 'rand') this.$query.orderByRaw('RANDOM ()')

@@ -14,10 +14,12 @@ export default class SchoolsController {
     return view.render('schools/create')
   }
 
-  public async store({ request, response }: HttpContextContract) {
+  public async store({ request, response, logger }: HttpContextContract) {
     const data = await request.validate(SchoolStoreValidator)
 
     const school = await School.create(data)
+
+    logger.info('New school created', school.slug)
 
     return response.redirect().toRoute('SchoolsController.show', { id: school.slug })
   }
@@ -33,18 +35,22 @@ export default class SchoolsController {
   }
 
   @bind()
-  public async update({ request, response }: HttpContextContract, school: School) {
+  public async update({ request, response, logger }: HttpContextContract, school: School) {
     const data = await request.validate(SchoolStoreValidator)
 
     school.merge(data)
     await school.save()
 
+    logger.info('School updated', school.slug)
+
     return response.redirect().toRoute('SchoolsController.show', { id: school.slug })
   }
 
   @bind()
-  public async destroy({ response }: HttpContextContract, school: School) {
+  public async destroy({ response, logger }: HttpContextContract, school: School) {
     await school.delete()
+
+    logger.info('School deleted', school.slug)
 
     return response.redirect().toRoute('SchoolsController.index')
   }

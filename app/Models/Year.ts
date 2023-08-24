@@ -1,5 +1,7 @@
 import { slugify } from '@ioc:Adonis/Addons/LucidSlugify'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, HasMany, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import Vote from './Vote'
+import Participation from './Participation'
 
 export default class Year extends BaseModel {
   public static routeLookupKey = 'slug'
@@ -17,4 +19,10 @@ export default class Year extends BaseModel {
 
   @column()
   public year: string
+
+  @hasMany(() => Vote)
+  public votes: HasMany<typeof Vote>
+
+  @hasMany(() => Participation)
+  public participations: HasMany<typeof Participation>
 }

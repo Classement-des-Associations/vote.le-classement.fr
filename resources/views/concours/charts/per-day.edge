@@ -1,0 +1,48 @@
+@layout('layouts/main')
+@set('title', 'Voix par jour - ' + participation.association.name)
+
+@section('main')
+
+<section class="mt-6 mb-14 lg:mb-[4.5rem] px-4">
+
+  <div class="max-w-screen-lg mx-auto">
+    <div class="flex flex-row justify-between items-start">
+      <div class="flex flex-col gap-1">
+        <a href="{{ route('ConcoursController.show', { year: year.slug }) }}" class="text-primary-base mb-1"
+          up-target="[layout-main]">Concours {{ year.year }}</a>
+
+        @app.title()
+        {{ participation.association.name }}
+        @end
+      </div>
+    </div>
+  </div>
+
+  <section class="mt-6">
+    <div modal>
+      <div class="flex flex-row justify-between items-start">
+        <h2 class="text-2xl text-black font-bold">Voix par jour</h2>
+
+        @if(up.getMode() === 'modal')
+        <button up-dismiss>
+          @svg('heroicons:x-mark', { class: 'w-6 h-6' })
+        </button>
+        @endif
+      </div>
+
+      <div class="mt-2">
+        <canvas id="chart" width="400" height="400" up-data='{
+        "labels": {{ safe(stringify(votes.labels)) }},
+        "datasets": [{
+        "label": "Nombre de votes",
+        "data": [{{ votes.data }}],
+        "fill": false,
+        "borderColor": "#ff6944",
+        "tension": 0.1
+        }]
+      }'></canvas>
+      </div>
+    </div>
+  </section>
+</section>
+@endsection

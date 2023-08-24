@@ -23,7 +23,7 @@
       {{ csrfField() }}
 
       <div class="lg:col-span-2">
-        @!atoms.appInput({
+        @!form.input({
         label: 'Nom',
         name: 'name',
         type: 'text',
@@ -35,19 +35,8 @@
         @endif
       </div>
 
-
-      <div class="lg:col-span-2">
-        @!atoms.appTextarea({
-        label: 'Description',
-        name: 'description',
-        })
-        @if(flashMessages.has('errors.description'))
-        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.description') }} </p>
-        @endif
-      </div>
-
       <div>
-        @!atoms.appInput({
+        @!form.input({
         label: 'Facebook',
         name: 'facebook',
         type: 'url',
@@ -59,7 +48,7 @@
       </div>
 
       <div>
-        @!atoms.appInput({
+        @!form.input({
         label: 'Twitter',
         name: 'twitter',
         type: 'url',
@@ -71,7 +60,7 @@
       </div>
 
       <div>
-        @!atoms.appInput({
+        @!form.input({
         label: 'Instagram',
         name: 'instagram',
         type: 'url',
@@ -83,7 +72,7 @@
       </div>
 
       <div>
-        @!atoms.appInput({
+        @!form.input({
         label: 'LinkedIn',
         name: 'linkedin',
         type: 'url',
@@ -95,7 +84,7 @@
       </div>
 
       <div>
-        @!atoms.appInput({
+        @!form.input({
         label: 'TikTok',
         name: 'tiktok',
         type: 'url',
@@ -107,7 +96,7 @@
       </div>
 
       <div>
-        @!atoms.appInput({
+        @!form.input({
         label: 'Youtube',
         name: 'youtube',
         type: 'url',
@@ -119,7 +108,7 @@
       </div>
 
       <div>
-        @!atoms.appInput({
+        @!form.input({
         label: 'Website',
         name: 'website',
         type: 'url',
@@ -130,20 +119,8 @@
         @endif
       </div>
 
-      <div class="col-start-1">
-        @!atoms.appSelect({
-        label: 'Catégorie',
-        name: 'categoryId',
-        options: categories,
-        defaultLabel: 'Sans catégorie',
-        })
-        @if(flashMessages.has('errors.categoryId'))
-        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.categoryId') }} </p>
-        @endif
-      </div>
-
       <div>
-        @!atoms.appSelect({
+        @!form.select({
         label: 'École',
         name: 'schoolId',
         options: schools,
@@ -154,34 +131,8 @@
         @endif
       </div>
 
-      <div class="flex flex-col gap-1">
-        @!atoms.appLabel({
-        label: 'Image',
-        name: 'image',
-        })
-        <input
-          class="text-black file:px-[0.75rem] file:py-[0.375rem] file:bg-accent-purple file:bg-opacity-20 file:rounded-md file:border-0 hover:file:bg-opacity-40 focus:file:outline-none file:transition file:ease-in file:cursor-pointer"
-          type=file id="image" name="image" accept="image/png, image/jpg, image/jpeg, image/webp">
-        @if(flashMessages.has('errors.image'))
-        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.image') }} </p>
-        @endif
-      </div>
-
-      <div class="flex flex-col gap-1">
-        @!atoms.appLabel({
-        label: 'Document',
-        name: 'document',
-        })
-        <input
-          class="text-black file:px-[0.75rem] file:py-[0.375rem] file:bg-accent-purple file:bg-opacity-20 file:rounded-md file:border-0 hover:file:bg-opacity-40 focus:file:outline-none file:transition file:ease-in file:cursor-pointer"
-          type=file id="document" name="document" accept="application/pdf">
-        @if(flashMessages.has('errors.document'))
-        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.document') }} </p>
-        @endif
-      </div>
-
       <div class="lg:col-span-2 flex flex-row justify-end">
-        @atoms.appButton()
+        @app.button()
         @slot('main', scope)
         <button class="{{ scope.className }} {{ scope.color }}" type="submit">Créer</button>
         @endslot

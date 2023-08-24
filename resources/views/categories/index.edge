@@ -16,7 +16,7 @@
         @end
       </div>
 
-      @atoms.appButton()
+      @app.button()
       @slot('main', scope)
       <a class="{{ scope.className }} {{ scope.color }}" href="{{ route('CategoriesController.create') }}"
         up-target="[layout-main]">
@@ -47,12 +47,12 @@
             {{ csrfField() }}
             <button type="submit">
               <span class="sr-only">Supprimer</span>
-              @!atoms.icons.trash({ className: 'text-black' })
+              @svg('heroicons:trash', { class: 'text-black w-6 h-6' })
             </button>
           </form>
           <a href="{{ route('CategoriesController.edit', { id: category.slug }) }}" up-target="[layout-main]">
             <span class="sr-only">Éditer</span>
-            @!atoms.icons.pen({ className: 'text-accent-blue' })
+            @svg('heroicons:pencil', { class: 'text-accent-blue w-6 h-6' })
           </a>
         </div>
       </li>

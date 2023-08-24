@@ -1,0 +1,31 @@
+@layout('layouts/main')
+@set('title', trophy.name)
+
+@section('main')
+
+<section class="mt-6 mb-14 lg:mb-[4.5rem] px-4">
+
+  <div class="max-w-screen-lg mx-auto">
+    <div class="flex flex-row justify-between items-end">
+      <div class="flex flex-col gap-1">
+        <a href="{{ route('TrophiesController.index') }}" class="text-primary-base mb-1"
+          up-target="[layout-main]">Trophées</a>
+
+        @atoms.appTitle()
+        {{ trophy.name }}
+        @end
+      </div>
+
+      @app.button()
+      @slot('main', scope)
+      <a class="{{ scope.className }} {{ scope.color }}"
+        href="{{ route('TrophiesController.edit', { id: trophy.slug }) }}" up-target="[layout-main]">
+        Éditer
+      </a>
+      @endslot
+      @end
+    </div>
+  </div>
+</section>
+
+@endsection

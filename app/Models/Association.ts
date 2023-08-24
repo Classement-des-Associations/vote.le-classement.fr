@@ -1,4 +1,3 @@
-import { attachment, AttachmentContract } from '@ioc:Adonis/Addons/AttachmentLite'
 import { Filterable } from '@ioc:Adonis/Addons/LucidFilter'
 import { slugify } from '@ioc:Adonis/Addons/LucidSlugify'
 import { compose } from '@ioc:Adonis/Core/Helpers'
@@ -7,7 +6,7 @@ import { DateTime } from 'luxon'
 import Category from './Category'
 import AssociationFilter from './Filters/AssociationFilter'
 import School from './School'
-import Vote from './Vote'
+import Participation from './Participation'
 
 export default class Association extends compose(BaseModel, Filterable) {
   public static $filter = () => AssociationFilter
@@ -26,9 +25,6 @@ export default class Association extends compose(BaseModel, Filterable) {
 
   @column()
   public name: string
-
-  @column()
-  public description: string | null
 
   @column()
   public facebook: string | null
@@ -52,16 +48,7 @@ export default class Association extends compose(BaseModel, Filterable) {
   public website: string | null
 
   @column()
-  public categoryId?: number
-
-  @column()
   public schoolId?: number
-
-  @attachment({ folder: 'associations/images', preComputeUrl: true })
-  public image: AttachmentContract | null
-
-  @attachment({ folder: 'associations/documents', preComputeUrl: true })
-  public document: AttachmentContract | null
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -75,6 +62,6 @@ export default class Association extends compose(BaseModel, Filterable) {
   @belongsTo(() => School)
   public school: BelongsTo<typeof School>
 
-  @hasMany(() => Vote)
-  public votes: HasMany<typeof Vote>
+  @hasMany(() => Participation)
+  public participations: HasMany<typeof Participation>
 }

@@ -1,0 +1,31 @@
+@layout('layouts/main')
+@set('title', year.year)
+
+@section('main')
+
+<section class="mt-6 mb-14 lg:mb-[4.5rem] px-4">
+
+  <div class="max-w-screen-lg mx-auto">
+    <div class="flex flex-row justify-between items-end">
+      <div class="flex flex-col gap-1">
+        <a href="{{ route('YearsController.index') }}" class="text-primary-base mb-1"
+          up-target="[layout-main]">Années</a>
+
+        @atoms.appTitle()
+        {{ year.year }}
+        @end
+      </div>
+
+      @app.button()
+      @slot('main', scope)
+      <a class="{{ scope.className }} {{ scope.color }}" href="{{ route('YearsController.edit', { id: year.slug }) }}"
+        up-target="[layout-main]">
+        Éditer
+      </a>
+      @endslot
+      @end
+    </div>
+  </div>
+</section>
+
+@endsection

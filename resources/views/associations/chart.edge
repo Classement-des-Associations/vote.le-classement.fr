@@ -25,9 +25,7 @@
 
         @if(up.getMode() === 'modal')
         <button up-dismiss>
-          @!atoms.icons.close({
-          className: "flex-shrink-0 w-6 h-6"
-          })
+          @svg('heroicons:x-mark', { class: 'w-6 h-6' })
         </button>
         @endif
       </div>

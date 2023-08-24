@@ -1,1 +1,94 @@
-Bonjour
+@layout('layouts/main')
+@set('title', 'Participations')
+
+@section('main')
+<section class="mt-6 mb-14 lg:mb-[4.5rem] px-4">
+
+  <header class="max-w-screen-xl mx-auto flex flex-col">
+    <div class="flex flex-row justify-between items-end">
+      <div class="flex flex-col gap-1">
+        <a href="{{ route('ParticipationsController.index') }}" class="text-primary-base mb-1"
+          up-target="[layout-main]">Participations</a>
+
+        @atoms.appTitle()
+        Les Participations
+        @end
+      </div>
+
+      @app.button()
+      @slot('main', scope)
+      <a class="{{ scope.className }} {{ scope.color }}" href="{{ route('ParticipationsController.create') }}"
+        up-target="[layout-main]">
+        Créer
+      </a>
+      @endslot
+      @end
+    </div>
+  </header>
+
+  <section class="mt-6" layout-grid id="list">
+    <div class="max-w-screen-xl mx-auto">
+      <div class="mt-6 lg:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4 place-items-start">
+        <div class="lg:sticky top-4 w-full">
+          {{-- @if(up.targetIncludes('[layout-grid]') || up.targetIncludes('[layout-main]'))
+          @!molecules.filterVote({
+          associations
+          })
+          @endif --}}
+        </div>
+
+        <div class="lg:col-span-2 w-full" grid id="grid">
+          <ul class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+            @if(up.targetIncludes('[grid]') || up.targetIncludes('[layout-grid]') ||
+            up.targetIncludes('[layout-main]'))
+            @if(participations.length > 0)
+            @each(participation in participations)
+            <li>
+              @!participations.card({ participation })
+            </li>
+            @endeach
+            @else
+            <li class="col-span-2 w-full text-center text-black">
+              <p>
+                Aucune participation n'a été trouvée.
+              </p>
+
+              <a class="block mt-8 text-black hover:text-primary-base transition ease-in"
+                href="{{ route('VotesController.index') }}" up-target="[layout-grid], [value], [chart]"
+                up-history="true">
+                Réinitialiser les filtres ?
+              </a>
+            </li>
+            @endif
+            @endif
+          </ul>
+
+          @if(participations.length > 0)
+          <div class="mt-8 flex flex-row justify-center items-center gap-4">
+            @if(participations.currentPage > 1)
+            @app.button()
+            @slot('main', scope)
+            <a href="{{ participations.getPreviousPageUrl() }}" up-target="[grid]" up-history="true" up-scroll="#grid"
+              class="{{ scope.className }} {{ scope.color }}">
+              Précédent
+            </a>
+            @endslot
+            @end
+            @endif
+            @if(participations.lastPage > participations.currentPage)
+            @app.button()
+            @slot('main', scope)
+            <a href="{{ participations.getNextPageUrl() }}" up-target="[grid]" up-history="true" up-scroll="#grid"
+              class="{{ scope.className }} {{ scope.color }}">
+              Suivant
+            </a>
+            @endslot
+            @end
+            @endif
+          </div>
+          @endif
+        </div>
+      </div>
+  </section>
+</section>
+@endsection

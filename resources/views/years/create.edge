@@ -1,0 +1,48 @@
+@layout('layouts/main')
+@set('title', 'Créer une année')
+
+@section('main')
+
+<section class="mt-6 mb-14 lg:mb-[4.5rem] px-4">
+
+  <div class="max-w-screen-lg mx-auto">
+    <div class="flex flex-row justify-between items-start">
+      <div class="flex flex-col gap-1">
+        <a href="{{ route('YearsController.index') }}" class="text-primary-base mb-1"
+          up-target="[layout-main]">Années</a>
+
+        @atoms.appTitle()
+        Créer
+        @end
+      </div>
+    </div>
+
+    <form up-submit up-target="body" class="mt-6" action="{{ route('YearsController.store') }}" method="POST">
+      {{ csrfField() }}
+
+      @!form.input({
+      label: 'Nom',
+      name: 'year',
+      type: 'number',
+      placeholder: 'Année',
+      autofocus: true,
+      })
+      @if(flashMessages.has('errors.name'))
+      <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.name') }} </p>
+      @end
+
+      <div class="mt-6">
+        @app.button({
+        accentPurple: true,
+        })
+        @slot('main', scope)
+        <button type="submit" class="{{ scope.className }} {{ scope.color }}">Créer</button>
+        @endslot
+        @end
+      </div>
+
+    </form>
+  </div>
+</section>
+
+@endsection

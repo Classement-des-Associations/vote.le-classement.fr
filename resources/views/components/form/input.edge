@@ -1,0 +1,11 @@
+@set('value', flashMessages.get(name) || value || '')
+
+<div class="flex flex-col gap-1">
+  <div class="pl-1">
+    @!form.label({ label, name })
+  </div>
+  <input
+    class="bg-transparent border-1 border-1 border-accent-purple/60 rounded-lg px-[0.75rem] py-[0.375rem] text-base text-black focus:outline-none focus:ring-2 focus:ring-accent-purple transition ease-in cursor-text focus:ring-0"
+    id="{{ name }}" name="{{ name }}" value="{{ value ? value : '' }}" type="{{ type }}" placeholder="{{ placeholder }}"
+    {{ autofocus ? 'autofocus' : '' }} />
+</div>

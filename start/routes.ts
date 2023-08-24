@@ -22,56 +22,65 @@ import Route from '@ioc:Adonis/Core/Route'
 import Markdown from 'App/Services/Markdown'
 import fs from 'fs/promises'
 
-Route.get('/', async ({ response }) => {
-  return response.redirect().toRoute('AssociationsController.index')
+Route.get('/', ({ response }) => {
+  return response.redirect().toRoute('ConcoursController.index')
 }).as('home')
 
-Route.get('/understand', async ({ view }) => {
+Route.get('/concours', 'ConcoursController.index')
+Route.get('/concours/:year', 'ConcoursController.show')
+Route.get('/concours/:year/participations/:id', 'ConcoursController.showParticipation')
+Route.post(
+  '/concours/:year/participations/:id/votes/send-email',
+  'ConcoursController.sendVoteEmail'
+)
+Route.get('/concours/:year/participations/:id/votes/validate/:email', 'ConcoursController.vote')
+Route.get('/concours/:year/participations/:id/charts/per-day', 'ConcoursController.chart')
+
+Route.get('/understand', async ({ response }) => {
+  return response.redirect().status(301).toRoute('understand')
+})
+Route.get('/comprendre-la-plateforme', async ({ view }) => {
   const file = await fs.readFile(Application.makePath('content/understand.md'), 'utf8')
   const html = await Markdown.render(file)
 
   return view.render('layouts/content', { html })
 }).as('understand')
 
-Route.get('/terms', async ({ view }) => {
+Route.get('/terms', async ({ response }) => {
+  return response.redirect().status(301).toRoute('terms')
+})
+Route.get('/cgu', async ({ view }) => {
   const file = await fs.readFile(Application.makePath('content/terms.md'), 'utf8')
   const html = await Markdown.render(file)
 
   return view.render('layouts/content', { html })
 }).as('terms')
 
-Route.resource('participations', 'ParticipationsController')
-
-Route.resource('associations', 'AssociationsController').middleware({
-  create: ['auth'],
-  store: ['auth'],
-  edit: ['auth'],
-  update: ['auth'],
-  destroy: ['auth'],
-})
-Route.post('associations/:id/send-email-vote', 'AssociationsController.sendEmailVote')
-
-Route.get('associations/:id/vote/:email', 'AssociationsController.vote')
-
-Route.get('check-email', 'VotesController.checkEmail').as('checkEmail')
-Route.get('validated', 'VotesController.validated').as('validated')
-Route.get('invalidated', 'VotesController.invalidated').as('invalidated')
-Route.get('already-voted', 'VotesController.alreadyVoted').as('alreadyVoted')
-Route.get('closed', 'VotesController.closed').as('closed')
-Route.get('limited', 'VotesController.limited').as('limited')
+Route.group(() => {
+  Route.get('check-email', 'VotesController.checkEmail')
+  Route.get('validated', 'VotesController.validated')
+  Route.get('invalidated', 'VotesController.invalidated')
+  Route.get('already-voted', 'VotesController.alreadyVoted')
+  Route.get('disabled', 'VotesController.disabled')
+  Route.get('closed', 'VotesController.closed')
+  Route.get('limited', 'VotesController.limited')
+}).prefix('votes')
 
 Route.group(() => {
-  Route.get('associations/:id/image/edit', 'AssociationsController.editImage')
-  Route.patch('associations/:id/image', 'AssociationsController.updateImage')
-  Route.get('associations/:id/document/edit', 'AssociationsController.editDocument')
-  Route.patch('associations/:id/document', 'AssociationsController.updateDocument')
-  Route.get('/associations/:id/chart', 'AssociationsController.chart')
+  Route.resource('participations', 'ParticipationsController')
+  Route.get('participations/:id/image/edit', 'ParticipationsController.editImage')
+  Route.patch('participations/:id/image', 'ParticipationsController.updateImage')
+  Route.get('participations/:id/document/edit', 'ParticipationsController.editDocument')
+  Route.patch('participations/:id/document', 'ParticipationsController.updateDocument')
 
+  Route.resource('associations', 'AssociationsController')
+  Route.resource('trophies', 'TrophiesController')
   Route.resource('categories', 'CategoriesController')
   Route.resource('schools', 'SchoolsController')
+  Route.resource('years', 'YearsController')
 
+  // TODO: update all these charts
   Route.get('votes', 'VotesController.index')
-
   Route.get('votes/charts', 'ChartsController.index')
   Route.get('votes/charts/total-by-day', 'ChartsController.totalByDay')
   Route.get('votes/charts/total-by-hour', 'ChartsController.totalByHour')

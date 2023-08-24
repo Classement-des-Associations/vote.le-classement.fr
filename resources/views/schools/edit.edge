@@ -21,7 +21,7 @@
       action="{{ route('SchoolsController.update', { id: school.slug }) }}?_method=PUT" method="POST">
       {{ csrfField() }}
 
-      @!atoms.appInput({
+      @!form.input({
       label: 'Nom',
       name: 'name',
       type: 'text',
@@ -34,7 +34,7 @@
       @end
 
       <div class="mt-6">
-        @atoms.appButton({
+        @app.button({
         accentPurple: true,
         })
         @slot('main', scope)
