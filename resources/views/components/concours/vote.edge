@@ -1,0 +1,103 @@
+@set('currentYear', await currentYear())
+@set('isEnabled', year.id === currentYear.id && env('ENABLE_VOTE', false) && daysRemaining())
+<div x-data="{ open: {{ flashMessages.has('errors') ? true : false }} }" class="w-full lg:w-auto flex flex-col gap-2"
+  modal-vote>
+  <button
+    class="inline-flex gap-2 items-center justify-center focus:outline-none focus-visible:outline-none focus-visible:ring-offset-2 focus:ring-offset-white focus-visible:ring-2 transition duration-200 rounded-lg px-4 py-2 text-base relative gradient-border-2 before:absolute before:transition before:duration-200 before:rounded-lg before:opacity-0 hover:before:opacity-75 before:-inset-0.5 before:bg-gradient-to-r before:blur-md before:z-[-1] before:from-primary-base before:to-primary-variation-1 border-gradient-br-associations-white disabled:cursor-not-allowed disabled:text-gray-600 disabled:border-gradient-br-associations-light-white disabled:before:hover:opacity-0"
+    {{{ isEnabled ? 'x-on:click="open = true"' : 'disabled' }}}
+    title="{{ isEnabled ? '': 'Le vote n\'est pas ouvert'  }}">
+    <span class="whitespace-nowrap">
+      Voter pour l'association
+    </span>
+  </button>
+  <div class="flex flex-col items-end text-black text-right text-sm">
+    <a href="{{ route('ConcoursController.chart', { year: participation.year.slug, id: participation.id }) }}"
+      up-layer="new modal" up-target="[modal]">
+      {{ participation.$extras.votes_count ?? 0 }} voix {{ isEnabled ? 'et bientôt la tienne ?' : '' }}
+    </a>
+  </div>
+  @if(isEnabled)
+  <div x-show="open" style="display: none" x-on:keydown.escape.prevent.stop="open = false" role="dialog"
+    aria-modal="true" x-id="['modal-title']" :aria-labelledby="$id('modal-title')"
+    class="fixed inset-0 overflow-y-auto z-10">
+    @!dialog.backdrop({ "x-transition.opacity": true, "x-show": "open" })
+
+    <div x-show="open" x-transition.opacity x-transition.duration.300ms x-on:click="open = false"
+      class="relative min-h-screen flex items-center justify-center">
+      <div x-on:click.stop x-trap.noscroll.inert="open"
+        class="relative max-w-screen-sm sm:rounded-2xl bg-white shadow-xl w-full py-6 px-6 overflow-y-auto border border-gray-200/90">
+        <div class="flex flex-row justify-between items-start">
+          <h2 class="text-2xl text-black font-bold" :id="$id('modal-title')">Voter pour {{
+            participation.association.name
+            }}</h2>
+          <button x-on:click="open = false">
+            @svg('heroicons:x-mark', { class: 'w-6 h-6' })
+          </button>
+        </div>
+
+        <form up-submit class="mt-10"
+          action="{{ route('ConcoursController.sendVoteEmail', { year: participation.year.slug, id: participation.id }) }}"
+          up-target="[modal-vote]" method="POST">
+          {{ csrfField() }}
+
+          <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
+
+          <input value="{{ flashMessages.get('email') ?? '' }}" type="email" name="email" placeholder="Adresse mail"
+            required
+            class="w-full border border-primary-base rounded-lg px-4 py-6 placeholder:text-gray-700 text-black focus:outline-none focus:ring-2 focus:ring-primary-base focus:border-primary-base transition ease-in">
+          @if(flashMessages.has('errors.email'))
+          <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.email') }} </p>
+          @end
+          <p class="mt-2 text-gray-500 text-sm italic">
+            Pour confirmer ta voix, <strong class="font-medium">clique sur le lien dans le courriel</strong> tu vas
+            recevoir
+            dès validation
+            du vote.
+            Autrement, ton vote ne sera pas pris en compte et l'email ne sera pas conservé.
+            Pense à vérifier tes spams.
+          </p>
+
+          <div class="mt-10 flex flex-row items-center">
+            <input
+              class="flex-shrink-0 hover:ring-primary-base focus:ring-primary-base border border-primary-base hover:cursor-pointer rounded w-6 h-6 hover:bg-primary-base/10 checked:bg-primary-base hover:checked:bg-primary-base focus:checked:bg-primary-base transition-all ease-in"
+              {{ flashMessages.get('acceptClassement') ? 'checked' : '' }} type="checkbox" name="acceptClassement"
+              value="true" id="classement" />
+            <label class="pl-4 text-black text-sm cursor-pointer" for="classement">
+              En cochant, j'accepte d'être recontacté à mon adresse mail pour des informations sur le
+              Classement
+            </label>
+          </div>
+          @if(flashMessages.has('errors.acceptClassement'))
+          <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.acceptClassement') }} </p>
+          @end
+          <div class="mt-2 flex flex-row items-center">
+            <input {{ flashMessages.get('acceptActivities') ? 'checked' : '' }}
+              class="flex-shrink-0 hover:ring-primary-base focus:ring-primary-base border border-primary-base hover:cursor-pointer rounded w-6 h-6 hover:bg-primary-base/10 checked:bg-primary-base hover:checked:bg-primary-base focus:checked:bg-primary-base transition-all ease-in"
+              type="checkbox" name="acceptActivities" value="true" id="activities">
+            <label class="pl-4 text-black text-sm cursor-pointer" for="activities">
+              <span>
+                En cochant, j'accepte d'être recontacté à mon adresse mail par
+                <a href="https://le-classement.fr/partenaires" rel="noopener" class="underline">
+                  les partenaires
+                </a>
+                du Classement des Associations
+              </span>
+            </label>
+          </div>
+          @if(flashMessages.has('errors.acceptActivities'))
+          <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.acceptActivities') }} </p>
+          @end
+
+          <div class="mt-4 flex flex-row justify-end">
+            @app.button()
+            @slot('main', scope)
+            <button type="submit" class="{{ scope.className }} {{ scope.color }}">Valider le vote</button>
+            @endslot
+            @end
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  @endif
+</div>

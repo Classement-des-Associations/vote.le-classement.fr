@@ -1,0 +1,103 @@
+@layout('layouts/admin')
+@set('title', 'Éditer la participation' + participation.id)
+
+@section('main')
+
+<section class="mt-6 mb-14 lg:mb-[4.5rem] px-4">
+
+  <div class="max-w-screen-lg mx-auto">
+
+    <div class="flex flex-row justify-between items-start">
+      <div class="flex flex-col gap-1">
+        <a href="{{ route('ParticipationsController.index') }}" class="text-primary-base mb-1"
+          up-target="[layout-main]">Participations</a>
+
+        @atoms.appTitle()
+        Éditer la particpation {{ participation.association.name }} - {{ participation.year.year }}
+        @end
+      </div>
+    </div>
+
+
+    <form up-submit up-target="[layout-main]" class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6"
+      action="{{ route('ParticipationsController.update', { id: participation.id }) }}?_method=PATCH" method="POST">
+      {{ csrfField() }}
+
+      <div class="lg:col-span-2">
+        @!atoms.appTextarea({
+        label: 'Description',
+        name: 'description',
+        value: participation.description,
+        })
+        @if(flashMessages.has('errors.description'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.description') }} </p>
+        @endif
+      </div>
+
+      <div class="col-start-1">
+        @!form.select({
+        label: 'Année',
+        name: 'yearId',
+        selected: participation.yearId,
+        options: years,
+        defaultLabel: 'Sans année',
+        })
+        @if(flashMessages.has('errors.yearId'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.yearId') }} </p>
+        @endif
+      </div>
+
+      <div>
+        @!form.select({
+        label: 'Association',
+        name: 'associationId',
+        selected: participation.associationId,
+        options: associations,
+        defaultLabel: 'Sans association',
+        })
+        @if(flashMessages.has('errors.associationId'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.associationId') }} </p>
+        @endif
+      </div>
+
+      <div class="col-start-1">
+        @!form.select({
+        label: 'Trophées',
+        name: 'trophyId',
+        selected: request.qs().trophy_id,
+        options: trophies,
+        defaultLabel: 'Sans trophée',
+        })
+        @if(flashMessages.has('errors.trophyId'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.trophyId') }} </p>
+        @endif
+      </div>
+
+      <div>
+        @!form.select({
+        multiple: true,
+        label: 'Catégories',
+        name: 'categoriesIds',
+        selected: participation.categories.map(c => c.id),
+        options: categories,
+        defaultLabel: 'Sans catégorie',
+        })
+        @if(flashMessages.has('errors.categoriesIds'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.categoriesIds') }} </p>
+        @endif
+      </div>
+
+      <div class="lg:col-span-2 flex flex-row justify-end">
+        @app.button()
+        @slot('main', scope)
+        <button class="{{ scope.className }} {{ scope.color }}" type="submit">Éditer</button>
+        @endslot
+        @end
+      </div>
+
+    </form>
+
+  </div>
+</section>
+
+@endsection

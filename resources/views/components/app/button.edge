@@ -1,0 +1,19 @@
+@set('color', '')
+@set('className',
+String(`rounded-lg px-4 py-3 text-sm leading-4 font-semibold focus:outline-none transition ease-in`))
+
+@if(accentPurple)
+@set('color', String(`bg-accent-purple hover:bg-accent-purple hover:bg-opacity-80 focus:ring-2 focus:ring-offset-2
+focus:ring-accent-purple
+text-white`))
+@else
+@if(outline)
+@set('color', 'border-primary-base bg-white text-primary-base hover:text-primary-variation-1')
+@else
+@set('color', String(`bg-primary-base hover:bg-primary-base hover:bg-opacity-80 focus:ring-2 focus:ring-offset-2
+focus:ring-primary-base
+text-white`))
+@endif
+@endif
+
+{{{ await $slots.main({ className, color }) }}}

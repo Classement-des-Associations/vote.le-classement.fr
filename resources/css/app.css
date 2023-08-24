@@ -6,8 +6,18 @@ html {
   scroll-behavior: smooth;
 }
 
+#list {
+  scroll-margin-top: 2rem;
+}
+
 .up-current {
   color: theme('colors.primary.base');
+}
+
+.mobile .up-current {
+  color: theme('colors.white');
+  text-decoration: underline;
+  text-underline-offset: 0.4rem;
 }
 
 footer .up-current {
@@ -52,15 +62,15 @@ up-progress-bar {
 }
 
 up-modal-backdrop {
-  @apply fixed inset-0 bg-black bg-opacity-70 backdrop-blur-[32px];
+  @apply fixed inset-0 bg-white bg-opacity-20 backdrop-blur-lg;
 }
 
 up-modal-viewport {
-  @apply flex w-full items-center justify-center !p-0;
+  @apply relative min-h-screen flex items-center justify-center !p-0;
 }
 
 up-modal-box {
-  @apply max-w-screen-sm bg-ultra-light-grey p-4 shadow-none;
+  @apply relative max-w-screen-md sm:rounded-2xl bg-white shadow-xl w-full py-6 px-6 overflow-y-auto border border-gray-200 border-opacity-90;
 }
 
 @media screen(sm) {
@@ -87,4 +97,27 @@ up-modal[size='medium'] up-modal-box {
 
 up-modal-dismiss {
   display: none;
+}
+
+::-webkit-scrollbar {
+  width: 0.6em;
+  height: 0.6em;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background-color: theme('colors.white');
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: theme('borderRadius.lg');
+  background-color: theme('colors.zinc.300');
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: theme('colors.zinc.400');
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: theme('colors.zinc.500');
 }

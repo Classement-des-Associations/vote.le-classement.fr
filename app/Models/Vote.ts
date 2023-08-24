@@ -2,8 +2,9 @@ import { Filterable } from '@ioc:Adonis/Addons/LucidFilter'
 import { compose } from '@ioc:Adonis/Core/Helpers'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'
-import Association from './Association'
 import VoteFilter from './Filters/VoteFilter'
+import Participation from './Participation'
+import Year from './Year'
 
 export default class Vote extends compose(BaseModel, Filterable) {
   public static $filter = () => VoteFilter
@@ -15,13 +16,19 @@ export default class Vote extends compose(BaseModel, Filterable) {
   public associationId: number
 
   @column()
+  public yearId: number
+
+  @column()
+  public participationId: number
+
+  @column()
   public email: string
 
   @column()
   public acceptClassement: boolean
 
   @column()
-  public acceptActivities: boolean
+  public acceptPartners: boolean
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -29,6 +36,9 @@ export default class Vote extends compose(BaseModel, Filterable) {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @belongsTo(() => Association)
-  public association: BelongsTo<typeof Association>
+  @belongsTo(() => Year)
+  public year: BelongsTo<typeof Year>
+
+  @belongsTo(() => Participation)
+  public participation: BelongsTo<typeof Participation>
 }

@@ -1,0 +1,26 @@
+<article
+  class="relative rounded-xl flex flex-col gap-4 border border-gray-200/90 hover:shadow-lg transition ease-in duration-200 overflow-hidden">
+  <img src="{{ participation.image.url }}" alt="Visuel de {{ participation.name }}" height="512" width="512"
+    loading="lazy" class="aspect-square object-contain">
+  <div class="px-4 pb-4 flex flex-col gap-2">
+    <dl class="flex flex-row justify-between text-sm font-medium text-gray-700">
+      <dt class="sr-only">Catégories</dt>
+      <dd>
+        {{ toSentence(participation.categories, { separator: ' - ', lastSeparator: ' - ' }) }}
+      </dd>
+      <dt class="sr-only">Nombre de voix</dt>
+      <dd>
+        {{ participation.votes_count }} votes
+      </dd>
+    </dl>
+    <a href="{{ route('ConcoursController.showParticipation', { year: year.slug, id: participation.id }) }}">
+      <h3 class="text-lg text-black font-semibold">
+        {{ participation.name }}
+      </h3>
+      <span class="absolute inset-0"></span>
+    </a>
+    <div class="text-sm text-gray-600">
+      {{ safe(truncate(participation.description, 120)) }}
+    </div>
+  </div>
+</article>

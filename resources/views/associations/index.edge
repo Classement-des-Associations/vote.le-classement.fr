@@ -1,127 +1,62 @@
 @layout('layouts/main')
 @set('title', 'Les Associations')
 
-@set('time', timeRemaining())
 @section('main')
 
-<section class="relative px-4 pt-12 pb-20 lg:py-40">
-  <span class="hidden md:block absolute top-6 right-10">
-    @!atoms.graphics.round()
-  </span>
-  <span class="absolute lg:hidden -bottom-11 -left-3">
-    @!atoms.graphics.triangle()
-  </span>
-  <span class="hidden lg:block absolute -bottom-[2.875rem] -left-12">
-    @!atoms.graphics.triangleLarge()
-  </span>
-  <div class="max-w-screen-xl mx-auto flex flex-col justify-center">
-    <h1 class="text-center text-black text-[1.75rem] lg:text-5xl font-bold">Vote pour ton association préférée</h1>
 
-    <p class="max-w-3xl mx-auto mt-8 text-center text-black text-lg">
-      Le vote qui permet au public de découvrir l'ensemble des associations du concours et d'en envoyer 2 directement
-      en finale !
-    </p>
+<section class="px-4 py-14 lg:pb-[4.5rem] max-w-screen-xl mx-auto" id="list" layout-grid>
+  <header class="flex flex-col">
+    <div class="flex flex-row justify-between items-end">
+      <div class="flex flex-col gap-1">
+        <a href="{{ route('AssociationsController.index') }}" class="text-primary-base mb-1"
+          up-target="[layout-main]">Associations</a>
 
-    <div class="mt-14 flex flex-col lg:flex-row justify-center items-center gap-4 lg:gap-6">
-      @atoms.appButton()
+        @atoms.appTitle()
+        Les Associations
+        @end
+      </div>
+
+      @app.button()
       @slot('main', scope)
-      <a class="{{ scope.className }} {{ scope.color }}" href="#list">
-        Découvrir les associations
-      </a>
-      @endslot
-      @end
-      @atoms.appButton({ outline: true })
-      @slot('main', scope)
-      <a class="{{ scope.className }} {{ scope.color }}" href="{{ route('understand') }}" up-target="[layout-main]">
-        Comprendre le vote
-      </a>
-      @endslot
-      @end
-    </div>
-  </div>
-</section>
-
-@if(up.targetIncludes('[layout-main]'))
-<section class="px-4 py-14 lg:py-[7.5rem] bg-primary-base text-white">
-  <div class="max-w-screen-xl mx-auto grid grid-cols-1 gap-10 lg:grid-cols-3 justify-items-center">
-    <div class="p-4 max-w-[16rem]">
-      <h2 class="flex flex-col justify-center items-center">
-        <span class="text-[4rem] font-extrabold">+140</span>
-        <span class="mt-8 text-lg font-semibold">Associations</span>
-      </h2>
-      <p class="mt-3 text-center text-sm leading-[1.125rem]">À découvrir cette année au Classement des Associations</p>
-    </div>
-    <div class="p-4 max-w-[16rem]">
-      <h2 class="flex flex-col justify-center items-center">
-        <span class="text-[4rem] font-extrabold">2</span>
-        <span class="mt-8 text-lg font-semibold">Places</span>
-      </h2>
-      <p class="mt-3 text-center text-sm leading-[1.125rem]">À décrocher pour accéder directement à la
-        finale</p>
-    </div>
-    <div class="p-4 max-w-[16rem]">
-      <h2 class="flex flex-col justify-center items-center">
-        <span class="text-[4rem] font-extrabold">
-          {{ time < 0 ? '0' : time }} </span>
-            <span class="mt-8 text-lg font-semibold">
-              {{ time > 1 ? 'Jours' : 'Jour' }}
-            </span>
-      </h2>
-      <p class="mt-3 text-center text-sm leading-[1.125rem]">{{ time > 1 ? 'Restants' : 'Restant' }} avant la fin du
-        vote</p>
-    </div>
-  </div>
-</section>
-@endif
-
-<section class="px-4 py-14 lg:pb-[4.5rem]" id="list" layout-grid>
-  <div class="max-w-screen-xl mx-auto">
-    <div class="flex flex-row justify-between items-start">
-      <h2 class="text-[1.75rem] lg:text-[2.5rem] text-black font-bold"> Les associations </h2>
-      @if(auth.isLoggedIn)
-      @atoms.appButton()
-      @slot('main', scope)
-      <a href="{{ route('AssociationsController.create') }}" class="{{ scope.className }} {{ scope.color }}"
+      <a class="{{ scope.className }} {{ scope.color }}" href="{{ route('AssociationsController.create') }}"
         up-target="[layout-main]">
         Créer
       </a>
       @endslot
       @end
+    </div>
+  </header>
+
+  <div class="mt-6 lg:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4 place-items-start">
+    <div class="lg:sticky top-4 w-full">
+      @if(up.targetIncludes('[layout-grid]') || up.targetIncludes('[layout-main]'))
+      @!associations.filters({ categories, schools })
       @endif
     </div>
-    <div class="mt-6 lg:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4 place-items-start">
-      <div class="lg:sticky top-4 w-full">
-        @if(up.targetIncludes('[layout-grid]') || up.targetIncludes('[layout-main]'))
-        @!molecules.filterAssociations({
-        categories,
-        schools
-        })
-        @endif
-      </div>
 
-      <ul class="lg:col-span-2 w-full grid grid-cols-1 sm:grid-cols-2 gap-4" grid id="#grid">
-        @if(up.targetIncludes('[grid]') || up.targetIncludes('[layout-grid]') || up.targetIncludes('[layout-main]'))
-        @if(associations.length > 0)
-        @each(association in associations)
-        <li>
-          @!molecules.cardAssociation({ association })
-        </li>
-        @endeach
-        @else
-        <li class="col-span-2 w-full text-center text-black">
-          <p>
-            Aucune association n'a été trouvée.
-          </p>
+    <ul class="lg:col-span-2 w-full grid grid-cols-1 sm:grid-cols-2 gap-4" grid id="#grid">
+      @if(up.targetIncludes('[grid]') || up.targetIncludes('[layout-grid]') || up.targetIncludes('[layout-main]'))
+      @if(associations.length > 0)
+      @each(association in associations)
+      <li>
+        @!associations.card({ association })
+      </li>
+      @endeach
+      @else
+      <li class="col-span-2 w-full text-center text-black">
+        <p>
+          Aucune association n'a été trouvée.
+        </p>
 
-          <a class="block mt-8 text-black hover:text-primary-base transition ease-in"
-            href="{{ route('AssociationsController.index') }}#list" up-target="[layout-grid]">
-            Réinitialiser les filtres ?
-          </a>
-        </li>
-        @endif
-        @endif
-      </ul>
-    </div>
+        <a class="block mt-8 text-black hover:text-primary-base transition ease-in"
+          href="{{ route('AssociationsController.index') }}#list" up-target="[layout-grid]">
+          Réinitialiser les filtres ?
+        </a>
+      </li>
+      @endif
+      @endif
+    </ul>
+  </div>
   </div>
 </section>
 @endsection

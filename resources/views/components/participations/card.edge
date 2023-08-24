@@ -1,0 +1,57 @@
+<article
+  class="relative hover:shadow-lg bg-ultra-light-grey rounded-2xl p-4 flex flex-col gap-4 text-black transition ease-in duration-200">
+  <div class="flex-grow flex flex-col gap-3">
+    @if(participation.image)
+    <figure class="w-full rounded-lg overflow-hidden aspect-w-square aspect-h-square">
+      <img class="w-full object-contain" width="512" height="512"
+        alt="Image de la participation {{ participation.year.year }} de {{ participation.association.name }}"
+        src="{{ participation.image.url }}" loading="lazy" />
+    </figure>
+    @endif
+    <div class="flex-grow flex flex-col justify-end">
+      <div class="flex flex-row justify-between items-center">
+        <div>
+          @if(participation.association.category)
+          @!atoms.appTag({
+          name: participation.association.category.name,
+          })
+          @endif
+        </div>
+        {{-- <p>
+          {{ participation.association.$extras.votes_count ?? 0 }} voix
+        </p> --}}
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col gap-1">
+    <a href="{{ route('ParticipationsController.show', { id: participation.id }) }}" up-target="[layout-main]">
+      <h2 class="text-xl font-bold">
+        {{ participation.association.name }} - {{ participation.year.year }}
+      </h2>
+      <span class="absolute inset-0"></span>
+    </a>
+    @if(participation.association.school)
+    <p>
+      {{ participation.association.school.name }}
+    </p>
+    @endif
+  </div>
+  @if(participation.description)
+  <div class="text-sm" x-data="{ expanded: false }">
+    <div x-show="expanded" x-collapse.min.40px x-on:click="expanded = !expanded" class="cursor-pointer">
+      {{ safe(participation.description) }}
+    </div>
+    <div class="mt-2 flex flex-row justify-between">
+      <button class="relative py-1 rounded-md text-black hover:text-primary-variation-1 transition ease-in"
+        x-on:click="expanded = !expanded">
+        <span x-text="expanded ? 'Voir moins' : 'Voir plus'"></span>
+      </button>
+      <a href="{{ route('ParticipationsController.show', { id: participation.id }) }}"
+        class="px-3 py-1 bg-white text-black hover:text-primary-variation-1 rounded-md transition ease-in"
+        up-target="[layout-main]">
+        En savoir plus
+      </a>
+    </div>
+  </div>
+  @endif
+</article>

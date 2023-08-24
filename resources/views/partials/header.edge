@@ -1,158 +1,246 @@
-@base.baseSection()
+@app.section()
 @slot('main', scope)
 <header class="{{ scope.sectionClass }} py-4 flex flex-row justify-between" x-data="{ open: false }">
   @if(up.targetIncludes('header'))
-  <div class="flex flex-row space-x-8 justify-center items-center text-sm font-medium leading-[1.125rem]">
-    <a class="block text-black hover:text-primary-base transition ease-in duration-200" href="{{ route('home') }}"
-      up-target="[layout-main]">
-      <span class="sr-only">Retour à la première page</span>
-      @!atoms.logos.classementShort({
-      className: "h-[3.125rem]"
+  <div class="flex flex-row space-x-8 justify-center items-center">
+    <a href="{{ route('home') }}" up-target="[layout-main]">
+      <span class="sr-only">Page Principale</span>
+      @!logos.classementShort({
+      className: `h-[40px] w-[40px] md:h-[50px] md:w-[50px] text-black hover:text-primary-base
+      motion-safe:transition-all
+      motion-safe:duration-300`
       })
     </a>
-    <div class="hidden lg:flex ml-8">
-      <div x-data="dropdown" class="w-full lg:w-auto flex flex-col lg:flex-row items-start">
-        @if(auth.isLoggedIn)
-        <div x-on:keydown.escape.prevent.stop="close($refs.button)"
-          x-on:focusin.window="! $refs.panel.contains($event.target) && close()" x-id="['dropdown-button']"
-          class="relative">
-          <button x-ref="button" x-on:click="toggle()" :aria-expanded="open" :aria-controls="$id('dropdown-button')"
-            type="button" class="py-4 px-5 flex flex-row gap-2 items-center hover:text-primary-base transition ease-in">
-            Administrer
-            </span>
-          </button>
-          <nav x-ref="panel" x-show="open" x-transition.origin.top.left x-on:click.outside="close($refs.button)"
-            :id="$id('dropdown-button')" style="display: none;"
-            class="absolute z-30 left-0 mt-2 py-2 px-3 overflow-hidden rounded-[0.625rem] bg-white shadow-lg flex flex-col gap-3"
-            up-nav aria-labelledby="admin navigation">
-            <a href="{{ route('CategoriesController.index') }}"
-              class="whitespace-nowrap flex flex-row gap-2 items-center hover:text-primary-base transition ease-in"
-              up-target="[layout-main]">
-              Les catégories
-            </a>
-            <a href="{{ route('SchoolsController.index') }}"
-              class="whitespace-nowrap flex flex-row gap-2 items-center hover:text-primary-base transition ease-in"
-              up-target="[layout-main]">
-              Les écoles
-            </a>
-            <a href="{{ route('VotesController.index') }}"
-              class="whitespace-nowrap flex flex-row gap-2 items-center hover:text-primary-base transition ease-in"
-              up-target="[layout-main]">
-              Les voix
-            </a>
-            <a href="{{ route('ChartsController.index') }}"
-              class="whitespace-nowrap flex flex-row gap-2 items-center hover:text-primary-base transition ease-in"
-              up-target="[layout-main]">
-              Les graphiques
-            </a>
-          </nav>
-        </div>
-        @endif
-      </div>
-      <nav class="flex" aria-labelledby="primary navigation" up-nav>
-        <ul class="flex flex-row">
-          <li>
-            <a href="{{ route('AssociationsController.index') }}#list" up-target="[layout-main]" up-scroll="#list"
-              class="py-4 px-5 flex flex-row gap-2 items-center hover:text-primary-base transition ease-in">
-              Les associations
-            </a>
-          </li>
-          <li>
-            <a href="https://le-classement.fr/nous-contacter" target="_blank"
-              class="py-4 px-5 flex flex-row gap-2 items-center hover:text-primary-base transition ease-in">
-              Nous contacter
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <button type="button" x-on:click="open = true" class="lg:hidden">
-      <span class="sr-only">Ouvrir le menu</span>
-      @!atoms.icons.menu({
-      className: 'text-black',
-      })
-    </button>
-    <template x-teleport="body">
-      <div x-show="open" style="display: none" x-on:keydown.window.escape.prevent.stop="open = false" role="dialog"
-        aria-modal="true" aria-labelledby="Modal navigation" class="fixed inset-0 overflow-y-auto z-10">
-
-        <div x-show="open" x-transition class="relative w-full h-full">
-          <div x-on:click.stop x-trap.noscroll.inert="open" class="relative w-full h-full px-4 pt-11 bg-accent-purple">
-            <div class="flex flex-row justify-between items-center">
-              @!atoms.logos.classementShort({
-              className: "text-white h-[3.125rem]"
-              })
-              <button x-on:click="open = false">
-                @!atoms.icons.close({
-                className: "w-8 h-8 text-white"
-                })
+    <nav class="hidden lg:block text-sm leading-[1.125rem]" aria-labelledby="primary navigation" up-nav>
+      <ul class="flex flex-row justify-center font-medium">
+        <li>
+          <div x-data="dropdown" class="w-full lg:w-auto flex flex-col lg:flex-row items-start">
+            <div x-on:keydown.escape.prevent.stop="close($refs.button)"
+              x-on:focusin.window="! $refs.panel.contains($event.target) && close()" x-id="['dropdown-button']"
+              class="relative">
+              <button x-ref="button" x-on:click="toggle()" :aria-expanded="open" :aria-controls="$id('dropdown-button')"
+                type="button"
+                class="py-4 px-5 flex flex-row gap-2 items-center hover:text-primary-base transition ease-in">
+                <span>
+                  Concours
+                </span>
+                @svg('heroicons:chevron-down', { class: 'w-4 h-4' })
               </button>
+              <ol x-ref="panel" x-show="open" x-transition.origin.top.left x-on:click.outside="close($refs.button)"
+                :id="$id('dropdown-button')" style="display: none;"
+                class="w-full z-20 absolute left-4 top-12 p-1 origin-top-right rounded-md bg-white shadow-lg border border-gray-200/90 focus:outline-none">
+                @each(year in await allYears())
+                <li>
+                  <a href="{{ route('ConcoursController.show', { year: year.slug }) }}"
+                    class="flex flex-row items-center py-2 px-4 whitespace-nowrap hover:text-primary-base transition ease-in"
+                    up-target="[layout-main]">
+                    {{ year.year }}
+                  </a>
+                </li>
+                @endeach
+              </ol>
             </div>
-            <nav class="mt-14" aria-labelledby="Mobile navigation" mobile-nav up-nav>
-              <ul class="flex flex-col space-y-10">
-                @if(auth.isLoggedIn)
-                <li>
-                  <a href="{{ route('CategoriesController.index') }}" class="text-white text-lg font-semibold"
-                    up-target="[layout-main]" x-on:click="open = false">
-                    Les catégories
-                  </a>
-                </li>
-                @endif
-                @if(auth.isLoggedIn)
-                <li>
-                  <a href="{{ route('SchoolsController.index') }}" class="text-white text-lg font-semibold"
-                    up-target="[layout-main]" x-on:click="open = false">
-                    Les écoles
-                  </a>
-                </li>
-                @endif
-                @if(auth.isLoggedIn)
-                <li>
-                  <a href="{{ route('VotesController.index') }}" class="text-white text-lg font-semibold"
-                    up-target="[layout-main]" x-on:click="open = false">
-                    Les voix
-                  </a>
-                </li>
-                @endif
-                @if(auth.isLoggedIn)
-                <li>
-                  <a href="{{ route('ChartsController.index') }}" class="text-white text-lg font-semibold"
-                    up-target="[layout-main]" x-on:click="open = false">
-                    Les graphiques
-                  </a>
-                </li>
-                @endif
-                <li>
-                  <a href="{{ route('AssociationsController.index') }}#list" up-target="[layout-main]" up-scroll="#list"
-                    class="text-white text-lg font-semibold">
-                    Les associations
-                  </a>
-                </li>
-                <li>
-                  <a href="https://le-classement.fr/about-us" target="_blank" class="text-white text-lg font-semibold">
-                    À propos
-                  </a>
-                </li>
-                <li>
-                  <a href="https://le-classement.fr/contact" target="_blank" class="text-white text-lg font-semibold">
-                    Nous contacter
-                  </a>
-                </li>
-              </ul>
-            </nav>
+        </li>
+        @if(auth.isLoggedIn)
+        <div x-data="dropdown" class="w-full lg:w-auto flex flex-col lg:flex-row items-start">
+          <div x-on:keydown.escape.prevent.stop="close($refs.button)"
+            x-on:focusin.window="! $refs.panel.contains($event.target) && close()" x-id="['dropdown-button']"
+            class="relative">
+            <button x-ref="button" x-on:click="toggle()" :aria-expanded="open" :aria-controls="$id('dropdown-button')"
+              type="button"
+              class="py-4 px-5 flex flex-row gap-2 items-center hover:text-primary-base transition ease-in">
+              <span>
+                Administrer
+              </span>
+              @svg('heroicons:chevron-down', { class: 'w-4 h-4' })
+            </button>
+            <ol x-ref="panel" x-show="open" x-transition.origin.top.left x-on:click.outside="close($refs.button)"
+              :id="$id('dropdown-button')" style="display: none;"
+              class="w-full z-20 absolute left-4 top-12 p-1 origin-top-right rounded-md bg-white shadow-lg border border-gray-200/90 focus:outline-none">
+              <li>
+                <a href="{{ route('AssociationsController.index') }}"
+                  class="flex flex-row items-center py-2 px-4 whitespace-nowrap hover:text-primary-base transition ease-in"
+                  up-target="[layout-main]">
+                  Associations
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('ParticipationsController.index') }}"
+                  class="flex flex-row items-center py-2 px-4 whitespace-nowrap hover:text-primary-base transition ease-in"
+                  up-target="[layout-main]">
+                  Participations
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('YearsController.index') }}"
+                  class="flex flex-row items-center py-2 px-4 whitespace-nowrap hover:text-primary-base transition ease-in"
+                  up-target="[layout-main]">
+                  Années
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('CategoriesController.index') }}"
+                  class="flex flex-row items-center py-2 px-4 whitespace-nowrap hover:text-primary-base transition ease-in"
+                  up-target="[layout-main]">
+                  Catégories
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('TrophiesController.index') }}"
+                  class="flex flex-row items-center py-2 px-4 whitespace-nowrap hover:text-primary-base transition ease-in"
+                  up-target="[layout-main]">
+                  Trophées
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('SchoolsController.index') }}"
+                  class="flex flex-row items-center py-2 px-4 whitespace-nowrap hover:text-primary-base transition ease-in"
+                  up-target="[layout-main]">
+                  Écoles
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('VotesController.index') }}"
+                  class="flex flex-row items-center py-2 px-4 whitespace-nowrap hover:text-primary-base transition ease-in"
+                  up-target="[layout-main]">
+                  Votes
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('ChartsController.index') }}"
+                  class="flex flex-row items-center py-2 px-4 whitespace-nowrap hover:text-primary-base transition ease-in"
+                  up-target="[layout-main]">
+                  Métriques
+                </a>
+              </li>
+            </ol>
           </div>
         </div>
+        @endif
+        <li>
+          <a href="https://le-classement.fr/nous-contacter" target="_blank"
+            class="py-4 px-5 flex flex-row gap-2 items-center hover:text-primary-base transition ease-in">
+            Nous contacter
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="lg:hidden flex flex-row items-center">
+    <button type="button" x-on:click="open = true">
+      <span class="sr-only">Ouvrir le menu</span>
+      @svg('heroicons:bars-3-20-solid', { class: 'w-8 h-8' })
+    </button>
+  </div>
+  <template x-teleport="body">
+    <div x-show="open" style="display: none" x-on:keydown.window.escape.prevent.stop="open = false" role="dialog"
+      aria-modal="true" aria-labelledby="Modal navigation" class="mobile fixed inset-0 overflow-y-auto z-10">
+
+      <div x-show="open" x-transition class="relative w-full h-full">
+        <div x-on:click.stop x-trap.noscroll.inert="open" class="relative w-full h-full px-4 pt-11 bg-accent-purple">
+          <div class="flex flex-row justify-between items-center text-white">
+            @!logos.classementShort({
+            className: `h-[40px] w-[40px] md:h-[50px] md:w-[50px] hover:text-primary-base
+            motion-safe:transition-all
+            motion-safe:duration-300`
+            })
+            <button x-on:click="open = false">
+              @svg('heroicons:x-mark', { class: 'w-8 h-8' })
+            </button>
+          </div>
+          <nav class="mt-14" aria-labelledby="Mobile navigation" mobile-nav up-nav>
+            <ul class="flex flex-col space-y-10">
+              @if(auth.isLoggedIn)
+              <li>
+                <a href="{{ route('AssociationsController.index') }}" class="text-white text-lg font-semibold"
+                  up-target="[layout-main]" x-on:click="open = false">
+                  Associations
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('ParticipationsController.index') }}" class="text-white text-lg font-semibold"
+                  up-target="[layout-main]" x-on:click="open = false">
+                  Participations
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('YearsController.index') }}" class="text-white text-lg font-semibold"
+                  up-target="[layout-main]" x-on:click="open = false">
+                  Années
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('CategoriesController.index') }}" class="text-white text-lg font-semibold"
+                  up-target="[layout-main]" x-on:click="open = false">
+                  Catégories
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('TrophiesController.index') }}" class="text-white text-lg font-semibold"
+                  up-target="[layout-main]" x-on:click="open = false">
+                  Trophées
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('SchoolsController.index') }}" class="text-white text-lg font-semibold"
+                  up-target="[layout-main]" x-on:click="open = false">
+                  Écoles
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('VotesController.index') }}" class="text-white text-lg font-semibold"
+                  up-target="[layout-main]" x-on:click="open = false">
+                  Votes
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('ChartsController.index') }}" class="text-white text-lg font-semibold"
+                  up-target="[layout-main]" x-on:click="open = false">
+                  Métriques
+                </a>
+              </li>
+              @endif
+              <li>
+                <a href="{{ route('ConcoursController.index') }}" up-target="[layout-main]"
+                  class="text-white text-lg font-semibold" x-on:click="open = false">
+                  Concours
+                </a>
+                <ul class="ml-8 mt-4">
+                  @each(year in await allYears())
+                  <li>
+                    <a href="{{ route('ConcoursController.show', { year: year.slug }) }}"
+                      class="text-white text-lg font-semibold" up-target="[layout-main]" x-on:click="open = false">
+                      {{ year.year }}
+                    </a>
+                  </li>
+                  @endeach
+                </ul>
+              </li>
+              <li>
+                <a href="https://le-classement.fr/about-us" target="_blank" class="text-white text-lg font-semibold">
+                  À propos
+                </a>
+              </li>
+              <li>
+                <a href="https://le-classement.fr/contact" target="_blank" class="text-white text-lg font-semibold">
+                  Nous contacter
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
-    </template>
-    {{-- @atoms.appButton({ outline: true })
-    @slot('main', scope)
-    <a class="hidden lg:block {{ scope.className }} {{ scope.color }}"
-      href="{{ route('AssociationsController.index') }}#list" up-target="[layout-main]" up-scoll="#list">
-      Découvrir les associations
-    </a>
-    @endslot
-    @end --}}
-    @endif
+    </div>
+  </template>
+  {{-- @app.button({ outline: true })
+  @slot('main', scope)
+  <a class="hidden lg:block {{ scope.className }} {{ scope.color }}"
+    href="{{ route('AssociationsController.index') }}#list" up-target="[layout-main]" up-scoll="#list">
+    Découvrir les associations
+  </a>
+  @endslot
+  @end --}}
+  @endif
 </header>
 @endslot
 @end

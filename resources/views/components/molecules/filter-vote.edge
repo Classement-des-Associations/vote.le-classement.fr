@@ -4,7 +4,7 @@ target: '[grid], [value], [chart]'
 })
 @slot('main')
 
-@!atoms.appSelect({
+@!form.select({
 label: 'Trier par',
 name: 'order_by',
 selected: request.qs().order_by ?? '',
@@ -20,7 +20,7 @@ value: 'email',
 ],
 })
 
-@!atoms.appSelect({
+@!form.select({
 label: 'Ordre',
 name: 'order',
 selected: request.qs().order ?? '',
@@ -36,7 +36,7 @@ value: 'asc',
 ],
 })
 
-@!atoms.appInput({
+@!form.input({
 label: 'Recherche',
 name: 'email',
 type: 'text',
@@ -44,12 +44,20 @@ placeholder: 'Contenu de l\'adresse mail',
 value: request.qs().email ?? ''
 })
 
-@!atoms.appSelect({
+@!form.select({
 label: 'Association',
 name: 'association_id',
 selected: request.qs().association_id ?? '',
 options: associations,
 defaultLabel: 'Toutes les Associations',
+})
+
+@!form.select({
+label: 'Année',
+name: 'year_id',
+selected: request.qs().year_id ?? '',
+options: years,
+defaultLabel: 'Toutes les Années',
 })
 
 @endslot

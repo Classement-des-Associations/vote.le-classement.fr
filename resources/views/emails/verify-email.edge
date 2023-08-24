@@ -1,6 +1,6 @@
 <mjml>
   <mj-head>
-    <mj-title>Valide ta voix - Le Classement des Associations ✨</mj-title>
+    <mj-title>Confirme ta voix - Classement des Associations</mj-title>
   </mj-head>
   <mj-body background-color="#ffffff">
     <mj-section>
@@ -13,31 +13,41 @@
           font-family="Montserrat, sans-serif">Bonjour 👋,
         </mj-text>
 
-        <mj-text padding-left="0" font-size="20px" color="#291B25" font-family="Montserrat, sans-serif">Pour valider ta
+        <mj-text padding-left="0" font-size="20px" color="#291B25" font-family="Montserrat, sans-serif">Pour confirmer
+          ta
           voix pour
           l'association <strong>{{ associationName }}</strong>, il te suffit de cliquer sur le bouton ci-dessous. 👇
         </mj-text>
 
         <mj-text padding-left="0" font-size="20px" color="#291B25" font-family="Montserrat, sans-serif">Une fois ta voix
-          validée, tu ne
+          confirmée, tu ne
           pourras plus changer !</mj-text>
 
-        <mj-button padding-top="48px" href="https://{{ env('APP_HOST') }}{{ signedUrl }}" background-color="#FF6944"
-          color="#291B25" font-family="Montserrat, sans-serif" font-weight="700" font-size="20px" border-radius="8px">
-          Valider ma voix </mj-button>
+        <mj-button padding-top="48px"
+          href="{{ env('APP_HOST').startsWith('localhost') ? '' : 'https://' }}{{ env('APP_HOST') }}{{ signedUrl }}"
+          background-color="#FF6944" color="#291B25" font-family="Montserrat, sans-serif" font-weight="700"
+          font-size="20px" border-radius="8px">
+          Confirmer ma voix </mj-button>
 
         <mj-text padding-left="0" padding-top="48px" font-size="16px" color="#291B25"
           font-family="Montserrat, sans-serif" font-style="oblique">
           Ce mail est transmis par <a href="https://le-classement.fr"
-            style="text-decoration: none;">le-classement.fr</a>. Si vous n'en êtes pas à l'origine, vous pouvez sereinement ignorer ce mail.
+            style="text-decoration: none;">le-classement.fr</a>. Si vous n'en êtes pas à l'origine, vous pouvez
+          sereinement ignorer ce mail. Votre adresse email n'est pas enregistrée tant que vous ne cliquez pas sur le
+          boutton.
         </mj-text>
 
-        <mj-text padding-left="0" padding-top="8px" font-size="16px" color="#291B25"
+        <mj-text padding-left="0" padding-top="24px" font-size="12px" color="#291B25"
+          font-family="Montserrat, sans-serif" font-style="oblique">
+          Si vous n'arrivez pas à cliquer sur le bouton, vous pouvez copier-coller le lien suivant dans votre
+          navigateur&nbsp;: {{ env('APP_HOST').startsWith('localhost') ? '' : 'https://' }}{{ env('APP_HOST') }}{{
+          signedUrl }}
+        </mj-text>
+
+        <mj-text padding-left="0" padding-top="24px" font-size="16px" color="#291B25"
           font-family="Montserrat, sans-serif" font-style="oblique">
           Le Classement des Associations est un
-          concours <a href="https://aneo.eu" style="text-decoration: none;">ANEO</a> organisé par le <a
-            href="https://bnei.fr" style="text-decoration: none;">BNEI</a> et le <a href="https://bnem.fr"
-            style="text-decoration: none;">BNEM</a>.
+          projet <a href="https://aneo.eu" style="text-decoration: none;">ANEO</a>.
         </mj-text>
 
       </mj-column>
@@ -52,20 +62,8 @@
       </mj-column>
       <mj-column>
         <mj-button padding-left="8px" background-color="#ffffff" border-radius="0" inner-padding="0" rel="noopener"
-          href="https://www.facebook.com/le.classement">
-          <img src="cid:mail_facebook" alt="Logo de Facebook" width="24px" />
-        </mj-button>
-      </mj-column>
-      <mj-column>
-        <mj-button padding-left="8px" background-color="#ffffff" border-radius="0" inner-padding="0" rel="noopener"
           href="https://www.instagram.com/leclassement/">
           <img src="cid:mail_instagram" alt="Logo d'Instagram" width="24px" />
-        </mj-button>
-      </mj-column>
-      <mj-column>
-        <mj-button padding-left="8px" background-color="#ffffff" border-radius="0" inner-padding="0" rel="noopener"
-          href="https://twitter.com/Leclassement">
-          <img src="cid:mail_twitter" alt="Logo de Twitter" width="24px" />
         </mj-button>
       </mj-column>
   </mj-body>

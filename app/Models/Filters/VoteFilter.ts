@@ -22,4 +22,8 @@ export default class VoteFilter extends BaseModelFilter {
   public association(id: number) {
     this.$query.where('association_id', id)
   }
+
+  public year(id: number) {
+    this.$query.where('year_id', id)
+  }
 }

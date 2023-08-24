@@ -1,0 +1,26 @@
+@set('selected', flashMessages.get(name) || selected || 'all')
+<div class="flex flex-col gap-1">
+  <div class="pl-4">
+    @!form.label({ label, name })
+  </div>
+  <div class="relative w-full">
+    <select id="{{ name }}" name="{{ multiple ? name + '[]' : name }}" {{ multiple ? 'multiple' : '' }}
+      class="appearance-none relative z-10 w-full px-[0.75rem] py-[0.375rem] bg-transparent border-1 border-accent-purple/60 hover:border-accent-purple focus:ring-2 focus:ring-accent-purple rounded-lg text-base text-black focus:outline-none transition ease-in cursor-pointer peer focus:ring-0 bg-none">
+      @if(defaultLabel)
+      <option value="">{{ defaultLabel }}</option>
+      @endif
+      @each(option in options)
+      <option value="{{ option.value }}" {{ multiple && Array.isArray(selected) ? (selected.map(s=>
+        s.toString()).includes(option.value.toString())
+        ? 'selected' : '' ) :
+        (option.value.toString()===selected.toString() ? 'selected' : '' ) }}>
+        {{ option.label }}
+      </option>
+      @endeach
+    </select>
+    <span
+      class="absolute right-4 top-0 bottom-0 flex flex-col justify-center text-accent-purple/60 peer-hover:text-accent-purple peer-focus:text-accent-purple transition duration-150 ease-in">
+      @svg('heroicons:chevron-down', 'w-5 h-5')
+    </span>
+  </div>
+</div>

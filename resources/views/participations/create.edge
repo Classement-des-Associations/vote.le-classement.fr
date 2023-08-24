@@ -1,0 +1,127 @@
+@layout('layouts/admin')
+@set('title', 'Créer une participation')
+
+@section('main')
+
+<section class="mt-6 mb-14 lg:mb-[4.5rem] px-4">
+
+  <div class="max-w-screen-lg mx-auto">
+
+    <div class="flex flex-row justify-between items-start">
+      <div class="flex flex-col gap-1">
+        <a href="{{ route('ParticipationsController.index') }}" class="text-primary-base mb-1"
+          up-target="[layout-main]">Participations</a>
+
+        @atoms.appTitle()
+        Créer une participation
+        @end
+      </div>
+    </div>
+
+
+    <form up-submit up-target="[layout-main]" class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6"
+      action="{{ route('ParticipationsController.store') }}" method="POST">
+      {{ csrfField() }}
+
+      <div class="lg:col-span-2">
+        @!atoms.appTextarea({
+        label: 'Description',
+        name: 'description',
+        })
+        @if(flashMessages.has('errors.description'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.description') }} </p>
+        @endif
+      </div>
+
+      <div class="col-start-1">
+        @!form.select({
+        label: 'Année',
+        name: 'yearId',
+        selected: request.qs().year_id,
+        options: years,
+        defaultLabel: 'Sans année',
+        })
+        @if(flashMessages.has('errors.yearId'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.yearId') }} </p>
+        @endif
+      </div>
+
+      <div>
+        @!form.select({
+        label: 'Association',
+        name: 'associationId',
+        selected: request.qs().association_id,
+        options: associations,
+        defaultLabel: 'Sans association',
+        })
+        @if(flashMessages.has('errors.associationId'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.associationId') }} </p>
+        @endif
+      </div>
+
+      <div class="col-start-1">
+        @!form.select({
+        label: 'Trophées',
+        name: 'trophyId',
+        selected: request.qs().trophy_id,
+        options: trophies,
+        defaultLabel: 'Sans trophée',
+        })
+        @if(flashMessages.has('errors.trophyId'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.trophyId') }} </p>
+        @endif
+      </div>
+
+      <div>
+        @!form.select({
+        multiple: true,
+        label: 'Catégories',
+        name: 'categoriesIds',
+        options: categories,
+        defaultLabel: 'Sans catégorie',
+        })
+        @if(flashMessages.has('errors.categoriesIds'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.categoriesIds') }} </p>
+        @endif
+      </div>
+
+      <div class="flex flex-col gap-1">
+        @!form.label({
+        label: 'Image',
+        name: 'image',
+        })
+        <input
+          class="text-black file:px-[0.75rem] file:py-[0.375rem] file:bg-accent-purple file:bg-opacity-20 file:rounded-md file:border-0 hover:file:bg-opacity-40 focus:file:outline-none file:transition file:ease-in file:cursor-pointer"
+          type=file id="image" name="image" accept="image/png, image/jpg, image/jpeg, image/webp">
+        @if(flashMessages.has('errors.image'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.image') }} </p>
+        @endif
+      </div>
+
+      <div class="flex flex-col gap-1">
+        @!form.label({
+        label: 'Document',
+        name: 'document',
+        })
+        <input
+          class="text-black file:px-[0.75rem] file:py-[0.375rem] file:bg-accent-purple file:bg-opacity-20 file:rounded-md file:border-0 hover:file:bg-opacity-40 focus:file:outline-none file:transition file:ease-in file:cursor-pointer"
+          type=file id="document" name="document" accept="application/pdf">
+        @if(flashMessages.has('errors.document'))
+        <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.document') }} </p>
+        @endif
+      </div>
+
+      <div class="lg:col-span-2 flex flex-row justify-end">
+        @app.button()
+        @slot('main', scope)
+        <button class="{{ scope.className }} {{ scope.color }}" type="submit">Créer</button>
+        @endslot
+        @end
+      </div>
+
+    </form>
+
+  </div>
+</section>
+
+@endsection

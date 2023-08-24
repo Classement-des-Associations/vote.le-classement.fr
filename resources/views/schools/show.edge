@@ -16,7 +16,7 @@
         @end
       </div>
 
-      @atoms.appButton()
+      @app.button()
       @slot('main', scope)
       <a class="{{ scope.className }} {{ scope.color }}"
         href="{{ route('SchoolsController.edit', { id: school.slug }) }}" up-target="[layout-main]">

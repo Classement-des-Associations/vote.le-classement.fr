@@ -1,4 +1,4 @@
-@base.baseSection()
+@app.section()
 @slot('main', scope)
 <div class="bg-black">
   <footer class="{{ scope.sectionClass }} py-11 flex flex-col gap-14">
@@ -6,7 +6,7 @@
     <div class="flex flex-col gap-11 lg:gap-0 lg:flex-row lg:justify-between lg:items-center">
       <div class="contents lg:flex lg:flex-row lg:items-center">
         <a href="/" up-target="[layout-main]">
-          @!atoms.logos.classementFull({
+          @!logos.classementFull({
           className: 'text-white h-16 lg:h-12 mx-auto'
           })
         </a>

@@ -15,10 +15,12 @@ export default class CategoriesController {
     return view.render('categories/create')
   }
 
-  public async store({ request, response }: HttpContextContract) {
+  public async store({ request, response, logger }: HttpContextContract) {
     const data = await request.validate(CategoryStoreValidator)
 
     const category = await Category.create(data)
+
+    logger.info('New category created', category.slug)
 
     return response.redirect().toRoute('CategoriesController.show', { id: category.slug })
   }
@@ -34,18 +36,22 @@ export default class CategoriesController {
   }
 
   @bind()
-  public async update({ request, response }: HttpContextContract, category: Category) {
+  public async update({ request, response, logger }: HttpContextContract, category: Category) {
     const data = await request.validate(CategoryUpdateValidator)
 
     category.merge(data)
     await category.save()
 
+    logger.info('Category updated', category.slug)
+
     return response.redirect().toRoute('CategoriesController.show', { id: category.slug })
   }
 
   @bind()
-  public async destroy({ response }: HttpContextContract, category: Category) {
+  public async destroy({ response, logger }: HttpContextContract, category: Category) {
     await category.delete()
+
+    logger.info('Category deleted', category.slug)
 
     return response.redirect().toRoute('CategoriesController.index')
   }

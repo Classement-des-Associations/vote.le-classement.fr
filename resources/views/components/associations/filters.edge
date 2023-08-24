@@ -1,0 +1,56 @@
+@atoms.appFilter({
+action: route('AssociationsController.index'),
+})
+
+@slot('main')
+
+@!form.select({
+label: 'Trier par',
+name: 'order_by',
+selected: request.qs().order_by ?? '',
+options: [
+{
+label: 'Aléatoire',
+value: 'rand',
+},
+{
+label: 'Nom',
+value: 'name',
+},
+],
+})
+
+@!form.select({
+label: 'Ordre',
+name: 'order',
+selected: request.qs().order ?? '',
+options: [
+{
+label: 'Décroissant',
+value: 'desc',
+},
+{
+label: 'Croissant',
+value: 'asc',
+},
+],
+})
+
+@!form.input({
+label: 'Recherche',
+name: 'name',
+type: 'text',
+placeholder: 'Nom de l\'association',
+value: request.qs().name ?? ''
+})
+
+@!form.select({
+label: 'École',
+name: 'school_id',
+selected: request.qs().school_id ?? '',
+options: schools,
+defaultLabel: 'Toutes les écoles',
+})
+@endslot
+
+@end
