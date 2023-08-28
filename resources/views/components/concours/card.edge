@@ -10,7 +10,7 @@
       </dd>
       <dt class="sr-only">Nombre de voix</dt>
       <dd>
-        {{ participation.votes_count }} votes
+        {{ participation.votes_count }} {{ participation.votes_count > 1 ? 'votes' : 'vote' }}
       </dd>
     </dl>
     <a href="{{ route('ConcoursController.showParticipation', { year: year.slug, id: participation.id }) }}">
