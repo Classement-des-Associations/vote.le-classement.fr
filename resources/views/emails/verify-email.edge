@@ -24,10 +24,11 @@
           pourras plus changer !</mj-text>
 
         <mj-button padding-top="48px"
-          href="{{ env('APP_HOST').startsWith('localhost') ? '' : 'https://' }}{{ env('APP_HOST') }}{{ signedUrl }}"
+          href="{{ env('APP_HOST').startsWith('localhost') ? 'http://' : 'https://' }}{{ env('APP_HOST') }}{{ signedUrl }}"
           background-color="#FF6944" color="#291B25" font-family="Montserrat, sans-serif" font-weight="700"
           font-size="20px" border-radius="8px">
-          Confirmer ma voix </mj-button>
+          Confirmer ma voix
+        </mj-button>
 
         <mj-text padding-left="0" padding-top="48px" font-size="16px" color="#291B25"
           font-family="Montserrat, sans-serif" font-style="oblique">
