@@ -27,7 +27,7 @@
     </div>
 
     <ul class="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
-      @each(trophy in categories)
+      @each(trophy in trophies)
       <li class="rounded-lg bg-ultra-light-grey p-4 flex flex-row justify-between items-center">
         <a href="{{ route('TrophiesController.show', { id: trophy.slug }) }}" up-target="[layout-main]">
           {{ trophy.name }}
