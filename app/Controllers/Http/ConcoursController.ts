@@ -44,6 +44,7 @@ export default class ConcoursController {
           .whereColumn('votes.participation_id', 'participations.id')
           .as('votes_count')
       )
+      .where('participations.year_id', year.id)
       .innerJoin(
         'category_participation',
         'participations.id',
