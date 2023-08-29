@@ -41,7 +41,7 @@
             @end
             <div x-ref="panel" x-show="open" x-transition.origin.top.left x-on:click.outside="close($refs.button)"
               :id="$id('dropdown-button')" style="display: none;"
-              class="absolute left-0 mt-2 py-2 px-3 overflow-hidden rounded-[0.625rem] bg-white shadow-lg flex flex-col gap-3">
+              class="absolute z-10 left-0 mt-2 py-2 px-3 overflow-hidden rounded-[0.625rem] bg-white shadow-lg flex flex-col gap-3">
               <a href="{{ route('AssociationsController.edit', { id: association.slug }) }}"
                 class="whitespace-nowrap text-black hover:text-primary-variation-1 hover:scale-105 transition ease-in"
                 up-target="[layout-main]">
