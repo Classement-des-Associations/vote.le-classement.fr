@@ -120,15 +120,29 @@ export default class ConcoursController {
       .withCount('votes')
       .firstOrFail()
 
-    // const relatedAssociations = await Association.query()
-    //   .where('category_id', association.categoryId ?? 0)
-    //   .where('id', '!=', association.id)
-    //   .preload('school')
-    //   .limit(3)
+    const participationInPivot = Database.from('category_participation')
+      .select('participation_id')
+      .whereIn(
+        'category_id',
+        participation.categories.map((c) => c.id)
+      )
+
+    const relatedParticipations = await Participation.query()
+      .whereIn('id', participationInPivot)
+      .where('id', '!=', participation.id)
+      .select('id', 'description', 'association_id')
+      .preload('association', (loader) =>
+        loader
+          .select('name', 'id', 'school_id')
+          .preload('school', (loader) => loader.select('name'))
+      )
+      .where('year_id', year.id)
+      .limit(3)
 
     return view.render('concours/show-participation', {
       year,
       participation,
+      relatedParticipations,
     })
   }
 

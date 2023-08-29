@@ -36,14 +36,9 @@ up-progress-bar {
   display: none !important;
 }
 
-.related-description,
-.related-description>* {
-  display: inline-flex;
-  flex-direction: column;
-  text-align: justify;
-  font-size: theme('fontSize.sm');
-  font-weight: theme('fontWeight.normal');
-  color: theme('colors.black');
+.description,
+.description>* {
+  display: inline;
 }
 
 .related-description br {

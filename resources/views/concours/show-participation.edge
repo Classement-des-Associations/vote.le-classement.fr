@@ -151,7 +151,7 @@
   </div>
 </section>
 
-{{-- @if(relatedAssociations.length > 0)
+@if(relatedParticipations.length > 0)
 <section class="relative z-30 mb-14 lg:mb-[4.5rem] px-4">
   <div class="max-w-screen-xl mx-auto">
     <h2 class="text-black text-xl text-[1.75rem] font-bold">
@@ -159,29 +159,36 @@
     </h2>
 
     <div class="mt-6 lg:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
-      @each(association in relatedAssociations)
-      <a href="{{ route('AssociationsController.show', { id: association.slug }) }}" up-target="[layout-main]">
-        <article
-          class="h-full hover:shadow-lg bg-ultra-light-grey rounded-xl p-4 flex flex-col gap-3 transition ease-in duration-200">
-          <h3 class="text-black text-lg font-bold">
-            {{ association.name }}
-          </h3>
-          @if(association.school)
-          <p class="text-black text-sm">
-            {{ association.school.name }}
-          </p>
-          @endif
-          @if(association.description)
-          <div class="related-description">
-            {{ safe(truncate(association.description, 200)) }}
-          </div>
-          @endif
-        </article>
-      </a>
+      @each(participation in relatedParticipations)
+      <article
+        class="relative p-4 rounded-xl flex flex-col gap-4 border border-gray-200/90 hover:shadow-lg transition ease-in duration-200">
+        <div class="flex flex-col gap-1">
+          <a href="{{ route('ConcoursController.showParticipation', { year: year.slug, id: participation.id }) }}"
+            up-target="[layout-main]">
+            <h3 class="text-lg text-black font-semibold">
+              {{ participation.association.name }}
+            </h3>
+            <span class="absolute inset-0"></span>
+          </a>
+          @if(participation.association.school)
+          <dl class="text-sm font-medium text-gray-700">
+            <dt class="sr-only">École</dt>
+            <dd>
+              {{ participation.association.school.name }}
+            </dd>
+          </dl>
+        </div>
+        @endif
+        @if(participation.description)
+        <div class="text-sm text-gray-600 description">
+          {{ safe(truncate(participation.description, 200)) }}
+        </div>
+        @endif
+      </article>
       @endeach
     </div>
   </div>
 </section>
-@endif --}}
+@endif
 
 @endsection
