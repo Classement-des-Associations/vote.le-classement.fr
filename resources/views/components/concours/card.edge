@@ -13,7 +13,8 @@
         {{ participation.votes_count }} {{ participation.votes_count > 1 ? 'votes' : 'vote' }}
       </dd>
     </dl>
-    <a href="{{ route('ConcoursController.showParticipation', { year: year.slug, id: participation.id }) }}">
+    <a href="{{ route('ConcoursController.showParticipation', { year: year.slug, id: participation.id }) }}"
+      up-target="[layout-main]">
       <h3 class="text-lg text-black font-semibold">
         {{ participation.name }}
       </h3>
