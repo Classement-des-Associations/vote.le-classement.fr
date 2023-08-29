@@ -17,7 +17,6 @@ export default class UpdateAssociationValidator {
         },
       }),
     ]),
-    description: schema.string.nullable([rules.trim(), rules.maxLength(4096)]),
     facebook: schema.string.nullable([rules.trim(), rules.maxLength(255), rules.url()]),
     twitter: schema.string.nullable([rules.trim(), rules.maxLength(255), rules.url()]),
     instagram: schema.string.nullable([rules.trim(), rules.maxLength(255), rules.url()]),
@@ -26,7 +25,6 @@ export default class UpdateAssociationValidator {
     youtube: schema.string.nullable([rules.trim(), rules.maxLength(255), rules.url()]),
     website: schema.string.nullable([rules.trim(), rules.maxLength(255), rules.url()]),
     schoolId: schema.number.optional([rules.exists({ table: 'schools', column: 'id' })]),
-    categoryId: schema.number.optional([rules.exists({ table: 'categories', column: 'id' })]),
   })
 
   /**
