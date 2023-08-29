@@ -21,7 +21,6 @@ export default class StoreAssociationValidator {
     youtube: schema.string.optional([rules.trim(), rules.maxLength(255), rules.url()]),
     website: schema.string.optional([rules.trim(), rules.maxLength(255), rules.url()]),
     schoolId: schema.number([rules.exists({ table: 'schools', column: 'id' })]),
-    categoryId: schema.number([rules.exists({ table: 'categories', column: 'id' })]),
   })
 
   public messages: CustomMessages = {
@@ -40,7 +39,5 @@ export default class StoreAssociationValidator {
     'website.url': "L'url n'est pas valide",
     'schoolId.required': "L'école est requise",
     'schoolId.exists': "Cette école n'existe pas",
-    'categoryId.required': 'La catégorie est requise',
-    'categoryId.exists': "Cette catégorie n'existe pas",
   }
 }
