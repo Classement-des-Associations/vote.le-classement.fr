@@ -64,7 +64,7 @@
         @!form.select({
         label: 'Trophées',
         name: 'trophyId',
-        selected: request.qs().trophy_id,
+        selected: participation.trophyId,
         options: trophies,
         defaultLabel: 'Sans trophée',
         })
