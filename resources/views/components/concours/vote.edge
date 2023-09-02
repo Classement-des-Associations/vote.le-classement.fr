@@ -71,9 +71,9 @@
           <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.acceptClassement') }} </p>
           @end
           <div class="mt-2 flex flex-row items-center">
-            <input {{ flashMessages.get('acceptActivities') ? 'checked' : '' }}
+            <input {{ flashMessages.get('acceptPartners') ? 'checked' : '' }}
               class="flex-shrink-0 hover:ring-primary-base focus:ring-primary-base border border-primary-base hover:cursor-pointer rounded w-6 h-6 hover:bg-primary-base/10 checked:bg-primary-base hover:checked:bg-primary-base focus:checked:bg-primary-base transition-all ease-in"
-              type="checkbox" name="acceptActivities" value="true" id="activities">
+              type="checkbox" name="acceptPartners" value="true" id="activities">
             <label class="pl-4 text-black text-sm cursor-pointer" for="activities">
               <span>
                 En cochant, j'accepte d'être recontacté à mon adresse mail par
@@ -84,8 +84,8 @@
               </span>
             </label>
           </div>
-          @if(flashMessages.has('errors.acceptActivities'))
-          <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.acceptActivities') }} </p>
+          @if(flashMessages.has('errors.acceptPartners'))
+          <p class="mt-1 text-red-500"> {{ flashMessages.get('errors.acceptPartners') }} </p>
           @end
 
           <div class="mt-4 flex flex-row justify-end">
