@@ -84,6 +84,8 @@
     "alpinejs": "^3.12.0",
     "aws-sdk": "^2.1353.0",
     "chart.js": "^4.2.1",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "date-fns": "^2.30.0",
     "disposable-email-domains": "^1.0.62",
     "edge-iconify": "^1.0.1",
     "file-loader": "^6.2.0",

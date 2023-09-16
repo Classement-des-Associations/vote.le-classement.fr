@@ -26,22 +26,26 @@
         class="hover:text-primary-variation-1 transition ease-in">
         Voix par hour
       </a>
-      <a href="{{ route('ChartsController.topAssociations') }}" up-layer="new modal" up-target="[modal]"
-        class="hover:text-primary-variation-1 transition ease-in">
-        Top 10 des associations
+      @each(year in years)
+      <a href="{{ route('ChartsController.topAssociations', { year: year.slug }) }}" up-layer="new modal"
+        up-target="[modal]" class="hover:text-primary-variation-1 transition ease-in">
+        Top 10 des associations de {{ year.year }}
       </a>
-      <a href="{{ route('ChartsController.topAssociationsByDay') }}" up-layer="new modal" up-target="[modal]"
-        class="hover:text-primary-variation-1 transition ease-in">
-        Evolution du top 10 par jour
+      @endeach
+      @each(year in years)
+      <a href="{{ route('ChartsController.topAssociationsByDay', { year: year.slug }) }}" up-layer="new modal"
+        up-target="[modal]" class="hover:text-primary-variation-1 transition ease-in">
+        Evolution du top 10 par jour de {{ year.year }}
       </a>
-      <a href="{{ route('ChartsController.acceptNewsClassement') }}" up-layer="new modal" up-target="[modal]"
+      @endeach
+      {{-- <a href="{{ route('ChartsController.acceptNewsClassement') }}" up-layer="new modal" up-target="[modal]"
         class="hover:text-primary-variation-1 transition ease-in">
         Nombre de volontés pour les actualités du Classement
       </a>
       <a href="{{ route('ChartsController.acceptNewsActivities') }}" up-layer="new modal" up-target="[modal]"
         class="hover:text-primary-variation-1 transition ease-in">
         Nombre de volontés pour les actualités des activités des organisateurs
-      </a>
+      </a> --}}
     </ul>
   </div>
 </section>

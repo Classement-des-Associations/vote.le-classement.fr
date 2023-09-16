@@ -1,11 +1,14 @@
+import { bind } from '@adonisjs/route-model-binding'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
 import Vote from 'App/Models/Vote'
+import Year from 'App/Models/Year'
 import { DateTime } from 'luxon'
 
 export default class ChartsController {
   public async index({ view }: HttpContextContract) {
-    return view.render('votes/charts/index')
+    const years = await Year.query().orderBy('year', 'desc')
+    return view.render('votes/charts/index', { years })
   }
 
   public async totalByDay({ view, request }: HttpContextContract) {
@@ -52,14 +55,17 @@ export default class ChartsController {
     })
   }
 
-  public async topAssociations({ request, view }: HttpContextContract) {
+  @bind()
+  public async topAssociations({ request, view }: HttpContextContract, year: Year) {
     const limit = request.input('limit', 10)
 
     const votes = await Database.from('votes')
-      .select('name as label')
+      .select('associations.name as label')
+      .where('votes.year_id', year.id)
       .count('votes.id as value')
-      .join('associations', 'votes.association_id', '=', 'associations.id')
-      .groupBy('association_id', 'name')
+      .join('participations', 'votes.participation_id', '=', 'participations.id')
+      .join('associations', 'participations.association_id', '=', 'associations.id')
+      .groupBy('votes.participation_id', 'associations.name')
       .orderBy('value', 'desc')
       .limit(limit)
 
@@ -81,29 +87,34 @@ export default class ChartsController {
   /**
    * Used to draw a chart of the most voted association day by day
    */
-  public async topAssociationsByDay({ view, request }: HttpContextContract) {
+  @bind()
+  public async topAssociationsByDay({ view, request }: HttpContextContract, year: Year) {
     const limit = request.input('limit', 10)
 
-    // Get the ten most voted associations ids
-    const associationsIds = Database.from(
+    // Get the ten most voted associations ids for the given year
+    const participationsIds = Database.from(
       Database.from('votes')
-        .select('association_id')
+        .select('participation_id')
+        .where('votes.year_id', year.id)
         .count('id')
-        .groupBy('association_id')
+        .groupBy('participation_id')
         .orderBy('count', 'desc')
         .limit(limit)
         .as('most_voted')
-    ).select('association_id')
+    ).select('participation_id')
 
     // Group votes by date and association id
     const result = await Database.from('votes')
       .select('name')
       .select(Database.raw("date_trunc('day', votes.created_at) as date"))
-      .count('association_id')
-      .join('associations', 'votes.association_id', '=', 'associations.id')
-      .whereIn('association_id', associationsIds)
+      .where('votes.year_id', year.id)
+      .whereIn('votes.participation_id', participationsIds)
+      .count('participation_id')
+      .join('participations', 'votes.participation_id', '=', 'participations.id')
+      .join('associations', 'participations.association_id', '=', 'associations.id')
       .groupBy('name')
       .groupByRaw("date_trunc('day', votes.created_at)")
+      .orderBy('name')
       .orderBy('date')
 
     const votes = result as unknown as {
@@ -123,14 +134,14 @@ export default class ChartsController {
           label: vote.name,
           data: [
             {
-              x: DateTime.fromISO(vote.date.toISOString()).toFormat('dd/LL'),
+              x: vote.date.toISOString(),
               y: vote.count,
             },
           ],
         })
       } else {
         acc[index].data.push({
-          x: DateTime.fromISO(vote.date.toISOString()).toFormat('dd/LL'),
+          x: vote.date.toISOString(),
           y: vote.count,
         })
       }
@@ -144,33 +155,33 @@ export default class ChartsController {
     })
   }
 
-  public async acceptNewsClassement({ view }) {
-    const result = await Database.from('votes')
-      .select('accept_classement')
-      .count('id')
-      .groupBy('accept_classement')
-      .orderBy('accept_classement')
+  // public async acceptNewsClassement({ view }) {
+  //   const result = await Database.from('votes')
+  //     .select('accept_classement')
+  //     .count('id')
+  //     .groupBy('accept_classement')
+  //     .orderBy('accept_classement')
 
-    return view.render('votes/charts/accept-news-classement', {
-      votes: {
-        labels: JSON.stringify(result.map((vote) => (vote.accept_classement ? 'Oui' : 'Non'))),
-        data: JSON.stringify(result.map((vote) => vote.count)),
-      },
-    })
-  }
+  //   return view.render('votes/charts/accept-news-classement', {
+  //     votes: {
+  //       labels: JSON.stringify(result.map((vote) => (vote.accept_classement ? 'Oui' : 'Non'))),
+  //       data: JSON.stringify(result.map((vote) => vote.count)),
+  //     },
+  //   })
+  // }
 
-  public async acceptNewsActivities({ view }) {
-    const result = await Database.from('votes')
-      .select('accept_activities')
-      .count('id')
-      .groupBy('accept_activities')
-      .orderBy('accept_activities')
+  // public async acceptNewsActivities({ view }) {
+  //   const result = await Database.from('votes')
+  //     .select('accept_activities')
+  //     .count('id')
+  //     .groupBy('accept_activities')
+  //     .orderBy('accept_activities')
 
-    return view.render('votes/charts/accept-news-activities', {
-      votes: {
-        labels: JSON.stringify(result.map((vote) => (vote.accept_activities ? 'Oui' : 'Non'))),
-        data: JSON.stringify(result.map((vote) => vote.count)),
-      },
-    })
-  }
+  //   return view.render('votes/charts/accept-news-activities', {
+  //     votes: {
+  //       labels: JSON.stringify(result.map((vote) => (vote.accept_activities ? 'Oui' : 'Non'))),
+  //       data: JSON.stringify(result.map((vote) => vote.count)),
+  //     },
+  //   })
+  // }
 }
