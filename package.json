@@ -40,7 +40,7 @@
   "devDependencies": {
     "@adonisjs/assembler": "^5.9.5",
     "@japa/preset-adonis": "^1.2.0",
-    "@japa/runner": "^2.5.1",
+    "@japa/runner": "^3.0.0",
     "@symfony/webpack-encore": "^4.2.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
